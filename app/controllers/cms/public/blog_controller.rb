@@ -2,6 +2,7 @@ module Cms
   module Public
     class BlogController < ::Cms::Public::BaseController
       respond_to :html, :rss
+      before_action :redirect_first_pagination_page
       before_action :set_tags_with_counts
 
       def index
@@ -29,6 +30,10 @@ module Cms
         scoped = Page.blog(I18n.locale)
         scoped = scoped.with_published_state if only_published
         scoped
+      end
+
+      def redirect_first_pagination_page
+        redirect_to(page: nil, status: 301) if params[:page] == '1'
       end
 
       def set_tags_with_counts
