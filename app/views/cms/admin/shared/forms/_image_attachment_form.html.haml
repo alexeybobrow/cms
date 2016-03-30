@@ -7,7 +7,7 @@
           = f.file_field :image, multiple: true
   - if attachments.any?
     - attachments.each do |attachment|
-      = render 'admin/shared/attachment', attachment: attachment
+      = render 'cms/admin/shared/attachment', attachment: attachment
 
 :javascript
   $(function () {

@@ -10,9 +10,6 @@
 
 %section.blog-app
   .inner
-    %h1= t('public.blog.title')
-    %p= t('public.blog.info')
-
     .view-frame.articles
       - @articles.each do |article|
         %article

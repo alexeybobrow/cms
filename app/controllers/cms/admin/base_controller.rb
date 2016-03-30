@@ -4,6 +4,7 @@ module Cms
       force_ssl unless Rails.env.test? || Rails.env.development?
       layout 'admin/base'
       helper 'cms/safe_delete'
+      helper 'cms/admin_layout'
 
       before_filter :authenticate!, :set_locale
 

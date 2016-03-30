@@ -48,7 +48,7 @@ module Cms
       def delete; end
 
       def destroy
-        @page.safe_delete
+        @page.safe_delete!
         redirect_to [:admin, :pages]
       end
 

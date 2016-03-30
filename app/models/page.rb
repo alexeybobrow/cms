@@ -4,10 +4,17 @@ class Page < ActiveRecord::Base
 
   workflow do
     state :draft do
-      event :publish, :transitions_to => :published
+      event :publish, transitions_to: :published
+      event :safe_delete, transitions_to: :safely_deleted
     end
+
     state :published do
-      event :unpublish, :transitions_to => :draft
+      event :unpublish, transitions_to: :draft
+      event :safe_delete, transitions_to: :safely_deleted
+    end
+
+    state :safely_deleted do
+      event :restore, transitions_to: :draft
     end
   end
 
