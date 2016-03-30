@@ -1,0 +1,7 @@
+.page-form
+  = simple_form_for @form, url: url, html: { class: "form-horizontal" } do |f|
+    = hidden_field_tag :form_kind, 'content'
+    = f.input :markup_language, collection: Content.formats, include_blank: false
+    = f.input :body, as: :text, input_html: { class: 'page-form__content-body' }
+    = f.input :attachments_cache, as: :hidden, input_html: { id: 'attachments_cache' }
+    = f.button :submit

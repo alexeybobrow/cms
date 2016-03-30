@@ -1,0 +1,25 @@
+%h1
+  = t('admin.liquid_variables.title')
+= link_to t('admin.liquid_variables.create_link'), new_admin_liquid_variable_path, :class=>"btn btn-default"
+%section
+  .row
+    .col-md-8
+      %table.table.table-hover.table-striped.table-condensed
+        %thead
+          %tr
+            %th.col-md-6
+              %small.muted= LiquidVariable.human_attribute_name(:name)
+            %th.col-md-6
+              %small.muted= LiquidVariable.human_attribute_name(:value)
+            %th
+              %small.muted.pull-right= t "admin.actions"
+        %tbody
+          - @variables.each do |variable|
+            %tr
+              %td
+                %span= link_to variable.name, edit_admin_liquid_variable_path(variable)
+              %td
+                %span= link_to variable.value, edit_admin_liquid_variable_path(variable)
+              %td
+                %div.btn-group.btn-group-xs.pull-right
+                  = icon_link_to :remove, admin_liquid_variable_path(variable), method: :delete

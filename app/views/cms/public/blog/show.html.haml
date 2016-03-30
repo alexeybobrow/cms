@@ -1,0 +1,19 @@
+- render 'public/shared/page_meta'
+- breadcrumb(:blog_post, @page)
+
+%section.blog-article
+  .inner
+    %article
+      .date= l @page.posted_at, format: :long
+      %h1= @page.name
+      = render 'authors', authors: @page.authors
+      = format_page @page
+      .tags= render partial: 'article_tag', collection: @page.tags
+
+%section.blog-posts.latest-events
+  .inner
+    %header
+      %strong Other posts
+    = htmlize '{% blog_posts %}'
+
+= render 'public/shared/hire_us'

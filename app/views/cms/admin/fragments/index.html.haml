@@ -1,0 +1,22 @@
+%h1
+  = t('admin.fragments.title')
+= link_to t('admin.fragments.create_link'), new_admin_fragment_path, :class=>"btn btn-default"
+%section
+  .row
+    .col-md-8
+      %table.table.table-hover.table-striped.table-condensed
+        %thead
+          %tr
+            %th.col-md-6
+              %small.muted= Fragment.human_attribute_name(:slug)
+            %th
+              %small.muted.pull-right= t "admin.actions"
+        %tbody
+          - @fragments.each do |fragment|
+            %tr
+              %td
+                %span= link_to fragment.slug, edit_admin_fragment_path(fragment)
+              %td
+                %div.btn-group.btn-group-xs.pull-right
+                  = icon_link_to :remove, admin_fragment_path(fragment), method: :delete, data: { 'delete-fragment': true, confirm: t('admin.fragments.delete_confirmation') }
+

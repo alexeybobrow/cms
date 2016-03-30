@@ -1,0 +1,21 @@
+= field_set_tag 'Open Graph data', class: 'og-data' do
+  %table.table.open-graph-fields
+    %thead
+      %tr
+        %td Name
+        %td Value
+        %td Destroy
+    %tbody
+      - f.object.og.each_with_index do |og, index|
+        = f.simple_fields_for :og, OpenGraph.new(og), index: index do |og_f|
+          %tr
+            = og_f.input :name, required: false, label: false, wrapper_tag: :td
+            = og_f.input :value, required: false, label: false, wrapper_tag: :td
+            = og_f.input :_destroy, as: :boolean, label: false, wrapper_tag: :td, wrapper: :simple_bs_checkbox
+      = f.simple_fields_for :og, OpenGraph.new(name: '', value: ''), index: f.object.og.size do |og_f|
+        %tr
+          = og_f.input :name, required: false, label: false, wrapper_tag: :td
+          = og_f.input :value, required: false, label: false, wrapper_tag: :td
+          %td
+
+  = button_tag 'Add tag', class: 'btn btn-default add-og-tag'

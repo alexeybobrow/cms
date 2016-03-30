@@ -1,0 +1,6 @@
+%h1= t('admin.history.title', name: @page.naming)
+
+%ul.history
+  - @versions.each do |version|
+    %li{id: dom_id(version)}
+      = render "cms/admin/shared/versions/#{version.event}", version: version, url: reify_admin_page_page_version_path(@page, version)

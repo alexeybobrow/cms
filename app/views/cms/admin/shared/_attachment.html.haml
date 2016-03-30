@@ -1,0 +1,10 @@
+.image-attachment.thumbnail{id: "image_attachment_#{attachment.id}"}
+  .image-logo
+    = image_tag attachment.image_url(:thumb), 'data-url' => attachment.image_url
+  .info
+    .file-name{title: 'image name'}
+      = link_to attachment.image_identifier, attachment.image_url
+    .description
+      = attachment.created_at.strftime("%d %b %H:%M")
+      = form_for [:admin, attachment], html: { class: 'delete', remote: true }, method: :delete do |f|
+        = f.submit 'Delete', class: 'link-styled-button'

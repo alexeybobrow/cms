@@ -1,0 +1,7 @@
+%h1= t('admin.fragments.edit_title')
+
+%p= link_to 'History', [:admin, @fragment, :fragment_versions]
+
+.row
+  .col-xs-10= render 'cms/admin/fragments/forms/fragment_form', url: admin_fragment_path(@fragment)
+  .col-xs-2= render 'cms/admin/shared/forms/image_attachment_form', attachments: @fragment.content.attachments

@@ -1,0 +1,4 @@
+%span
+  = l(version.created_at, format: :short)
+  = t('admin.history.deleted', name: display_user(version.terminator), item_type: version.item_type)
+  = button_to t('admin.history.revert'), url

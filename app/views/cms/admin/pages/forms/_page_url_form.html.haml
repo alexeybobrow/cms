@@ -1,0 +1,5 @@
+.page-form
+  = simple_form_for @form, url: url do |f|
+    = hidden_field_tag :form_kind, 'url'
+    = f.input :url, label: false
+    = f.button :submit

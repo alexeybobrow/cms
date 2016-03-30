@@ -1,0 +1,7 @@
+%aside
+  %h3= t('public.blog.categories')
+  %ul
+    - @tags_with_counts.each do |t|
+      %li
+        = link_to t.tag_name, tag_blog_index_path(locale: I18n.locale, tag: t.tag_name.downcase.gsub(/\s/, '-'))
+        %span= t.count

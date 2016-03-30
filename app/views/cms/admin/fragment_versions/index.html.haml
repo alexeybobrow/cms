@@ -1,0 +1,5 @@
+%h1= t('admin.history.title', name: @fragment.slug)
+
+%ul.history
+  - @versions.each do |version|
+    %li{id: dom_id(version)}= render "cms/admin/shared/versions/#{version.event}", version: version, url: reify_admin_fragment_fragment_version_path(@fragment, version)

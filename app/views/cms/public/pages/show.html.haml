@@ -1,0 +1,4 @@
+- render 'public/shared/page_meta'
+- breadcrumb(:page, @page) unless @page.root?
+
+= format_page @page, short: false

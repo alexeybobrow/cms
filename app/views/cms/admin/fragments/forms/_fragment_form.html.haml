@@ -1,0 +1,9 @@
+.fragment-form
+  = simple_form_for [:admin, @form], url: url, html: { class: "form-horizontal" } do |f|
+    = f.input :slug, disabled: @form.persisted?
+    = f.simple_fields_for :content_attributes, @form.content do |cf|
+      = cf.input :id, as: :hidden
+      = cf.input :markup_language, collection: Content.formats, include_blank: false
+      = cf.input :body, as: :text, input_html: { class: 'fragment-form__content-body' }
+      = cf.input :attachments_cache, as: :hidden, input_html: { id: 'attachments_cache' }
+    = f.button :submit

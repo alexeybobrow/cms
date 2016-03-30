@@ -1,0 +1,4 @@
+= simple_form_for [:admin, @variable], html: { class: "form-horizontal" } do |f|
+  = f.input :name, disabled: @variable.persisted?
+  = f.input :value
+  = f.button :submit

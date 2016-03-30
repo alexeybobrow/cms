@@ -1,0 +1,29 @@
+- breadcrumb(:blog)
+- provide :meta, tag('meta', name: 'description', content: 'Blog about custom software development, web technologies, agile practices and interesting projects we work on.')
+- provide :meta, tag('meta', property: 'og:type', content: 'website')
+- provide :meta, tag('meta', property: 'og:url', content: 'https://anadea.info/blog')
+- provide :meta, tag('meta', property: 'og:title', content: 'Custom Software Development Blog | Anadea')
+- provide :meta, tag('meta', property: 'og:description', content: 'Blog about custom software development, web technologies, agile practices and interesting projects we work on.')
+- provide :title, 'Custom Software Development Blog - Anadea'
+- if params[:tag] || params[:author]
+  - provide :meta, tag('meta', name: 'robots', content: 'noindex, follow')
+
+%section.blog-app
+  .inner
+    %h1= t('public.blog.title')
+    %p= t('public.blog.info')
+
+    .view-frame.articles
+      - @articles.each do |article|
+        %article
+          .date= l article.posted_at, format: :long
+          %h2= link_to article.title, article.url
+          = render 'authors', authors: article.authors
+          .content= raw blog_preview article
+          .tags= render partial: 'article_tag', collection: article.tags
+
+      = link_to_next_page @articles, t('kaminari.next'), class: 'load-more', params: { locale: I18n.locale }
+      = link_to_previous_page @articles, t('kaminari.prev'), class: 'load-more', params: { locale: I18n.locale }
+    = render 'tags'
+
+= render 'public/shared/hire_us'

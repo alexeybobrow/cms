@@ -1,0 +1,75 @@
+%h1= link_to t('admin.pages.name', name: @page.naming), @page.url
+
+%p.btn-group
+  = link_to t('admin.pages.publish'), [:publish, :admin, @page], method: :put, class: "btn btn-info" if @page.draft?
+  = link_to t('admin.pages.unpublish'), [:unpublish, :admin, @page], method: :put, class: "btn btn-info" if @page.published?
+  = link_to_unless(@page.deleted?, t('admin.pages.delete'), [:delete, :admin, @page], :class=>"btn btn-danger"){}
+
+
+- if @page.deleted?
+  %p
+    = t('admin.pages.page_is_deleted')
+
+%p= link_to 'History', [:admin, @page, :page_versions]
+
+.row
+  .col-xs-6
+    .panel.panel-default.url-panel{data: {url_panel: true}}
+      .panel-heading
+        %h3.panel-title
+          = t('admin.pages.url')
+          = link_to 'Edit', edit_admin_page_path(@page, :url), class: 'btn btn-default pull-right btn-xs'
+      .panel-body= @page.url
+
+.row
+  .col-xs-6
+    .panel.panel-default.meta-panel{data: {meta_panel: true}}
+      .panel-heading
+        %h3.panel-title
+          = t('admin.pages.meta')
+          = link_to 'Edit', edit_admin_page_path(@page, :meta), class: 'btn btn-default pull-right btn-xs'
+
+      .panel-body
+        %dl.dl-horizontal.meta-panel-list
+          %dt= t('admin.pages.single_title')
+          %dd= @page.title
+
+          - if @page.name
+            %dt= t('admin.pages.single_name')
+            %dd= @page.name
+
+          %dt= t('admin.pages.tags')
+          %dd= @page.tags
+
+          %dt= t('admin.pages.authors')
+          %dd= @page.authors
+
+          %strong= t('admin.pages.open_graph_data')
+          %table.table.open-graph-fields.table-striped
+            %thead
+              %tr
+                %td= t('admin.pages.og_name')
+                %td= t('admin.pages.og_value')
+            %tbody
+              - @page.og.each do |og|
+                %tr
+                  %td= og['name']
+                  %td= og['value']
+
+.panel.panel-default.content-panel{data: {content_panel: true}}
+  .panel-heading
+    %h3.panel-title
+      = t('admin.pages.content_body')
+      = link_to 'Edit', edit_admin_page_path(@page, :content), class: 'btn btn-default pull-right btn-xs'
+
+  .panel-body
+    .content-body= format_page @page
+
+.panel.panel-default.annotation-panel{data: {annotation_panel: true}}
+  .panel-heading
+    %h3.panel-title
+      = t('admin.pages.annotation_body')
+      = link_to 'Edit', edit_admin_page_path(@page, :annotation), class: 'btn btn-default pull-right btn-xs'
+
+  .panel-body
+    .content-body= format_page @page, short: true

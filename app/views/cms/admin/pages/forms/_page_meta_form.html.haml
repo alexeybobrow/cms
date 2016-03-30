@@ -1,0 +1,11 @@
+.page-form
+  = simple_form_for @form, url: admin_page_path(@page), html: { class: 'form-horizontal page-edit-form' }, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes } do |f|
+    = hidden_field_tag :form_kind, 'meta'
+    = f.input :title
+    = f.input :name
+    = f.input :posted_at, as: 'cms/datepicker', format: '%Y-%m-%d'
+    = f.input :meta, input_html: {rows: 2}
+    = f.input :tags, input_html: {value: f.object.tags.join(', ')}
+    = f.input :authors, input_html: {value: f.object.authors.join(', ')}
+    = render 'cms/admin/pages/forms/open_graph_fields', f: f
+    = f.button :submit

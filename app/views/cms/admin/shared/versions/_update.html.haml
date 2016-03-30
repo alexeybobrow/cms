@@ -1,0 +1,7 @@
+%span
+  = l(version.created_at, format: :short)
+  = t('admin.history.updated', name: display_user(version.terminator), item_type: version.item_type)
+  = button_to t('admin.history.revert'), url
+  %ul
+    - version.changeset.each do |field, (from, to)|
+      %li= display_changes(field, from, to)

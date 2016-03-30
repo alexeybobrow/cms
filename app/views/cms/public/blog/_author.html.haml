@@ -1,0 +1,2 @@
+= link_to author, author_blog_index_path(locale: I18n.locale, author: author.mb_chars.downcase.to_s.gsub(/\s/, '-')), class: 'author'
+%span>= ', ' unless author_iteration.last?

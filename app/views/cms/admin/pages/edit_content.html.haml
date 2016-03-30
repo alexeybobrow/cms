@@ -1,0 +1,4 @@
+%h1= t('admin.pages.edit_content')
+.row
+  .col-xs-10= render 'cms/admin/pages/forms/page_content_form', url: admin_page_path(@page)
+  .col-xs-2= render 'cms/admin/shared/forms/image_attachment_form', attachments: @page.content.attachments

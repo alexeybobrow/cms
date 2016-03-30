@@ -1,0 +1,31 @@
+%h1
+  = t('admin.pages.title')
+= link_to t('admin.pages.create_link'), new_admin_page_path, :class=>"btn btn-default"
+.btn.btn-link= switch_deleted_link
+%section
+  .row
+    .col-md-8
+      %table.table.table-hover.table-striped.table-condensed
+        %thead
+          %tr
+            %th.col-md-6
+              %small.muted= Page.human_attribute_name(:name)
+            %th
+              %small.muted= Page.human_attribute_name(:state)
+            %th
+              %small.muted= Page.human_attribute_name(:url)
+            %th
+              %small.muted.pull-right= t "admin.actions"
+        %tbody
+          - @pages.each do |page|
+            %tr{ :class => ((page.deleted?) ? 'error' : '') }
+              %td
+                %span= link_to page.naming, admin_page_path(page)
+              %td
+                %span= page.current_state
+              %td
+                %span= page.url
+              %td
+                %div.btn-group.btn-group-xs.pull-right
+                  = icon_link_to :remove, delete_admin_page_path(page)
+

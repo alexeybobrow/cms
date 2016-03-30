@@ -1,0 +1,9 @@
+%h1= t('admin.pages.delete_confirmation', title: @page.name)
+
+%p
+  = t('admin.pages.url', url: @page.url)
+
+%p
+  = simple_format @page.content.body
+
+%p= button_to 'Destroy Page', { controller: :pages, action: 'destroy', id: @page.id }, method: :delete
