@@ -1,0 +1,55 @@
+en:
+  admin:
+    actions: 'Actions'
+    show_deleted: 'Show deleted'
+    hide_deleted: 'Hide deleted'
+    edit_link: 'Edit'
+    liquid_variables:
+      title: 'Liquid Variables'
+      create_link: 'Create new variable'
+      new_title: 'Create new variable'
+      edit_title: 'Edit variable'
+    pages:
+      title: 'Pages'
+      new_title: 'Give page an url'
+      edit_meta: 'Edit page meta data'
+      edit_url: 'Edit page url'
+      edit_content: 'Edit page content'
+      edit_annotation: 'Edit page annotation'
+      single_title: 'Title'
+      single_name: 'Name'
+      og_data: 'Open graph data'
+      og_name: 'Name'
+      og_value: 'Value'
+      name: 'Page "%{name}"'
+      edit_title: 'Edit page "%{title}"'
+      create_link: 'Create new page'
+      page_is_deleted: 'Page is deleted'
+      url: "Url"
+      meta: "Meta"
+      tags: "Tags"
+      authors: "Authors"
+      format: "Markup language"
+      edit: 'Edit'
+      delete: 'Delete'
+      update: 'Update'
+      delete_confirmation: 'Delete page "%{title}?"'
+      content_body: 'Content'
+      annotation_body: 'Annotation'
+      state:
+        safely_deleted: 'deleted'
+        published: 'published'
+        draft: 'draft'
+    history:
+      title: 'History of page "%{name}"'
+      created: '%{item_type} Created by %{name}'
+      updated: '%{item_type} Updated by %{name}'
+      deleted: '%{item_type} Deleted by %{name}'
+      change_notice: '%{field} changed from %{from} to %{to}'
+      revert: 'Revert before this change'
+    fragments:
+      new_title: 'Create new fragment'
+      edit_title: 'Edit fragment'
+      title: 'Fragments'
+      create_link: 'Create new fragment'
+      delete_confirmation: 'Are you sure you want to delete fragment?'
