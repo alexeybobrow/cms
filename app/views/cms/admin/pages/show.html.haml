@@ -1,8 +1,10 @@
 %h1= link_to t('admin.pages.name', name: page_name(@page)), @page.url
 
 %p.btn-group
-  = link_to t('admin.pages.publish'), [:publish, :admin, @page], method: :put, class: "btn btn-info" if @page.draft?
-  = link_to t('admin.pages.unpublish'), [:unpublish, :admin, @page], method: :put, class: "btn btn-info" if @page.published?
+  - if @page.draft?
+    = link_to t('admin.pages.publish'), [:publish, :admin, @page], method: :put, class: "btn btn-info #{check_disabled(@page)}"
+  - if @page.published?
+    = link_to t('admin.pages.unpublish'), [:unpublish, :admin, @page], method: :put, class: "btn btn-info"
   = link_to_unless(@page.deleted?, t('admin.pages.delete'), [:delete, :admin, @page], :class=>"btn btn-danger"){}
 
 

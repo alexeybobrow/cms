@@ -54,7 +54,9 @@ module Cms
       end
 
       def publish
-        @page.publish!
+        if check_policy(PublicationPolicy, @page, :publish?)
+          @page.publish!
+        end
         redirect_to [:admin, @page]
       end
 

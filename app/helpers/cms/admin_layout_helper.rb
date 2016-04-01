@@ -13,5 +13,13 @@ module Cms
     def page_name(page)
       page.name.presence || page.title.presence || t('admin.pages.untitled')
     end
+
+    def can_publish_page?(page)
+      check_policy(PublicationPolicy, page, :publish?)
+    end
+
+    def check_disabled(page)
+      'disabled' unless can_publish_page?(page)
+    end
   end
 end
