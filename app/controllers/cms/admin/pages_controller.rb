@@ -10,7 +10,8 @@ module Cms
       def show; end
 
       def new
-        @form = PageUrlForm.new(params[:page], Page.new)
+        @page = Page.create(content: Content.new, annotation: Content.new)
+        redirect_to [:edit, :admin, @page, { form_kind: 'content' }]
       end
 
       def create

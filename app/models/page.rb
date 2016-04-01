@@ -61,10 +61,6 @@ class Page < ActiveRecord::Base
     version.reify.tap {|page| page.deleted_at = nil}.save!
   end
 
-  def naming
-    self.name.present? ? self.name : self.title
-  end
-
   def translation
     self.class
       .actual

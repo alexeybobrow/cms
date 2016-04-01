@@ -9,5 +9,9 @@ module Cms
         else ''
       end
     end
+
+    def page_name(page)
+      page.name.presence || page.title.presence || t('admin.pages.untitled')
+    end
   end
 end

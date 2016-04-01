@@ -1,4 +1,4 @@
-%h1= t('admin.history.title', name: @page.naming)
+%h1= t('admin.history.title', name: page_name(@page))
 
 %ul.history
   - @versions.each do |version|

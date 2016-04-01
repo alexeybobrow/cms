@@ -36,6 +36,7 @@ en:
       delete_confirmation: 'Delete page "%{title}?"'
       content_body: 'Content'
       annotation_body: 'Annotation'
+      untitled: '(Untitled)'
       state:
         safely_deleted: 'deleted'
         published: 'published'
