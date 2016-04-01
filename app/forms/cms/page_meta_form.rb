@@ -5,6 +5,7 @@ module Cms
     include ArrayAccessors
 
     attribute :title
+    attribute :description
     attribute :name
     attribute :posted_at, type: Date
     attribute :meta

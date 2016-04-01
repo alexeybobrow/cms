@@ -2,6 +2,7 @@
   = simple_form_for @form, url: admin_page_path(@page), html: { class: 'form-horizontal page-edit-form' }, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes } do |f|
     = hidden_field_tag :form_kind, 'meta'
     = f.input :title
+    = f.input :description
     = f.input :name
     = f.input :posted_at, as: 'cms/datepicker', format: '%Y-%m-%d'
     = f.input :meta, input_html: {rows: 2}

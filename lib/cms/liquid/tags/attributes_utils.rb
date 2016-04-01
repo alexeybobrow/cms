@@ -6,6 +6,7 @@ module Cms
           @attributes = {}
 
           markup.scan(::Liquid::TagAttributes) do |key, value|
+            key = (key =~ /\Adata_(\w+)/ ? "data-#{$1.tr('_', '-')}" : key) #extract data attributes
             @attributes[key] = unquote(value)
           end
         end

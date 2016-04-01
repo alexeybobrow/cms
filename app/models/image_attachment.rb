@@ -1,5 +1,5 @@
 class ImageAttachment < ActiveRecord::Base
-  mount_uploader :image, PageImageUploader
+  mount_uploader :image, Cms::PageImageUploader
 
   validates_presence_of :image
 

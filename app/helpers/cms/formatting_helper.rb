@@ -28,6 +28,10 @@ module Cms
       simple_pipeline.call(text)[:output].to_s.html_safe
     end
 
+    def metaize(text)
+      htmlize(text).gsub(/\s+/, ' ')
+    end
+
     def plain_preview(page)
       truncate_html remove_tags(apply_format(page.annotation.body, page.annotation.markup_language)), length: 200
     end

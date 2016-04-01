@@ -1,6 +1,7 @@
 .page-form
   = simple_form_for [:admin, page], html: { class: 'form-horizontal page-edit-form' }, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes } do |f|
     = f.input :title
+    = f.input :description
     = f.input :name
     = f.input :url, as: :string
     = f.input :kind,   collection: f.object.class.kinds,

@@ -24,8 +24,8 @@ module Cms
       {
         view: self,
         controller: controller,
-        base_url: Settings.host,
-        image_base_url: root_url(host: Settings.host) # for liquid fragment tag
+        base_url: Cms.host,
+        image_base_url: root_url(host: Cms.host) # for liquid fragment tag
       }
     end
 

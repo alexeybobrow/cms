@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  include SafeDelete
+  include Cms::SafeDelete
   include Workflow
 
   workflow do
@@ -18,7 +18,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  has_paper_trail only: [:title, :meta, :name, :url, :deleted_at]
+  has_paper_trail only: [:title, :description, :meta, :name, :url, :deleted_at]
 
   class << self
     def scoped_with_array(name)
@@ -28,6 +28,7 @@ class Page < ActiveRecord::Base
     def public_get(url)
       actual.where(url: Cms::UrlHelper.normalize_url(url)).first!
     end
+    alias_method :public_get!, :public_get
   end
 
   belongs_to :content, dependent: :destroy
@@ -54,10 +55,6 @@ class Page < ActiveRecord::Base
 
   def root?
     url.in? %w(/ /ru)
-  end
-
-  def parent_url
-    url.gsub(/\/[\w\-\.]*\z/, '')
   end
 
   def restore_to(version)
