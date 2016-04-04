@@ -2,9 +2,9 @@
 
 %p.btn-group
   - if @page.draft?
-    = link_to t('admin.pages.publish'), [:publish, :admin, @page], method: :put, class: "btn btn-info #{check_disabled(@page)}"
+    = link_to t('admin.pages.action.publish'), [:publish, :admin, @page], method: :put, class: "btn btn-info #{check_disabled(@page)}"
   - if @page.published?
-    = link_to t('admin.pages.unpublish'), [:unpublish, :admin, @page], method: :put, class: "btn btn-info"
+    = link_to t('admin.pages.action.unpublish'), [:unpublish, :admin, @page], method: :put, class: "btn btn-info"
   = link_to_unless(@page.deleted?, t('admin.pages.delete'), [:delete, :admin, @page], :class=>"btn btn-danger"){}
 
 

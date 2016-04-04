@@ -37,10 +37,16 @@ en:
       content_body: 'Content'
       annotation_body: 'Annotation'
       untitled: '(Untitled)'
+      action:
+        publish: 'Publish'
+        unpublish: 'Unpublish'
       state:
         safely_deleted: 'deleted'
         published: 'published'
         draft: 'draft'
+      forms:
+        button:
+          update_url: 'Update Url'
     history:
       title: 'History of page "%{name}"'
       created: '%{item_type} Created by %{name}'
