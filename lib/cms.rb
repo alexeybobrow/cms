@@ -10,7 +10,6 @@ module Cms
   autoload :Liquid, 'cms/liquid'
 
   mattr_accessor(:host) { "PLEASE, SET ME!" }
-  mattr_accessor(:public_pages_layout) { "application" }
 
   def self.setup
     yield(self)

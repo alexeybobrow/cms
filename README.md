@@ -22,12 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-Configuration example
-
-    Cms.setup do |config|
-      config.host = 'localhost'
-      config.public_pages_layout = 'public/base'
-    end
+TODO: Delete this and the text above, and create usage example
 
 ## Development
 
