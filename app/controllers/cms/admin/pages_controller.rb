@@ -46,6 +46,10 @@ module Cms
         end
       end
 
+      def preview
+        render 'cms/public/pages/show', layout: Cms.public_pages_layout
+      end
+
       def delete; end
 
       def destroy

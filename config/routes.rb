@@ -9,6 +9,7 @@ Cms::Engine.routes.draw do
 
       member do
         get 'edit/:form_kind', action: :edit, as: :edit
+        get :preview
         put :publish
         put :unpublish
         get :delete
