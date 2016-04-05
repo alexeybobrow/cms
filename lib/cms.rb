@@ -6,6 +6,7 @@ module Cms
   autoload :Filters, 'cms/filters'
   autoload :UrlHelper, 'cms/url_helper'
   autoload :LocaleRedirector, 'cms/locale_redirector'
+  autoload :PageDispatcher, 'cms/page_dispatcher'
   autoload :SafeDelete, 'cms/safe_delete'
   autoload :Liquid, 'cms/liquid'
 

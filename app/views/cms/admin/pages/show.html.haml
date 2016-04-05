@@ -1,4 +1,4 @@
-%h1= link_to t('admin.pages.name', name: page_name(@page)), @page.url
+%h1= link_to t('admin.pages.name', name: page_name(@page)), @page.url.presence || page_path(@page.id)
 
 %p.btn-group
   - if @page.draft?
