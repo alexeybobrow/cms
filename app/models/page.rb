@@ -25,8 +25,10 @@ class Page < ActiveRecord::Base
       ->(value){ where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') = :value)", value: value) }
     end
 
-    def public_get(url)
-      actual.where(url: Cms::UrlHelper.normalize_url(url)).first!
+    def public_get(param)
+      url = Cms::UrlHelper.normalize_url(param)
+      id = Integer(param) rescue 0
+      actual.where("url = ? OR id = ?", url, id).first!
     end
     alias_method :public_get!, :public_get
   end
