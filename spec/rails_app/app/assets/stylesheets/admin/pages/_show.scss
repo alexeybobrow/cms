@@ -1,0 +1,17 @@
+.meta-panel-list {
+  dt {
+    width: auto;
+    padding-right: 10px;
+  }
+
+  dd {
+    margin-left: 0;
+  }
+}
+
+.content-panel, .annotation-panel {
+  .content-body {
+    max-height: 600px;
+    overflow-y: scroll;
+  }
+}

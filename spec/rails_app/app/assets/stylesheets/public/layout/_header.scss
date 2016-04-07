@@ -1,0 +1,148 @@
+.site-header {
+  @include panel($base-width);
+  @include transition(all 0.1s linear);
+  @include bright-header {
+    background-color: $white;
+    .inner { border-bottom: 1px solid $mercury; }
+  }
+
+  width: 100%;
+
+  &.active {
+    @include bright-header;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+
+    .inner { border-bottom: none }
+
+    & + .main { margin-top: 99px; }
+    & + .bredcrumbs-section { margin-top: 99px; }
+    @include tablet {
+      & + .main { margin-top: 62px; }
+      & + .bredcrumbs-section { margin-top: 62px; }
+    }
+  }
+
+  .inner {
+    @include display(flex);
+    @include align-items(center);
+    @include flex-direction(row);
+    @include justify-content(space-between);
+
+    height: $header-height;
+
+    .user-menu, .logo {
+      @include flex(1);
+    }
+  }
+
+  .user-menu {
+    text-align: right;
+  }
+
+  .logo:hover { opacity: 0.85; }
+
+  .header-nav {
+    width: 100%;
+    padding: 0 1.3em;
+    max-width: 750px;
+
+    ul {
+      @include display(flex);
+      @include justify-content(space-between);
+      list-style: none;
+      padding: 0;
+    }
+  }
+
+  .nav-jump-link { display: none; }
+
+  @include tablet-portrait {
+    > .inner {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    .header-nav { display: none; }
+    .user-menu { display: none; }
+    .inner { height: $mobile-header-height; }
+    .nav-jump-link {
+      display: inline-block;
+    }
+  }
+}
+
+@include tablet-portrait {
+  .js-mobile-nav-active .site-header {
+    .nav-jump-link, .logo {
+      position: relative;
+      z-index: 999;
+    }
+
+    .nav-jump-link {
+      @include sandwich-color($gray !important);
+    }
+
+    .logo {
+      background-image: url('layout/logo-br.svg') !important;
+    }
+
+    .inner {
+      height: $mobile-header-height;
+    }
+
+    .user-menu {
+      position: fixed;
+      display: block;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1;
+      line-height: 1,2em;
+
+      &, a {
+        color: $black ! important;
+        font-size: 18px;
+      }
+    }
+
+    .header-nav {
+      display: block;
+      top: 0;
+      left: 0;
+      position: absolute;
+      padding: 0;
+      z-index: 1;
+      width: 100%;
+      max-width: none;
+      min-height: 100vh;
+      background: $white;
+
+      ul {
+        display: block;
+        margin-top: $mobile-header-height;
+      }
+
+      a {
+        display: block;
+        box-sizing: border-box;
+        color: $black !important;
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+      }
+
+      li {
+        display: block;
+        border: {
+          width: 1px 0 0 0;
+          style: solid;
+          color: $silver;
+        }
+
+        &:last-child {
+          border-width: 1px 0 1px 0;
+        }
+      }
+    }
+  }
+}

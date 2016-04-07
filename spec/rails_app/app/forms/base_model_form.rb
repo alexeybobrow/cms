@@ -1,0 +1,1 @@
+BaseModelForm = Cms::BaseModelForm

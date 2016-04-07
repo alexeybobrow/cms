@@ -1,0 +1,8 @@
+%h1= t('admin.occupations.title')
+= link_to t('admin.occupations.create_link'), new_admin_occupation_path, :class=>"btn btn-default"
+.btn.btn-link= switch_deleted_link
+
+%br
+%br
+
+%ul.sortable-list{data: {sortable: true}}= render @occupations

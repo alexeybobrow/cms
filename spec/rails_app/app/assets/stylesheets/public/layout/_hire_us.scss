@@ -1,0 +1,26 @@
+@import 'public/helpers/buttons';
+
+.hire-us {
+  @include transform(rotate(-90deg));
+  @include plain-button($border-color: transparent, $text-color: $white, $background-color: $mountain-meadow) {
+    &:hover {
+      background: rgba($mountain-meadow, 0.8);
+    }
+  }
+
+  position: fixed;
+  text-align: center;
+  z-index: 10;
+  right: -50px;
+  top: 300px;
+}
+
+@include tablet-portrait {
+  .hire-us {
+    @include transform(rotate(0));
+    box-sizing: border-box;
+    position: static;
+    display: block;
+    width: 100%;
+  }
+}

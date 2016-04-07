@@ -1,0 +1,65 @@
+@import 'public/pages/common/page_info';
+
+.jobs-info {
+  @include page-info;
+
+  .hr-box {
+    padding: 1em;
+    position: fixed;
+    top: 210px;
+    right: 10%;
+    background-color: $white;
+
+    p {
+      margin: 0;
+      width: 100%;
+      font-size: 0.9em;
+      color: $mine-shaft;
+    }
+
+    h2 {
+      margin-bottom: 0.1em;
+      font-size: 0.9em;
+      color: $mine-shaft;
+      font-weight: bold;
+    }
+
+    img {
+      margin: 1em 0 0.35em 0;
+    }
+
+    .phone-link {
+      font-size: 0.9em;
+      color: $gray;
+      text-decoration: none;
+      display: block;
+    }
+
+    .email-link {
+      @include bright-link;
+      font-size: 0.9em;
+      margin-top: 0.5em;
+      font-weight: bold;
+    }
+  }
+
+  @include tablet {
+    .hr-box {
+      position: static !important;
+      padding-left: 0;
+    }
+
+    .hr-info {
+      display: inline-block;
+      margin-left: 1.8em;
+      vertical-align: top;
+    }
+  }
+
+  @include mobile {
+    .inner {
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@mixin project-info {
+  @include panel($base-width - $header-padding * 2) {
+    .inner {
+      padding-top: $panel-padding;
+      padding-bottom: $panel-padding;
+      text-align: center;
+    }
+  }
+
+  p {
+    color: $white;
+  }
+
+  li {
+    text-transform: uppercase;
+    color: rgba($wild-sand,0.5);
+    font-size: 0.9em;
+    display: inline-block;
+    margin: 1em 1em 0 1em;
+  }
+
+  @include mobile {
+    p {
+      width: 100%;
+    }
+  }
+
+  @content;
+}
+
+@mixin centered-paragraph {
+  > p {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $max-project-content-width;
+
+    @content;
+  }
+
+  @include tablet {
+    > p {
+      width: initial;
+    }
+  }
+}
+
+@mixin technologies-column {
+  .short-info {
+    dl:last-child {
+      dt { display: none; }
+    }
+  }
+
+  @content
+}

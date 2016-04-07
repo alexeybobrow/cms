@@ -1,0 +1,200 @@
+.getsocio {
+  @include colored-header($blue-chill);
+  @include colored-breadcrumbs($blue-chill);
+
+  .breadcrumbs {
+    &, a { color: $white; }
+  }
+
+  .getsocio-info {
+    @include project-info;
+
+    background: $blue-chill url('/assets/pages/projects/getsocio/getsocio_bg1.png') no-repeat bottom center;
+    padding-bottom: 5em;
+
+    .bubble-info {
+      @include bubble-info;
+    }
+  }
+
+  .history .col {
+    color: $gray;
+  }
+
+  .pioneers-start {
+    background: $blue-chill;
+    color: $white;
+
+    blockquote {
+      @include quote($text-color: $white, $quote-color: rgba($white, 0.5));
+    }
+  }
+
+  section.image-slider {
+    background-color: $venice-blue;
+  }
+
+  .pioneers-end {
+    background: $blue-chill;
+    color: $white;
+
+    .inner {
+      padding-top: 2em;
+    }
+  }
+
+  .production {
+    @include section-with-two-columns;
+
+    background: $white;
+
+    div.inner {
+      @include centered-paragraph;
+
+      padding-bottom: 1.7em;
+      max-width: initial;
+    }
+
+    h2 { color: $mine-shaft; }
+
+    p {
+      color: $tundora;
+      margin-top: 0;
+    }
+  }
+
+  .before-after {
+    .before-after-image { width: 100%; }
+  }
+
+  .web20 {
+    background: $blue-chill;
+    color: $white;
+
+    .inner {
+      @include centered-paragraph;
+
+      max-width: initial !important;
+    }
+
+    .color-icons {
+      margin: 0 auto;
+      padding: 2em 0;
+      text-align: center;
+
+      img { margin: 0.4em; }
+    }
+
+    ul {
+      @include column-list {
+        p { padding: 0; }
+      };
+    }
+
+    h3 {
+      font-size: 0.9em;
+    }
+  }
+
+  .mobile-applications {
+    background: $white;
+    h2 { color: $mine-shaft; }
+    p { color: $tundora; }
+  }
+
+  #mobile {
+    background: $gallery;
+
+    .inner {
+      padding-top: 0;
+    }
+  }
+
+  .support {
+    background: $white;
+    h2 { color: $mine-shaft; }
+    p { color: $tundora; }
+
+    blockquote {
+      @include quote($text-color: $mine-shaft, $quote-color: $boulder);
+    }
+
+    small {
+      font-size: 0.75em;
+      color: $gray;
+      font-weight: normal;
+      display: block;
+      font-style: italic;
+      margin-top: 1em;
+    }
+  }
+
+  .finally {
+    background: $blue-chill;
+
+    p {
+      color: $white;
+    }
+  }
+
+  @include tablet {
+    .history {
+      .history-content {
+        display: block;
+      }
+
+      .col { margin-right: 0; }
+    }
+
+    section.production {
+      ul { width: initial; }
+    }
+
+    .web20 {
+      .inner { width: initial; }
+
+      .color-icons {
+        img { width: 160px; }
+      }
+
+      ul {
+        max-width: $max-project-content-width;
+        margin: 0 auto;
+
+        h3 { margin-bottom: 0; }
+        p { margin-top: 0; }
+      }
+    }
+
+    .getsocio-info {
+      background-size: 150%;
+      padding-bottom: 3em;
+    }
+  }
+
+  @include tablet-portrait {
+    @include technologies-column;
+
+    .production {
+      li {
+        width: initial;
+        padding: 0;
+      }
+    }
+
+    .web20 {
+      li { padding: 0; }
+    }
+  }
+
+  @include mobile {
+    .web20 {
+      .color-icons {
+        img {
+          width: 105px;
+          margin: 0.1em;
+        }
+      }
+    }
+  }
+}

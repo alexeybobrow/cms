@@ -15,9 +15,9 @@
         %article
           .date= l article.posted_at, format: :long
           %h2= link_to article.title, article.url
-          = render 'authors', authors: article.authors
+          = author_list(article.authors)
           .content= raw blog_preview article
-          .tags= render partial: 'article_tag', collection: article.tags
+          .tags= article_tag_list(article.tags)
 
       = link_to_next_page @articles, t('kaminari.next'), class: 'load-more', params: { locale: I18n.locale }
       = link_to_previous_page @articles, t('kaminari.prev'), class: 'load-more', params: { locale: I18n.locale }

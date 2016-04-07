@@ -1,0 +1,11 @@
+%h1= t('admin.users.delete_confirmation', name: @user.username)
+
+%p
+  = t('admin.users.role')
+  = t(@user.role, scope: 'admin.users.roles')
+
+- if @user.is_locked?
+  %p
+    = t('admin.users.user_is_locked')
+
+%p= button_to 'Destroy User', { controller: :users, action: 'destroy', id: @user.id }, method: :delete

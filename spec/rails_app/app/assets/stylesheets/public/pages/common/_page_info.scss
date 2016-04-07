@@ -1,0 +1,35 @@
+/* TODO: This should be a placeholder selector, not a mixin */
+
+@mixin page-info {
+  @include panel($base-width - $header-padding * 2) {
+    background-color: $white;
+
+    .inner {
+      padding-top: $panel-padding;
+      padding-bottom: $panel-padding;
+    }
+
+    @include tablet-portrait {
+      .inner {
+        padding-top: $mobile-panel-padding;
+      }
+    }
+  }
+
+  h1 {
+    @include heading1($mine-shaft);
+  }
+
+  p {
+    width: 72%;
+    color: $tundora;
+  }
+
+  @include mobile {
+    p {
+      width: 100%;
+    }
+  }
+
+  @content;
+}

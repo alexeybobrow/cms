@@ -1,0 +1,35 @@
+@import 'public/helpers/skins';
+@import 'public/helpers/structure';
+
+$occupation-title-width: $base-width - $header-padding * 2;
+
+.employes-group {
+  padding: 0 0 3.6em 0;
+
+  .occupation-title {
+    width: $occupation-title-width;
+    margin: 0 auto;
+  }
+
+  h2 {
+    @include heading2($white) {
+      margin: 0 0 1.2em 0;
+    }
+  }
+
+  li {
+    @include employee-info;
+
+    display: inline-block;
+  }
+
+  @include tablet {
+    .occupation-title {
+      width: initial;
+    }
+  }
+
+  @include mobile {
+    em { display: none; }
+  }
+}

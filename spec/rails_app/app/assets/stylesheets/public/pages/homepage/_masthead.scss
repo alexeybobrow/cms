@@ -1,0 +1,25 @@
+.anadea-masthead {
+  box-sizing: border-box;
+  background-color: $steel-blue;
+
+  .hero {
+    @include hero;
+
+    .hero-description {
+      h1 {
+        @include heading2($white);
+        width: 130%;
+      }
+    }
+
+    .hero-media {
+      @include align-self(flex-end);
+    }
+
+    @include tablet-portrait {
+      .hero-description h1 {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@import 'public/pages/common/page_info';
+
+.services-info {
+  @include page-info;
+
+  ul {
+    @include section-with-two-columns {
+      li {
+        padding: 0;
+
+        &:first-child {
+          padding-right: 1.5em;
+        }
+
+        &:last-child {
+          padding-left: 1.5em;
+        }
+      }
+    };
+
+    color: $tundora;
+    width: 72%;
+  }
+
+  @include tablet-portrait {
+    .inner {
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+
+    p {
+      width: 100%;
+    }
+
+    ul {
+      width: initial;
+
+      li {
+        width: initial;
+        margin-bottom: 1em;
+
+        &:first-child { padding-right: 0; }
+        &:last-child { padding-left: 0; }
+      }
+    }
+  }
+}

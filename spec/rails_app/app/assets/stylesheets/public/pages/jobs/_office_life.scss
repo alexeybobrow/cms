@@ -1,0 +1,50 @@
+.office-life {
+  background: $white;
+
+  .inner {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 1.3em 1.7em 1.3em;
+    box-sizing: border-box;
+  }
+
+  h2 {
+    @include heading2($mine-shaft);
+    margin: 0;
+  }
+
+  p {
+    color: $gray;
+    margin-top: 0.7em;
+  }
+
+  li {
+    font-size: 0.9em;
+    color: $gray;
+    list-style: disc;
+    margin: 0 0 0.5em 1.2em;
+  }
+
+  .life-list {
+    display: inline-block;
+    max-width: 45%;
+    vertical-align: top;
+    margin-right: 4em;
+
+    p {
+      font-size: 0.9em;
+    }
+
+    &:last-child { margin-right: 0; }
+  }
+
+  @include tablet {
+    .inner {
+      padding: 0 1.3em;
+    }
+
+    .life-list {
+      max-width: 100%;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+!!! XML
+!!! 5
+%html
+  %head
+    %title= content_for?(:title) ? content_for(:title) : t('public.title')
+    = render 'layouts/public/head'
+    = stylesheet_link_tag 'public', media: 'all'
+    = yield :stylesheets
+    = favicon_link_tag '/favicon.png', rel: 'icon'
+    %link{rel: "alternate", type: "application/rss+xml", title: t('public.feed.title'), href: blog_index_url(format: :rss)}
+
+  %body{content_class}
+    = render 'layouts/public/header'
+    = render 'layouts/public/breadcrumbs'
+    #main.main
+      = yield
+    = render 'layouts/public/footer'
+    = render 'layouts/public/analytics' if Rails.env.production?
+    .is-tablet
+    .is-tablet-portrait
+    .is-mobile
+    = render 'layouts/public/async_css'
+    = javascript_include_tag 'public', async: Rails.env.production?
+    = content_for(:javascripts)
+    = render 'layouts/public/analytics2' if Rails.env.production?

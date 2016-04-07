@@ -1,0 +1,91 @@
+.project {
+  section.project-team {
+    div.inner {
+      max-width: $base-width;
+      padding-bottom: 1.7em;
+      width: flex-grid(11);
+
+      > p {
+        width: flex-grid(7);
+        max-width: $max-project-content-width;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.3em;
+        padding-right: 1.3em;
+      }
+    }
+
+    p {
+      color: $gray;
+    }
+
+    ul {
+      text-align: center;
+      padding-top: 1.7em;
+    }
+
+    li {
+      @include employee-info;
+
+      display: inline-block;
+      text-align: left;
+    }
+
+    .short-info {
+      width: flex-grid(7);
+      max-width: $max-project-content-width;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 1.5em 1.3em 2.6em 1.3em;
+    }
+
+    dl {
+      vertical-align: top;
+      display: inline-block;
+      width: flex-grid(2, 8);
+    }
+
+    dt {
+      color: gray;
+      font-size: 0.9em;
+    }
+
+    dd {
+      color: white;
+      font-weight: bold;
+      font-size: 0.9em;
+
+      p {
+        margin: 0;
+        font-weight: normal;
+        color: $white;
+      }
+    }
+
+    @include tablet {
+      div.inner {
+        width: initial;
+
+        > p {
+          width: initial;
+          padding: 0;
+        }
+      }
+
+      .short-info {
+        width: initial;
+        padding: 0;
+      }
+    }
+
+    @include tablet-portrait {
+      dl {
+        width: 100%;
+      }
+    }
+
+    @include mobile {
+      overflow: hidden;
+    }
+  }
+}

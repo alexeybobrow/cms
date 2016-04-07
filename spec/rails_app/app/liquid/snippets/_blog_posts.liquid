@@ -1,0 +1,13 @@
+- async_stylesheet 'public/tags/blog_posts'
+
+.blog-posts-element
+  - posts.each do |post|
+    %div[post]
+      - if post.content.main_image
+        =link_to image_tag(post.content.main_image.image_url(:preview)), post.url, class: 'img-link'
+        %strong.post-title=link_to post.title, post.url
+        .date= l post.posted_at, format: :long
+      - else
+        %strong.post-title=link_to post.title, post.url
+        .date= l post.posted_at, format: :long
+        .post-review= plain_preview post

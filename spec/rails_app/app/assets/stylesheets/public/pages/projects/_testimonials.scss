@@ -1,0 +1,78 @@
+@import 'public/plugins/unslider';
+
+$mobile-testimonials-blockquote-font-size: 50px;
+
+.testimonials {
+  @include panel($base-width) {
+    background-color: $mountain-meadow;
+
+    .inner {
+      padding: 1em 0;
+    }
+  }
+
+  h2 {
+    @include heading2($white);
+    text-align: center;
+  }
+
+  .testimonials-slider {
+    @include display(flex);
+  }
+
+  blockquote {
+    @include flex(1);
+    @include quote($text-color: $white, $quote-color: $white) {
+      font-size: 0.9em;
+      font-weight: normal;
+      padding-left: 2.2em;
+
+      &:before {
+        font-size: 3.1em;
+      }
+    }
+  }
+
+  .quotes {
+    @include display(flex);
+    @include align-items(flex-start);
+    @include flex-direction(row);
+    @include justify-content(space-between);
+
+    blockquote {
+      @include flex(1);
+    }
+  }
+
+  .author {
+    display: block;
+    font-size: 0.75em;
+    font-weight: normal;
+    margin-top: 1.3em;
+
+    &:before {
+      content: '- ';
+    }
+  }
+
+  @include tablet-portrait {
+    .testimonials-slider {
+      display: block;
+    }
+
+    .inner {
+      padding-top: $mobile-panel-padding;
+      padding-bottom: $mobile-panel-padding;
+    }
+
+    h1 {
+      margin-bottom: 0.5em;
+    }
+
+    blockquote {
+      &:before {
+        font-size: $mobile-testimonials-blockquote-font-size;
+      }
+    }
+  }
+}

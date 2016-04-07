@@ -1,0 +1,3 @@
+.contacts-link {
+  @include plain-button($border-color: $white, $text-color: $white, $background-color: $wedgewood);
+}

@@ -1,0 +1,230 @@
+$education-list-width: 800px;
+$education-column-width: 330px;
+$finally-list-width: 500px;
+
+.stav-online {
+  @include colored-header($steel-blue);
+
+  .stav-online-info {
+    @include project-info;
+
+    background: $atlantis url('/assets/pages/projects/stav-online/stav_bg2.png') no-repeat bottom center;
+    padding-bottom: 17em;
+  }
+
+  .history {
+    div.inner { max-width: $base-width; }
+
+    .customer {
+      display: inline-block;
+      margin-right: 2em;
+
+      &:last-child { margin-right: 0; }
+    }
+
+    .col {
+      color: $gray;
+    }
+  }
+
+  .stav-online-education {
+    div.inner {
+      background: $white url('/assets/pages/projects/stav-online/stav_bg.jpg') no-repeat bottom center;
+      max-width: initial;
+    }
+
+    h2 {
+      color: $mine-shaft;
+      line-height: 1em;
+      text-align: left;
+    }
+
+    h3 {
+      color: $mine-shaft;
+      font-size: 0.9em;
+      margin-bottom: 0;
+    }
+
+    p {
+      color: $tundora;
+      margin-top: 0;
+    }
+
+    .container {
+      max-width: $base-width;
+      margin: 0 auto;
+    }
+
+    ul { max-width: $education-list-width; }
+
+    li {
+      max-width: $education-column-width;
+      display: inline-block;
+      vertical-align: top;
+      margin-right: 2em;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .short-info {
+    text-align: center;
+
+    dl { text-align: left; }
+
+    dd { font-weight: normal; }
+  }
+
+  .stav-online-finally {
+    background: $danube;
+
+    div.inner {
+      max-width: $base-width;
+      padding-bottom: 1.7em;
+
+      @include centered-paragraph;
+    }
+
+    p { color: $white; }
+
+    ul {
+      @include display(flex);
+      @include align-items(flex-start);
+      @include flex-direction(row);
+      @include justify-content(space-between);
+
+      max-width: $finally-list-width;
+      margin: 0 auto;
+      text-align: center;
+      padding: 2em 0;
+    }
+
+    li {
+      @include flex(1);
+
+      padding: 0 1em;
+    }
+
+    strong {
+      font-size: 2.2em;
+      color: $white;
+      display: block;
+      margin: 0.2em 0;
+    }
+  }
+
+  .stav-online-examples {
+    background: $jaffa;
+    text-align: center;
+    color: $white;
+
+    div.inner {
+      max-width: initial;
+      padding-bottom: 0;
+    }
+
+    .container {
+      @include clearfix;
+
+      margin-top: 3.2em;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 2em;
+
+      .col {
+        width: 33.33333333%;
+        float: left;
+        position: relative;
+
+        &:nth-child(3) { padding-top: 10%; }
+
+        img {
+          width: 90%;
+          margin-bottom: 8%;
+          border-radius: 4px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+
+    p {
+      max-width: $max-project-content-width;
+      margin: 0 auto;
+    }
+  }
+
+
+
+  @include tablet {
+    .history {
+      div.inner { max-width: $max-project-content-width; }
+
+      .history-content { display: block; }
+
+      .customers { text-align: center; }
+
+      .customer { text-align: left; }
+    }
+
+    .stav-online-finaly {
+      strong { font-size: 1.9em; }
+    }
+
+    .stav-online-info {
+      background-size: 150%;
+      padding-bottom: 8em;
+    }
+
+    .stav-online-examples {
+      .container {
+        .col {
+          &:nth-child(3) { padding-top: 0; }
+        }
+      }
+    }
+  }
+
+  @include tablet-portrait {
+    .history {
+      .customer {
+        margin-right: 1.7em;
+      }
+    }
+
+    .stav-online-education {
+      div.inner { background-image: initial; }
+
+      li {
+        max-width: initial;
+      }
+    }
+
+    .stav-online-finaly {
+      ul { display: block; }
+
+      li { padding: 0; }
+    }
+  }
+
+  @include mobile {
+    .stav-online-examples {
+      div.inner {
+        padding-bottom: 40px;
+      }
+
+      .container {
+        display: none;
+      }
+    }
+
+    .stav-online-info {
+      background-size: 300%;
+      padding-bottom: 7em;
+    }
+  }
+}

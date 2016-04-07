@@ -1,0 +1,22 @@
+.get-in-touch {
+  @include panel($base-width / 2) {
+    background-color: $wedgewood;
+
+    .inner {
+      padding-top: 1.5em;
+      padding-bottom: 1.5em;
+      text-align: center;
+    }
+
+    .inner > * {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  @include mobile {
+    .inner {
+      padding: 1.3em;
+    }
+  }
+}

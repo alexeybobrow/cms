@@ -1,0 +1,311 @@
+$trivia-boundary-padding-top: (0px, 65px, 20px, 50px);
+
+.listingdoor {
+  @include colored-header(#58656d);
+  @include colored-breadcrumbs(#58656d);
+
+  .breadcrumbs {
+    &, a { color: $white; }
+  }
+
+  .listingdoor-info {
+    @include project-info;
+
+    background: #58656d url('/assets/pages/projects/listingdoor/listingdoor_bg1.jpg') no-repeat bottom center;
+    padding-bottom: 18em;
+  }
+
+  .project-team .short-info {
+    dl { width: 32%; }
+  }
+
+  .history {
+    background: $white;
+
+    h2 { color: $mine-shaft; }
+  }
+
+  .listingdoor-finaly {
+    background: $shuttle-gray;
+
+    p { color: $white; }
+  }
+
+  .listingdoor-brief {
+    background: $shuttle-gray;
+    color: $white;
+
+    div.inner { max-width: initial; }
+
+    p {
+      max-width: $max-project-content-width;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .listingdoor-services {
+    text-align: center;
+    margin: 2em 0;
+
+    img { margin: 0 2.3em; }
+  }
+
+  .listingdoor-approach {
+    background: $white;
+    color: $tundora;
+
+    div.inner { max-width: $base-width; }
+
+    h2 { color: $mine-shaft; }
+
+    ul {
+      @include column-list;
+      list-style: none;
+      font-size: 0.9em;
+    }
+
+    li:nth-child(2) {
+      max-width: 170px;
+      text-align: center;
+    }
+  }
+
+  .listingdoor-technical {
+    background: $shuttle-gray;
+    color: $white;
+
+    div.inner { max-width: $base-width; }
+
+    ul {
+      @include column-list;
+      list-style: none;
+      font-size: 0.9em;
+    }
+  }
+
+  section.image-slider {
+    background: $catskill-white;
+  }
+
+  .listingdoor-features {
+    background: $white;
+
+    div.inner { max-width: $tablet-width; }
+
+    h2 { color: $mine-shaft; }
+
+    h3 {
+      color: $mine-shaft;
+      font-size: 0.9em;
+    }
+
+    a {
+      @include bright-link;
+    }
+
+    .container {
+      @include display(flex);
+      @include align-items(flex-start);
+      @include flex-direction(row);
+      @include justify-content(space-between);
+    }
+
+    .col {
+      @include flex(1);
+      margin-right: 2.6em;
+      color: $tundora;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.3em;
+      font-size: 0.9em;
+    }
+  }
+
+  .listingdoor-front-end {
+    background: $shuttle-gray;
+    color: $white;
+
+    div.inner { max-width: $base-width; }
+
+    p {
+      max-width: $max-project-content-width;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ico-container { text-align: center; }
+
+    img { margin: 2em; }
+  }
+
+  .listingdoor-trivia {
+    background: $white;
+    color: $tundora;
+
+    div.inner { max-width: $base-width; }
+
+    h2 { color: $mine-shaft; }
+
+    p {
+      max-width: $max-project-content-width;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    a {
+      @include bright-link;
+    }
+
+    .listingdoor-timeline {
+      margin-top: 2.5em;
+      font-size: 0.9em;
+
+      .boundary {
+        width: 50%;
+        box-sizing: border-box;
+
+        @for $i from 1 to length($trivia-boundary-padding-top)+1 {
+            &:nth-child(#{$i}) {
+                padding-top: nth($trivia-boundary-padding-top, $i);
+            }
+        }
+
+        div {
+          background: $catskill-white;
+          padding: 1em 1.5em;
+          margin-left: 17px;
+          margin-right: 17px;
+          position: relative;
+
+          &:before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background-color: $catskill-white;
+            display: block;
+            position: absolute;
+            top: -19px;
+            border-radius: 10px;
+            border: 3px solid $white;
+          }
+        }
+
+        &:nth-child(2n+1) {
+          border-right: 1px solid $catskill-white;
+          float: left;
+
+          div {
+            border-top: 12px solid $catskill-white;
+            border-right: 12px solid $white;
+            border-bottom: 0;
+            border-left: 0;
+
+            &:before { right: -38px; }
+          }
+        }
+
+        &:nth-child(2n) {
+          border-left: 1px solid $catskill-white;
+          float: right;
+
+          div {
+            border-top: 12px solid $catskill-white;
+            border-left: 12px solid $white;
+            border-bottom: 0;
+            border-right: 0;
+
+            &:before { left: -38px; }
+          }
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    .listingdoor-approach {
+      div.inner { max-width: $max-project-content-width; }
+
+      li { margin-bottom: 1em; }
+
+      li:nth-child(2) { display: none; }
+    }
+
+    .listingdoor-technical {
+      div.inner { max-width: $max-project-content-width; }
+
+      li { margin-bottom: 1em; }
+    }
+
+    .listingdoor-info {
+      background-size: 150%;
+      padding-bottom: 10em;
+    }
+
+    .listingdoor-services img { width: 21%; }
+
+    .history {
+      .history-content { display: block; }
+    }
+  }
+
+  @include tablet-portrait {
+    .listingdoor-trivia {
+      .listingdoor-timeline {
+        .boundary {
+          width: initial;
+
+          &:nth-child(2n+1) {
+            float: none;
+            border-left: 1px solid $catskill-white;
+            border-right: 0;
+
+            div {
+              border-top: 12px solid $catskill-white;
+              border-left: 12px solid $white;
+              border-bottom: 0;
+              border-right: 0;
+
+              &:before {
+                left: -38px;
+                right: initial;
+              }
+            }
+          }
+
+          &:nth-child(2n) { float: none; }
+        }
+      }
+    }
+
+    .listingdoor-features {
+      .container { display: block; }
+      .col { margin-right: 0; }
+    }
+
+    .listingdoor-front-end {
+      .ico-container { display: none; }
+    }
+
+    .listingdoor-services { display: none; }
+  }
+
+  @include mobile {
+    @include technologies-column;
+
+    .listingdoor-info {
+      background-size: 300%;
+      padding-bottom: 8em;
+    }
+
+    .project-team .short-info {
+      dl { width: 100%; }
+    }
+  }
+}

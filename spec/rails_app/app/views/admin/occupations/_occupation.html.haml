@@ -1,0 +1,7 @@
+%li.sortable-list__item.ui-state-default{data: { id: occupation.id }}
+  %span.glyphicon.glyphicon-move.sortable-list__icon
+  %span.sortable-list__text= occupation.name
+  %span.sortable-list__count= occupation.employees.for_admin(params[:show]).count
+  .btn-group.btn-group-xs.pull-right
+    = icon_link_to :'eye-open', admin_occupation_path(occupation)
+    = icon_link_to :edit, edit_admin_occupation_path(occupation)

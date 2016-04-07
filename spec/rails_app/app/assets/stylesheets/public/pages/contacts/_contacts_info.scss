@@ -1,0 +1,15 @@
+@import 'public/pages/common/page_info';
+
+.contacts-info {
+  @include page-info {
+    .inner { padding-bottom: 40px; }
+  }
+
+  @include mobile {
+    .inner{
+      padding-top: 40px;
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+  }
+}

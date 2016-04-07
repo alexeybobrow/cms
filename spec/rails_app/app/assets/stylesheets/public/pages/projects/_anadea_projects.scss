@@ -1,0 +1,110 @@
+$projects-base-width: 1320px;
+
+$project-width: 218px;
+$tablet-project-width: 165px;
+$mobile-project-width: 120px;
+
+$featured-project-width: 746px;
+$featured-project-height: 420px;
+
+$breadcrumb-link-color: $red;
+
+.anadea-projects {
+  @include panel($projects-base-width) {
+    background: $white;
+    overflow: hidden;
+  }
+
+  .projects-list {
+    ul {
+      @include clearfix;
+      display: block;
+    }
+
+    li {
+      float:left;
+      vertical-align: top;
+      width: $project-width;
+      height: $featured-project-height;
+      margin: 0 22px 90px 22px;
+
+    }
+  }
+
+  @include min-screen($tablet-width+1) {
+    .projects-list .featured {
+      width: $featured-project-width;
+      position: relative;
+
+      &.right > * {
+        margin-left: 46%;
+        margin-right: 12%;
+      }
+
+      > *, &.left > * {
+        margin-right: 46%;
+        margin-left: 12%;
+      }
+
+      .project-image, .featured-link {
+        max-height: $featured-project-height;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: 0;
+      }
+
+      .featured-link { width: 100%; }
+
+      h2 {
+        @include heading3($white) {
+          margin-top: 1em;
+        }
+      }
+
+      h2, div, a {
+        position: relative;
+        z-index: 2;
+        color: $white;
+      }
+    }
+  }
+
+  @include tablet {
+    .projects-list {
+      li {
+        width: $tablet-project-width;
+        float: none;
+        height: initial;
+        margin: 0 0.3em;
+        display: inline-block;
+      }
+
+      .project-image {
+        height: $tablet-project-width;
+      }
+    }
+  }
+
+  @include mobile {
+    .inner { padding-top: 0; }
+
+    .projects-list {
+      li {
+        width: $mobile-project-width;
+      }
+
+      .project-image {
+        height: $mobile-project-width;
+      }
+
+      .featured {
+        width: $mobile-project-width;
+
+        h2 {
+          font-size: 0.9em;
+        }
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@
       %h1= @page.name
       = render 'authors', authors: @page.authors
       = format_page @page
-      .tags= render partial: 'article_tag', collection: @page.tags
+      .tags= article_tag_list(@page.tags)
 
 %section.blog-posts.latest-events
   .inner

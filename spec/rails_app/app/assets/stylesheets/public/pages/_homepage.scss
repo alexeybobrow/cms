@@ -1,0 +1,11 @@
+@import 'public/helpers/structure';
+@import 'public/helpers/skins';
+@import 'public/helpers/buttons';
+
+@import 'homepage/masthead';
+@import 'homepage/latest_projects';
+@import 'homepage/blog_posts';
+
+body.homepage {
+  @include colored-header($steel-blue);
+}

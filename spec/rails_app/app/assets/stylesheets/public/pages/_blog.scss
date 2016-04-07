@@ -1,0 +1,177 @@
+@import 'public/helpers/structure';
+@import 'public/helpers/skins';
+@import 'public/helpers/buttons';
+
+@import 'blog/article';
+
+.blog {
+  blockquote {
+    @include blog-quote;
+  }
+
+  h2 {
+    @include heading4($tundora);
+    a { @include bright-link; }
+  }
+
+  h3 {
+    @include heading5($tundora);
+    margin-top: 2.4em;
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: 1em;
+  }
+
+  .blog-app {
+    article {
+      margin-bottom: 2em;
+    }
+
+    @include page-info {
+      .inner { @include layout-width; }
+      p { width: 100%; }
+    }
+  }
+
+  .load-more {
+    @include plain-button($text-color: $tundora, $border-color: $silver, $background-color: transparent);
+  }
+
+  article {
+    @include slim-headings;
+
+    padding-bottom: 1.65em;
+    position: relative;
+    border-bottom: 1px solid $alto;
+    color: $tundora;
+
+    p, ul, ol  {
+      a {
+        @include bright-link;
+        @text-decoration: underline;
+      }
+    }
+
+    ul {
+      margin-top: 1em;
+      padding-left: 2em;
+      list-style-type: disc;
+
+      &.number {
+        list-style-type: upper-hexadecimal;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      margin: 1.4em 0;
+    }
+  }
+
+  .highlight {
+    overflow-x: auto;
+    background: $alabaster;
+    font-size: 14px;
+    padding: 16px;
+    margin-bottom: 16px;
+
+    pre {
+      padding: 0;
+      margin: 0;
+      line-height: 1.4em;
+    }
+  }
+
+  .date {
+    font-size: 0.65em;
+    text-transform: uppercase;
+    color: $tundora;
+
+    margin-bottom: 1em;
+  }
+
+  .author {
+    @include bright-link;
+    text-decoration: underline;
+  }
+
+  .tags {
+    font-size: 0.7em;
+
+    &, a {
+      color: $waikawa-gray;
+      margin-top: 2.2em;
+      clear: both;
+      text-decoration: none;
+    }
+  }
+
+  /* Blog sidebar */
+  .blog-article, .blog-app {
+    .inner {
+      position: relative;
+    }
+  }
+
+  aside {
+    position: absolute;
+    right: 100%;
+    width: 170px;
+    margin-right: 48px;
+    top: 75px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    h3 {
+      @include heading3($tundora) {
+        margin-top: 0;
+      }
+    }
+
+    li {
+      @include clearfix;
+      margin-bottom: 8px;
+    }
+
+    a, span {
+      float: left;
+    }
+
+    a {
+      text-decoration: none;
+      color: $waikawa-gray;
+      width: calc(100% - 60px);
+    }
+
+    span {
+      width: 60px;
+      text-align: right;
+    }
+  }
+
+  @include max-screen(1270px) {
+    aside {
+      position: static;
+      width: 80%;
+      margin-top: 35px;
+      margin-left: 0;
+    }
+  }
+
+  @include mobile {
+    article {
+      img {
+        margin: 0.2em 0;
+      }
+    }
+
+    .tags {
+      margin-top: 0.8em;
+    }
+  }
+}

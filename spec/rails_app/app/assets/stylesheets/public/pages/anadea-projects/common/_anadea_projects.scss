@@ -1,0 +1,57 @@
+$project-list-item-margin-bottom: 40px;
+
+.project {
+  section.anadea-projects {
+    div.inner {
+      max-width: initial;
+      padding-bottom: 1.7em;
+      width: flex-grid(11);
+
+      @include centered-paragraph;
+    }
+
+    ul {
+      text-align: center;
+    }
+
+    li {
+      text-align: left;
+      display: inline-block;
+      float: none;
+      height: initial;
+      margin-bottom: $project-list-item-margin-bottom;
+    }
+
+    .projects-list {
+      h2 {
+        text-align: left;
+        margin: 0.8em 0 0 0;
+      }
+    }
+
+    h2 {
+      color: $mine-shaft;
+    }
+  }
+
+  @include tablet {
+    section.anadea-projects {
+      div.inner {
+        width: initial;
+      }
+    }
+  }
+
+  @include mobile {
+    section.anadea-projects {
+      li {
+        margin-bottom: 0;
+        text-align: center;
+      }
+
+      .projects-list {
+        h2 { text-align: center; }
+      }
+    }
+  }
+}

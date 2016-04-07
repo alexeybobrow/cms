@@ -1,0 +1,62 @@
+@import 'public/pages/common/latest_events';
+
+$project-list-item-margin-right: 40px;
+
+$tablet-project-list-item-width: 165px;
+$mobile-project-list-item-width: 120px;
+$mobile-project-list-item-max-height: 286px;
+
+.projects-list {
+  @include project-preview;
+
+  margin-top: 3em;
+
+  ul {
+    @include display(flex);
+    @include align-items(flex-start);
+    @include flex-direction(row);
+    @include justify-content(space-between);
+
+    list-style: none;
+
+    li {
+      @include flex(1);
+
+      margin-right: $project-list-item-margin-right;
+      vertical-align: top;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  @include tablet {
+    ul {
+      display: block;
+      text-align: center;
+
+      li {
+        display: inline-block;
+        margin: 0 0.3em;
+        width: $tablet-project-list-item-width;
+        overflow: hidden;
+      }
+    }
+
+    img {
+      width: initial;
+    }
+  }
+
+  @include mobile {
+    ul {
+      li {
+        width: $mobile-project-list-item-width;
+        max-height: $mobile-project-list-item-max-height;
+      }
+    }
+
+    img { width: 100%; }
+  }
+}

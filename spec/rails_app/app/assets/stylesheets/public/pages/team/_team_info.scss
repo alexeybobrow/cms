@@ -1,0 +1,19 @@
+@import 'public/pages/common/page_info';
+
+.team-info {
+  @include page-info {
+    background-color: inherit;
+
+    h1 {
+      @include heading1($white);
+    }
+
+    p {
+      color: $silver;
+    }
+  };
+
+  @include mobile {
+    .inner { padding-bottom: 0; }
+  }
+}

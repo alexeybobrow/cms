@@ -1,0 +1,231 @@
+$customer-portrait-left: -85px;
+$customer-border-radius: 60px;
+
+.ebookingservices {
+  @include colored-header($tuna);
+  @include colored-breadcrumbs($tuna);
+
+  .breadcrumbs {
+    &, a { color: $white; }
+  }
+
+  .ebookingservices-info {
+    @include project-info;
+
+    background: $tuna url('/assets/pages/projects/ebookingservices/ebooking_bg1.png') no-repeat bottom center;
+    padding-bottom: 17em;
+  }
+
+  .image-slider {
+    .inner {
+      background: $apple;
+    }
+  }
+
+  .short-info {
+    dl:first-child { width: 30%; }
+  }
+
+  .ebookingservices-story {
+    div.inner {
+      max-width: initial;
+      background: $white;
+    }
+
+    h2 { color: $mine-shaft; }
+
+    h3 {
+      font-size: 0.9em;
+      color: $apple;
+    }
+
+    p {
+      max-width: $max-project-content-width;
+      margin-left: auto;
+      margin-right: auto;
+      color: $tundora;
+    }
+
+    ul {
+      list-style: none;
+
+      @include column-list {
+        max-width: $tablet-width;
+      };
+
+      margin: 0 auto;
+
+      p {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .ebookingservices-design {
+    background: $apple-lighter;
+
+    p { color: $white; }
+
+    img {
+      float: right;
+      margin-left: 6em;
+    }
+  }
+
+  .finally {
+    background: $apple;
+
+    p { color: $white; }
+  }
+
+  .ebookingservices-trivia {
+    div.inner {
+      max-width: initial;
+      background: $white;
+    }
+
+    h2 { color: $mine-shaft; }
+
+    h3 {
+      color: $mine-shaft;
+      font-size: 0.9em;
+    }
+
+    p {
+      max-width: $max-project-content-width;
+      margin-left: auto;
+      margin-right: auto;
+      color: $tundora;
+    }
+
+    blockquote {
+      @include quote ($mine-shaft, $tundora);
+
+      max-width: $max-project-content-width;
+      font-size: 1.1em;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+    }
+
+    .container {
+      @include display(flex);
+      @include align-items(flex-start);
+      @include flex-direction(row);
+      @include justify-content(space-between);
+
+      max-width: $tablet-width;
+      margin: 0 auto;
+    }
+
+    .col {
+      @include flex(1);
+      margin-right: 2.6em;
+      color: $tundora;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.3em;
+      font-size: 0.9em;
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: $customer-portrait-left;
+      border-radius: $customer-border-radius;
+      z-index: 1;
+    }
+  }
+
+  .ebookingservices-impression {
+    div.inner {
+      max-width: initial;
+      background: $white;
+    }
+
+    h2 { color: $mine-shaft; }
+
+    p {
+      max-width: $max-project-content-width;
+      margin-left: auto;
+      margin-right: auto;
+      color: $tundora;
+    }
+
+    blockquote {
+      @include quote ($mine-shaft, $tundora);
+
+      max-width: $max-project-content-width;
+      font-size: 1.1em;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
+
+      p {
+        color: $mine-shaft;
+      }
+    }
+
+    img {
+      position: absolute;
+      top: 0;
+      left: $customer-portrait-left;
+      border-radius: $customer-border-radius;
+      z-index: 1;
+    }
+  }
+
+  @include tablet {
+    .ebookingservices-trivia {
+      img { display: none; }
+    }
+
+    .ebookingservices-info {
+      background-size: 75%;
+      padding-bottom: 12em;
+    }
+
+    .ebookingservices-story {
+      ul {
+        max-width: $max-project-content-width;
+
+        h3 { margin-bottom: 0; }
+
+        p { margin-top: 0; }
+      }
+    }
+  }
+
+  @include tablet-portrait {
+    .ebookingservices-design {
+      img {
+        display: block;
+        float: none;
+        margin: 0 auto 3em auto;
+      }
+    }
+
+    .ebookingservices-trivia {
+      .container { display: block; }
+
+      .col { margin: 0; }
+    }
+  }
+
+  .ebookingservices-impression {
+    img { display: none; }
+  }
+
+  @include mobile {
+    .ebookingservices-info {
+      background-size: 90%;
+      padding-bottom: 6em;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+.jobs-opportunities {
+  @include page-info{
+    padding-top: 0;
+
+    .inner {
+      padding-top: 0;
+      padding-right: 15%;
+      box-sizing: border-box;
+    }
+  };
+
+  h2 {
+    @include heading4($mine-shaft);
+    margin-top: 0;
+  }
+
+  h3 {
+    @include heading5($mine-shaft);
+  }
+
+  p {
+    font-size: 0.9em;
+    width: 100%;
+    margin: 1.95em 0 1em 0;
+  }
+
+  .job {
+    width: 81%;
+    margin-bottom: 3.7em;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    > li {
+      padding: 1.2em 2.4em;
+      cursor: pointer;
+      border: 1px solid $alto;
+      margin-bottom: 0.75em;
+
+      &:not(.active):hover {
+        background-color: rgba($wild-sand, 0.9);
+      }
+
+      &.active .job-details {
+        display: block;
+      }
+
+      .job-details {
+        display: none;
+      }
+    }
+
+    li {
+      font-size: 0.9em;
+      color: $gray;
+
+      li {
+        list-style: disc;
+        margin-left: 1.2em;
+      }
+    }
+  }
+
+  @include tablet {
+    .inner {
+      padding-right: 1.3em;
+    }
+
+    .job {
+      width: initial;
+    }
+  }
+
+  @include mobile {
+    padding-top: 0;
+
+    .inner {
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+  }
+}

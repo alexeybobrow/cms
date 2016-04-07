@@ -1,0 +1,28 @@
+!!! XML
+!!! 5
+%html
+  %head
+    %title= content_for?(:title) ? content_for(:title) : t('sessions.title')
+    = stylesheet_link_tag "admin", media: "all"
+    = javascript_include_tag "admin"
+    = favicon_link_tag
+    = favicon_link_tag '/favicon.png', rel: 'icon'
+    = csrf_meta_tags
+
+  %body
+    %div.navbar.navbar-static-top
+      %div.navbar-inner
+        %div.container
+          .brand= t('project.name')
+
+          - if signed_in?
+            %div.nav-collapse.collapse
+              %ul.pull-right.nav
+                %li
+                  %span.navbar-text{ style: "display: inline-block;" }= t('auth.greeting', name: current_user.username)
+                %li
+                  = link_to t('auth.sign_out_link'), sign_out_path
+
+    %div.container.master-container
+      = flash_tag
+      = yield

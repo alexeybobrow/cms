@@ -1,0 +1,29 @@
+.bredcrumbs-section {
+  @include panel;
+  background: $white;
+  padding-top: 20px;
+  width: 100%;
+
+  @include mobile {
+    > .inner {
+      padding-top: 5px;
+      padding-bottom: 0;
+    }
+  }
+
+  .breadcrumbs {
+    font-size: 15px;
+
+    &, a { color: $mine-shaft; }
+    a { text-decoration: none; }
+    .current { opacity: 0.5; }
+
+    > span {
+      padding: 0 4px;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+}

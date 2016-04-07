@@ -1,0 +1,53 @@
+$technology-width: 240px;
+$mobile-technology-width: 165px;
+
+.technologies {
+  @include panel {
+    background-color: $white;
+
+    .inner {
+      padding-top: $panel-padding;
+      padding-bottom: $panel-padding;
+    }
+  }
+
+  .technologies-list {
+    padding-top: 0.8em;
+  }
+
+  h2 {
+    @include heading2($mine-shaft);
+    padding-left: $header-padding;
+  }
+
+  dl {
+    width: $technology-width;
+    vertical-align: top;
+    display: inline-block;
+    margin-bottom: 3.9em;
+  }
+
+  dt {
+    @include heading6($black);
+    margin-bottom: 1.1em;
+  }
+
+  dd {
+    color: $gray;
+    font-size: 0.9em;
+  }
+
+  @include tablet-portrait {
+    .inner {
+      padding-top: $mobile-panel-padding;
+    }
+
+    h2 {
+      padding-left: 0;
+    }
+
+    dl {
+      width: $mobile-technology-width;
+    }
+  }
+}

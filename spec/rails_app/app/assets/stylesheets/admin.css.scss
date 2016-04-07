@@ -1,0 +1,31 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * DO NOT add styles to this file.
+ *
+ */
+
+@import "bootstrap";
+@import "jquery-ui";
+@import "jquery-file-upload/css/jquery.fileupload";
+
+@import "admin/diff";
+@import "admin/attachments";
+@import "admin/form";
+@import "admin/fonts/bootstrap";
+
+@import "admin/pages/show";
+
+@import "admin/blocks/*";
+
+body > .master-container {
+  padding-top: 20px;
+}
+
+form textarea#page_body {
+  width: 630px;
+}

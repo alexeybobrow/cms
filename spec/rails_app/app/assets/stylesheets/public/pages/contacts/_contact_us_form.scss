@@ -1,0 +1,28 @@
+.contact-us-form {
+  background: $white;
+  padding-bottom: 2em;
+  overflow: hidden;
+
+  .inner {
+    max-width: 950px;
+    margin: 0 auto;
+    padding-left: 1.3em;
+    padding-right: 1.3em;
+
+    h2 {
+      @include heading2($mine-shaft);
+      text-align: center;
+    }
+  }
+
+  .feedback-form {
+    width: 100%;
+    position: relative;
+    text-align: left;
+  }
+
+  input, textarea {
+    border-radius: 0;
+    -webkit-appearance: none;
+  }
+}

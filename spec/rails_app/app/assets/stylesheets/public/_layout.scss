@@ -1,0 +1,55 @@
+@import 'helpers/skins';
+@import "helpers/structure";
+@import "helpers/colors";
+
+@import "layout/header";
+@import "layout/breadcrumbs";
+@import 'layout/hire_us';
+@import "layout/footer";
+
+html {
+  background: #444444;
+}
+
+body {
+  @include standard-font;
+  font-size: 18px;
+  line-height: 1.6em;
+  -webkit-font-smoothing: antialiased;
+
+  &.ru {
+    font-family: Roboto, Helvetica, sans-serif;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+p a {
+  @include white-link;
+}
+
+.is-tablet {
+  display: none;
+
+  @include tablet {
+    display: block;
+  }
+}
+
+.is-tablet-portrait {
+  display: none;
+
+  @include tablet-portrait {
+    display: block;
+  }
+}
+
+.is-mobile {
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
+}

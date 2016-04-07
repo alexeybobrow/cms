@@ -1,0 +1,71 @@
+@import 'public/pages/common/page_info';
+
+.freecodereview {
+  box-sizing: border-box;
+  background-color: $gallery-light;
+
+  h3 { @include heading4($mine-shaft); }
+
+  .site-header {
+    @include bright-header {
+      background: $gallery-light;
+    }
+
+    &.active {
+      @include bright-header;
+    }
+  }
+
+  .bredcrumbs-section {
+    background: $gallery-light;
+  }
+
+  .hero {
+    @include hero;
+
+    .hero-description {
+      color: $mine-shaft;
+    }
+
+    .hero-content {
+      @include justify-content(center);
+      @include align-items(center);
+    }
+
+    .hero-media img {
+      width: 70%;
+    }
+  }
+
+  .why-review {
+    @include panel;
+
+    background: $white;
+    padding: 65px 0 20px;
+
+    .inner { max-width: 950px; }
+
+    li {
+      @include colored-bullet($silver);
+      margin-bottom: 10px;
+    }
+  }
+
+  .cols {
+    @include display(flex);
+
+    .col {
+      @include flex(1);
+
+      margin-right: 50px;
+
+      &:last-child {
+        margin: 0;
+      }
+    }
+
+    @include tablet-portrait {
+      @include flex-direction(column);
+    }
+  }
+}

@@ -1,0 +1,14 @@
+= simple_form_for [:admin, employee], html: { class: 'form-horizontal' } do |f|
+  .form-inline
+    - if employee.avatar.present?
+      = image_tag employee.avatar.url
+      = f.check_box :remove_avatar
+      = f.label :remove_avatar
+
+  = f.input :name
+  = f.input :name_ru
+  = f.input :position
+  = f.input :position_ru
+  = f.association :occupation
+  = f.input :avatar, as: :file
+  = f.button :submit

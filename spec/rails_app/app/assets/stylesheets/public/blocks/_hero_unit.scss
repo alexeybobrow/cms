@@ -1,0 +1,53 @@
+.hero-unit {
+  background-repeat: no-repeat;
+
+  &--content {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 600px;
+    padding: 0 1.3em 1.3em;
+  }
+
+  &--content, &--description, &--title, &--button {
+    position: relative;
+  }
+
+  &--title {
+    @include heading2($mine-shaft);
+    padding-top: 80px;
+  }
+
+  &--image {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+  }
+
+  &--img {
+    width: 100%;
+  }
+
+  &--button {
+    margin-top: 30px;
+  }
+
+  &--description {
+    width: 50%;
+    color: $scorpion;
+  }
+
+  @include tablet {
+    &--description {
+      width: 100%;
+    }
+
+    &--image {
+      display: none;
+    }
+
+    &--content {
+      height: auto;
+    }
+  }
+}

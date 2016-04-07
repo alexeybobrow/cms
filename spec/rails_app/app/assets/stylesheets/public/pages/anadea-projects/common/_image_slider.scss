@@ -1,0 +1,89 @@
+@import 'public/helpers/colors';
+
+$image-slider-slide-width: 450px;
+$image-slider-mobile-slide-width: 200px;
+
+.project {
+  section.image-slider {
+    background: $gallery;
+    overflow: hidden;
+
+    div.inner {
+      max-width: initial;
+      width: initial;
+      padding: 3.1em 0 0 0;
+      margin: 0;
+    }
+
+    ul {
+      white-space: nowrap;
+    }
+
+    li {
+      vertical-align: top;
+      display: inline-block;
+
+      img {
+        /*@include transition(all 0.8s);*/
+        margin: 0 2em;
+        width: $image-slider-slide-width;
+      }
+    }
+
+    .scroll-pane { outline: none; }
+
+    .jspHorizontalBar {
+      height: 23px;
+      background: none;
+      margin-bottom: 3em;
+    }
+
+    .jspTrack {
+      box-sizing: border-box;
+      padding: 2px;
+      background: rgba($black, 0.5);
+      overflow: hidden;
+      border-radius: 20px;
+
+      .jspDrag {
+        cursor: pointer;
+        height: 19px;
+        background: $white;
+        border-radius: 20px;
+      }
+    }
+
+    .jspCap {
+      display: block;
+      height: 100%;
+      width: 25%;
+    }
+  }
+
+  #mobile {
+    li img { width: auto; }
+    .zoomed img { width: auto; }
+  }
+
+  @include mobile {
+      section.image-slider {
+      li {
+        margin: 0;
+      }
+
+      img {
+        max-width: 300px;
+      }
+    }
+
+    #mobile li {
+      margin: 0 1em;
+
+      img { width: $image-slider-mobile-slide-width; }
+
+      .zoomed img {
+        width: $image-slider-mobile-slide-width;
+      }
+    }
+  }
+}

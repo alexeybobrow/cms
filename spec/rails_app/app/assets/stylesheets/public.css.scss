@@ -1,0 +1,31 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+*/
+
+@import "bourbon";
+@import "highlight/github";
+
+@import "common/reset";
+
+@import "public/icon_fonts";
+@import "public/fonts";
+@import "public/layout";
+
+@import "public/pages/common/form";
+@import "public/pages/homepage";
+@import "public/pages/services";
+@import "public/pages/projects";
+@import "public/pages/team";
+@import "public/pages/contacts";
+@import "public/pages/jobs";
+@import "public/pages/blog";
+@import "public/pages/anadea_projects";
+@import "public/pages/freecodereview";
+@import "public/pages/simple_layout";
+@import "public/pages/not_found";
+
+@import "public/blocks/**/*";
+
+@import "fotorama";

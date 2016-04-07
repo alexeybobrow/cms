@@ -1,0 +1,85 @@
+@import 'public/helpers/colors';
+@import 'public/helpers/buttons';
+
+$contacts-input-width: 418px;
+$contacts-label-width: 170px;
+
+form {
+  .control-label {
+    display: inline-block;
+    vertical-align: top;
+    width: $contacts-label-width;
+    line-height: 46px;
+  }
+
+  .controls {
+    display: inline-block;
+
+    input, textarea {
+      border: 1px solid $silver-chalice;
+      padding: 0;
+      margin: 0;
+      display: block;
+      font-size: 18px;
+      line-height: 1.7em;
+      padding: 9px 18px 7px;
+      width: $contacts-input-width;
+      max-width: $contacts-input-width;
+      min-width: $contacts-input-width;
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+
+  .form-group {
+    margin-bottom: 1.55em;
+  }
+
+  input[type=submit] {
+    @include form-button;
+
+    margin-left: $contacts-label-width;
+  }
+
+  .error {
+    input, textarea {
+      border-color: rgba($bittersweet, .5);
+    }
+
+    .help-inline {
+      color: $bittersweet;
+      font-size: .75em;
+      position: absolute;
+      line-height: 2.2em;
+    }
+  }
+
+  @include max-screen(940px) {
+    .controls {
+      display: block;
+
+      input, textarea {
+        min-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    input[type=submit] {
+      margin-left: 0;
+    }
+
+  }
+
+  @include mobile {
+    .control-label {
+      line-height: 1.2em;
+    }
+
+    .form-group {
+      margin-bottom: 1.2em;
+    }
+  }
+}

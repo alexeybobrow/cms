@@ -1,0 +1,5 @@
+= simple_form_for [:admin, user], html: { class: 'form-horizontal' } do |f|
+  = f.input :username
+  = f.input :is_admin
+  = f.input :is_locked
+  = f.button :submit

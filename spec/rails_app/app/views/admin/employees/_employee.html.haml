@@ -1,0 +1,10 @@
+%tr{ :class => ((employee.unemployed?) ? 'danger' : '') }
+  %td
+    %span= link_to employee.name, admin_employee_path(employee)
+  %td
+    %span= link_to employee.position, admin_employee_path(employee)
+  %td
+    %span= link_to employee.occupation.name, admin_employee_path(employee)
+  %td
+    .btn-group.btn-group-xs.pull-right
+      = icon_link_to :edit, edit_admin_employee_path(employee)

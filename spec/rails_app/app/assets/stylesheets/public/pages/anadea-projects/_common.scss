@@ -1,0 +1,86 @@
+$max-project-content-width: 700px;
+
+@import "public/pages/anadea-projects/common/helpers";
+@import "public/pages/anadea-projects/common/image_slider";
+@import "public/pages/anadea-projects/common/anadea_projects";
+@import "public/pages/anadea-projects/common/project_team";
+
+.project {
+  h1 {
+    @include heading1($white);
+    text-align: center;
+  }
+
+  h2 {
+    @include heading2($white);
+    margin-top: 0;
+    text-align: center;
+  }
+
+  p {
+    font-size: 0.9em;
+  }
+
+  blockquote {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .main {
+    section {
+      @include panel {
+        > .inner {
+          max-width: $max-project-content-width;
+        }
+      };
+    }
+
+    .inner {
+      padding-top: 65px;
+      padding-bottom: 65px;
+      overflow: hidden;
+    }
+  }
+
+  .history {
+    .history-content {
+      @include display(flex);
+      @include align-items(flex-start);
+      @include flex-direction(row);
+      @include justify-content(space-between);
+    }
+
+    .col {
+      @include flex(1);
+      margin-right: 2.6em;
+      color: $tundora;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .customer {
+    @include customer-info;
+  }
+
+  .get-in-touch {
+    .inner {
+      padding-top: 2.45em;
+      padding-bottom: 2.45em;
+    }
+  }
+
+  @include tablet {
+    .main {
+      .inner {
+        width: initial;
+      }
+    }
+
+    .history {
+      .col { margin-right: 0; }
+    }
+  }
+}

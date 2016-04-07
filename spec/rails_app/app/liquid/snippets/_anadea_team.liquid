@@ -1,0 +1,16 @@
+- async_stylesheet 'public/snippets/anadea_team'
+
+.anadea-employees
+  - Occupation.actual.includes(:employees).each do |occupation|
+    - employees = occupation.employees.with_employed_state
+    .employes-group
+      .occupation-title
+        %h2
+          = occupation.name
+      %ul
+        - employees.each do |e|
+          %li
+            = image_tag e.avatar.url
+            .person-info
+              .name= e.name
+              .position= e.position

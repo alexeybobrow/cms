@@ -1,0 +1,7 @@
+.feedback-form
+  = simple_form_for generate_contact_form(contact_type, session[:contact_form]), url: contacts_path(locale: I18n.locale), remote: true, html: { class: 'contact_form', data: { type: 'json' } }, method: :post do |f|
+    = hidden_field_tag :contact_type, contact_type
+    = f.input :name, required: false, label: t("simple_form.labels.#{contact_type}.name")
+    = f.input :email, required: false, label: t("simple_form.labels.#{contact_type}.email")
+    = f.input :message, as: :text, required: false, label: t("simple_form.labels.#{contact_type}.message"), input_html: { cols: 44, rows: 3 }
+    = f.button :submit, t('simple_form.labels.contact_form.send')

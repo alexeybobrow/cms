@@ -1,0 +1,103 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('icon_fonts/icomoon.eot?-6kx6ep');
+	src:url('icon_fonts/icomoon.eot?#iefix-6kx6ep') format('embedded-opentype'),
+		url('icon_fonts/icomoon.woff?-6kx6ep') format('woff'),
+		url('icon_fonts/icomoon.ttf?-6kx6ep') format('truetype'),
+		url('icon_fonts/icomoon.svg?-6kx6ep#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-close:before {
+	content: "\e618";
+}
+.icon-menu:before {
+	content: "\e619";
+}
+.icon-design-center:before {
+	content: "\e600";
+}
+.icon-established-procedure-center:before {
+	content: "\e601";
+}
+.icon-it-expertise-center:before {
+	content: "\e602";
+}
+.icon-legacy-software-center:before {
+	content: "\e603";
+}
+.icon-software-maintenance-center:before {
+	content: "\e604";
+}
+.icon-mobile-development-center:before {
+	content: "\e605";
+}
+.icon-outstanding-technologies-center:before {
+	content: "\e606";
+}
+.icon-quality-assurance-center:before {
+	content: "\e607";
+}
+.icon-tdd-center:before {
+	content: "\e608";
+}
+.icon-web20-tools-center:before {
+	content: "\e609";
+}
+.icon-web-development-center:before {
+	content: "\e60a";
+}
+.icon-code-refactoring-center:before {
+	content: "\e60b";
+}
+.icon-code-refactoring:before {
+	content: "\e60c";
+}
+.icon-design:before {
+	content: "\e60d";
+}
+.icon-established-procedure:before {
+	content: "\e60e";
+}
+.icon-it-expertise:before {
+	content: "\e60f";
+}
+.icon-legacy-software:before {
+	content: "\e610";
+}
+.icon-software-maintenance:before {
+	content: "\e611";
+}
+.icon-mobile-development:before {
+	content: "\e612";
+}
+.icon-outstanding-technologies:before {
+	content: "\e613";
+}
+.icon-quality-assurance:before {
+	content: "\e614";
+}
+.icon-tdd:before {
+	content: "\e615";
+}
+.icon-web20-tools:before {
+	content: "\e616";
+}
+.icon-web-development:before {
+	content: "\e617";
+}

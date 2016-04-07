@@ -1,0 +1,15 @@
+:javascript
+  (function() {
+    var cb = function() {
+      var assets = #{yield(:async_stylesheet).split.to_json};
+      for (var i in assets) {
+        var l = document.createElement('link'); l.rel = 'stylesheet';
+        l.href = assets[i];
+        var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
+      }
+    };
+    var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+      webkitRequestAnimationFrame || msRequestAnimationFrame;
+    if (raf) raf(cb);
+    else window.addEventListener('load', cb);
+  })();

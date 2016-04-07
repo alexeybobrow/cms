@@ -1,0 +1,20 @@
+.page-form {
+  position: relative;
+  #page_raw_body { height: 600px; }
+  #page_annotation { height: 300px; }
+  .og-data { margin: 20px 0; }
+  label.checkbox { padding-left: 20px; }
+}
+
+textarea.page-form__content-body {
+  height: calc(100vh - 300px);
+  width: 700px;
+}
+
+.fragment-form {
+}
+
+textarea.fragment-form__content-body {
+  height: calc(100vh - 350px);
+  width: 700px;
+}

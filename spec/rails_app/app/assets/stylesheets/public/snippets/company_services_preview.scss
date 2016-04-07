@@ -1,0 +1,92 @@
+@import 'bourbon';
+
+@import 'public/helpers/colors';
+@import 'public/helpers/skins';
+@import 'public/helpers/company_services_settings';
+
+@each $service, $service-setting in $service-settings {
+  .#{$service} {
+    background-color: map-get($service-setting, color);
+  }
+}
+
+$mobile-services-ico-size: 65px;
+
+.company-services-preview {
+  @include clearfix;
+
+  .inner {
+    overflow: hidden;
+    background: $white;
+  }
+
+  h2 {
+    @include heading3($white);
+    margin-bottom: 0;
+  }
+
+  .service-item-container {
+    float: left;
+    width: 33.33333333%;
+    overflow: hidden;
+    max-height: 420px;
+  }
+
+  .service-item {
+    width: 100%;
+    padding-bottom: 100%;
+    position: relative;
+    color: $white;
+
+    .content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 23% 9%;
+    }
+
+    &:before {
+      padding: 7% 10%;
+      position: absolute;
+      font-size: 4.6em;
+    }
+
+    p {
+      font-size: 0.9em;
+      line-height: 1.5em;
+    }
+  }
+
+  @include max-screen(1240px) {
+    .service-item-container {
+      width: 50%;
+    }
+  }
+
+  @include max-screen(840px) {
+    .service-item-container {
+      width: 100%;
+    }
+
+    .service-item {
+      padding: 5%;
+      float: none;
+      box-sizing: border-box;
+
+      .content, &:before {
+        position: static;
+        padding: 0;
+      }
+    }
+  }
+
+  @include mobile {
+    .service-item:before {
+      font-size: $mobile-services-ico-size;
+    }
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+}

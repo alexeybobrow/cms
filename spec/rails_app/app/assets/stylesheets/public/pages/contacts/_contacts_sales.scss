@@ -1,0 +1,131 @@
+$sales-width: 190px;
+
+.sales {
+  @include panel($base-width) {
+    background: $white;
+
+    .inner {
+      padding-top: $panel-padding;
+      padding-bottom: $panel-padding;
+    }
+  }
+
+  .sales-list {
+    @include display(flex);
+    @include flex-direction(row);
+    @include justify-content(space-between);
+    list-style: none;
+    padding: 0;
+  }
+
+  .sales-member {
+    @include flex(1);
+
+    img {
+      vertical-align: top;
+    }
+  }
+
+  .member-info {
+    display: inline-block;
+    min-width: 180px;
+  }
+
+  .name {
+    @include heading6($black) {
+      margin-top: 1.3em;
+    }
+  }
+
+  a {
+    font-size: 0.9em;
+    text-decoration: none;
+  }
+
+  .skype-link {
+    background: url('/assets/layout/icons/skype_ico.png') no-repeat 0 7px;
+    padding-left: 1.4em;
+    padding-top: 0.2em;
+
+    a { color: $skype-blue; }
+  }
+
+  .sales-links {
+    list-style: none;
+    padding: 0;
+     a {
+      @include bright-link;
+    }
+  }
+
+  .sales-phone-link {
+    margin: 0.2em 0em 1.5em 0em;
+  }
+
+  @include max-screen(940px) {
+    .inner {
+      padding-bottom: 0;
+    }
+
+    .sales-list {
+      display: block;
+      text-align: center;
+    }
+
+    .sales-member {
+      display: inline-block;
+      width: $sales-width;
+      margin-bottom: 2em;
+
+      &:last-child {
+        display: block;
+        width: initial;
+        max-width: $sales-width * 4;
+        margin: 0 auto;
+      }
+
+      .sales-links {
+        display: block;
+
+        li {
+          display: inline-block;
+          padding-right: 1.5em;
+
+          &:last-child { padding-right: 0; }
+        }
+      }
+    }
+
+    .mail-link {
+      margin-top: 0;
+    }
+  }
+
+  @include mobile {
+    overflow: hidden;
+
+    .sales-list {
+      display: block;
+      text-align: left;
+    }
+
+    .sales-member {
+      white-space: nowrap;
+      display: block;
+      width: initial;
+
+      .sales-links {
+        margin-bottom: 1em;
+
+        li {
+          display: block;
+          margin: 0;
+        }
+      }
+    }
+
+    .member-info {
+      margin-left: 0.7em;
+    }
+  }
+}

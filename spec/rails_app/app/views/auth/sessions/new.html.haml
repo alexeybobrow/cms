@@ -1,0 +1,5 @@
+= simple_form_for @session, url: sign_in_path, html: { class: 'form-horizontal' }, as: :session do |f|
+  = f.error :base
+  = f.input :username
+  = f.input :password
+  = f.button :submit, t('auth.sign_in_button'), class:"btn btn-primary"

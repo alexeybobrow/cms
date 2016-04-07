@@ -1,0 +1,56 @@
+@import 'public/helpers/structure';
+@import 'public/helpers/skins';
+
+.simple-layout {
+  @include page-info {
+    p {
+      width: 100%;
+    }
+
+    .inner {
+      @include layout-width;
+      padding-bottom: 15px;
+    }
+  }
+
+  @include slim-headings;
+
+  a {
+    @include bright-link {
+      text-decoration: underline;
+    }
+  }
+
+  h2, h3 {
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .fancy-headings {
+    h2, h3 {
+      position: relative;
+
+      &:before {
+        content: url('/assets/company_services/icons/anadea-arrow.png');
+        display: inline-block;
+        height: 21px;
+        width: 10px;
+        position: absolute;
+        right: 100%;
+        top: 1px;
+        margin-right: 20px;
+      }
+
+      a {
+        line-height: 1em;
+      }
+
+      @include tablet-portrait {
+        &:before {
+          content: '';
+        }
+      }
+    }
+  }
+}

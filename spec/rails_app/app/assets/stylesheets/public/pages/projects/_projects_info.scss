@@ -1,0 +1,21 @@
+@import 'public/pages/common/page_info';
+
+.projects-info {
+  @include page-info {
+    .inner {
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+  }
+
+  @include mobile {
+    header p { margin-bottom: 0; }
+  }
+}
+
+.design-projects-info {
+  @include page-info {
+    &, .inner { padding-top: 0; }
+    .inner { overflow: hidden; }
+  }
+}

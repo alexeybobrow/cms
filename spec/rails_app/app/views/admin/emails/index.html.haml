@@ -1,0 +1,14 @@
+%h1= t('admin.emails.title')
+%br
+
+%dl
+  %dt Contact us email
+  %dd
+    = SiteSettings['contact_form']['email']
+    = icon_link_to :edit, edit_admin_email_path('contact_form')
+
+%dl
+  %dt Free code review email
+  %dd
+    = SiteSettings['codereview_form']['email']
+    = icon_link_to :edit, edit_admin_email_path('codereview_form')

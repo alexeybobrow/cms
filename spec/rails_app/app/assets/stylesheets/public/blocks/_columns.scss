@@ -1,0 +1,33 @@
+.columns {
+  @include display(flex);
+  @include flex-direction(row);
+  @include justify-content(space-between);
+
+  max-width: 960px;
+  margin: 2em auto 1.3em;
+  color: $scorpion;
+
+  &--column {
+    @include flex(1);
+    padding-right: 60px;
+    max-width: 430px;
+
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+
+  &--heading {
+    @include heading4($black);
+    margin-top: 35px;
+  }
+
+  @include tablet-portrait {
+    display: block;
+
+    &--column {
+      max-width: none;
+      padding-right: 0;
+    }
+  }
+}

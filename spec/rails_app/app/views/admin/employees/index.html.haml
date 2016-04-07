@@ -1,0 +1,22 @@
+%h1= t('admin.employees.title')
+= link_to t('admin.employees.create_link'), new_admin_employee_path, :class=>"btn btn-default"
+.btn.btn-link= switch_employed_link
+
+%br
+%br
+
+%section
+  .row
+    .col-md-8
+      %table.table.table-hover.table-condensed
+        %thead
+          %tr
+            %th.col-md-3
+              %small= Employee.human_attribute_name(:name)
+            %th
+              %small= Employee.human_attribute_name(:position)
+            %th
+              %small= Employee.human_attribute_name(:occupation)
+            %th
+              %small.muted.pull-right= t "admin.actions"
+        %tbody= render @employees

@@ -1,0 +1,20 @@
+%h1= t('admin.occupations.single_title', name: @occupation.name)
+
+%br
+%br
+
+.row
+  .col-xs-6
+    .panel.panel-default
+      .panel-heading
+        %div.btn-group
+          = link_to t('admin.occupations.edit'), [:edit, :admin, @occupation], class: "btn btn-default"
+          - if @occupation.deleted?
+            = link_to t('admin.occupations.restore'), [:restore, :admin, @occupation], class: "btn btn-success", method: "put"
+          - else
+            = link_to t('admin.occupations.delete'), [:admin, @occupation], class: "btn btn-danger", method: "delete"
+
+      .panel-body
+        %dl.dl-horizontal.meta-panel-list
+          %dt= t('admin.occupation.name')
+          %dd= @occupation.name

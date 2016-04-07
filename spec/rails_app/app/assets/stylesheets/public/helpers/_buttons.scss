@@ -1,0 +1,51 @@
+@mixin base-button {
+  @include appearance(none);
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@mixin plain-button($text-color: #000, $border-color: #000, $background-color: transparent) {
+  @include base-button;
+
+  border: 1px solid $border-color;
+  background: $background-color;
+  color: $text-color;
+  padding: 0.6em 1.2em;
+
+  @content;
+}
+
+@mixin navigation-dot {
+  display: inline-block;
+  text-indent: -9999px;
+  width: 8px;
+  height: 8px;
+  border: 1px solid $white;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: rgba($white, 0.3);
+    cursor: pointer;
+  }
+
+  &.active {
+    background-color: rgba($white, 0.8);
+  }
+
+  @content;
+}
+
+@mixin form-button {
+  @include plain-button($border-color: $wedgewood, $text-color: $white, $background-color: $wedgewood);
+
+  padding: .9em 3.1em;
+  font-size: 1em;
+
+  &:hover {
+    background: rgba($wedgewood, 0.8);
+  }
+
+  @content;
+}

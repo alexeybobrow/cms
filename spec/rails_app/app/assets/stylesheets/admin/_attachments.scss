@@ -1,0 +1,55 @@
+.files {
+  margin-bottom: 20px;
+  padding-bottom: 40px;
+  .image-attachment {
+    margin-right: 6px;
+    display: inline-block;
+    margin-top: 6px;
+    &.deleted {
+      opacity: 0.4;
+    }
+    vertical-align: top;
+    .image-logo {
+      float: left;
+      width: 126px;
+      height: 126px;
+    }
+    .info {
+      word-wrap: break-word;
+      float: right;
+      width: 142px;
+      padding-left: 6px;
+      .file-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .file-name a {
+        color: #777;
+      }
+    }
+  }
+}
+.link-styled-button {
+  background: none;
+  border: none;
+  color: #0088CC;
+  padding: 0;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.send-attachments {
+  height: 30px;
+}
+
+.attachments-notice {
+  background: #F8F8F8;
+  border: 1px solid #E1E1E1;
+  margin-top: 12px;
+  padding: 6px 10px;
+  width: 385px;
+  p {
+    margin-bottom: 2px;
+  }
+}

@@ -1,5 +1,16 @@
 require "cms/version"
 require "commonmarker"
+require "liquid"
+require "palmister"
+require "workflow"
+require "paper_trail"
+require "default_value_for"
+require "active_attr"
+require "html/pipeline"
+require "linguist"
+require "pygments"
+require "kaminari"
+require "carrierwave"
 
 module Cms
   autoload :RoutingConstraints, 'cms/routing_constraints'
@@ -8,6 +19,7 @@ module Cms
   autoload :LocaleRedirector, 'cms/locale_redirector'
   autoload :SafeDelete, 'cms/safe_delete'
   autoload :Liquid, 'cms/liquid'
+  autoload :ArrayAccessors, 'cms/array_accessors'
 
   mattr_accessor(:host) { "PLEASE, SET ME!" }
 

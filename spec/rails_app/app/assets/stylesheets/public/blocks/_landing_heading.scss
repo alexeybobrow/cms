@@ -1,0 +1,18 @@
+.landing-heading {
+  @include heading1($mine-shaft);
+  margin-top: 80px;
+  text-align: center;
+  position: relative;
+  padding-top: 30px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    width: 48px;
+    height: 6px;
+    background: $red;
+    left: 50%;
+    top: 0;
+    margin-left: -24px;
+  }
+}

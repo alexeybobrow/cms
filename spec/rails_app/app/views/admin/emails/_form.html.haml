@@ -1,0 +1,5 @@
+= simple_form_for @form, html: { class: 'form-horizontal' }, url: admin_email_path(params[:id]), method: :patch do |f|
+  = f.input :name, as: :hidden, input_html: { value: params[:id] }
+  = f.simple_fields_for :value, OpenStruct.new(f.object.value) do |vf|
+    = vf.input :email
+  = f.submit 'Update'

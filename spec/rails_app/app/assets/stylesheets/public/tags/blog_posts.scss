@@ -1,0 +1,86 @@
+$post-width: 280px;
+
+@import 'bourbon';
+
+@import "public/helpers/colors";
+@import "public/helpers/skins";
+
+.blog-posts-element {
+  @include display(flex);
+  @include flex-wrap(wrap);
+  @include justify-content(center);
+
+  margin-top: 3em;
+  margin-left: -10px;
+  margin-right: -10px;
+
+  .post-title {
+    @include heading4($tundora);
+    display: block;
+    font-size: 1.2em;
+    margin: 1.4em 1em 0em 1em;
+
+    a {
+      @include bright-link;
+    }
+  }
+
+  .page {
+    @include flex(1 1 25%);
+    @include display(flex);
+    @include flex-direction(column);
+
+    min-width: $post-width;
+    max-width: $post-width;
+    border: 1px solid $alto;
+    margin: 10px;
+
+    .post-title {
+      @include flex(1);
+    }
+  }
+
+  .date {
+    color: $gray;
+    font-size: 0.65em;
+    text-transform: uppercase;
+    margin: 1em 1.9em 1.2em 1.9em;
+  }
+
+  .img-link {
+    display: inline-block;
+    height: 170px;
+    overflow: hidden;
+
+    img {
+      min-height: 100%;
+    }
+  }
+
+  .post-review {
+    color: $gray;
+    font-size: 0.9em;
+    margin: 0 1.3em;
+    padding-bottom: 1.7em;
+
+    blockquote {
+      @include blog-quote;
+    }
+  }
+
+  @include max-screen(330px) {
+    .page {
+      box-sizing: border-box;
+      max-width: initial;
+      min-width: 90%;
+
+      .img-link {
+        height: auto;
+      }
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

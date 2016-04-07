@@ -1,0 +1,169 @@
+.ontrac {
+  @include colored-header($mako);
+  @include colored-breadcrumbs($mako);
+
+  .breadcrumbs {
+    &, a { color: $white; }
+  }
+
+  .ontrack-info {
+    @include project-info;
+
+    background: $mako url('/assets/pages/projects/ontrack/ontrack_bg.png') no-repeat bottom center;
+    padding-bottom: 12em;
+  }
+
+  .history {
+    background: $purple-mountains-majesty;
+
+    div.inner {
+      width: initial;
+    }
+
+    .history-content {
+      position: relative;
+    }
+
+    .col {
+      color: $white;
+    }
+
+    .customer {
+      display: inline-block;
+
+      .name, .position { font-size: 1em; }
+
+      &:last-child { margin-right: 0; }
+    }
+
+    .customers { margin-right: 0; }
+  }
+
+  .startup {
+    background: $white;
+
+    div.inner {
+      color: $black;
+      h2 {
+        color: inherit;
+        font-weight: 600;
+      }
+    }
+    .central-slide {
+      text-align: center;
+      img {
+        max-width: 90%;
+      }
+    }
+  }
+
+  .project-description {
+    background: $mulled-win;
+
+    h2 { color: $white; }
+
+    p { color: $white; }
+  }
+
+  .care-plan {
+    background: $white;
+    div.inner {
+      color: $black;
+      h2 {
+        color: inherit;
+        font-weight: 600;
+      }
+      ul {
+        margin-left: 60px;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .optimization {
+    background: $purple-mountains-majesty;
+
+    p { color: $white; }
+  }
+
+  .other-features {
+    background: $white;
+
+    div.inner {
+      color: $black;
+      h2 {
+        color: inherit;
+        font-weight: 600;
+      }
+      ul {
+        margin-left: 20px;
+        list-style: inherit;
+      }
+    }
+
+    .col {
+      width: 45%;
+      display: inline-block;
+      vertical-align: top;
+      &:first-child {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .project-team {
+    background: $mulled-win;
+
+    div.inner {
+      p {
+        color: $white;
+      }
+    }
+  }
+
+  .ontrack-impression {
+    background: $white;
+
+    h2 { color: $black; }
+
+    p { color: $black; }
+
+    blockquote {
+      @include quote($text-color: $black, $quote-color: $black);
+      font-weight: 600;
+      font-size: 1em;
+      .signature {
+        text-align: right;
+      }
+    }
+  }
+
+  .ontrack-finally {
+    background: $purple-mountains-majesty;
+
+    p { color: $white; }
+  }
+
+  @include tablet {
+    .history {
+      div.inner { max-width: $max-project-content-width; }
+
+      .history-content { display: block; }
+
+      .customers { text-align: center; }
+
+      .customer { text-align: left; }
+    }
+  }
+
+  @include tablet-portrait {
+    @include technologies-column;
+  }
+
+  @include mobile {
+    .ontrack-info {
+      background-size: 300%;
+      padding-bottom: 8em;
+    }
+  }
+}

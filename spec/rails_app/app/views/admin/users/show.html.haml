@@ -1,0 +1,16 @@
+%h1= t('admin.users.single_title', name: @user.username)
+
+%p.muted
+  = t('admin.users.role')
+  = t(@user.role, scope: 'admin.users.roles')
+
+- if @user.is_locked?
+  %p
+    = t('admin.users.user_is_locked')
+
+- if @user.deleted?
+  %p
+    = t('admin.users.user_is_deleted')
+%div.btn-group
+  = link_to t('admin.users.edit'), [:edit, :admin, @user]  , :class=>"btn btn-default"
+  = link_to t('admin.users.delete'), [:delete, :admin, @user]  , :class=>"btn btn-danger"

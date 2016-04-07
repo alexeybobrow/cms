@@ -2,7 +2,7 @@ module Cms
   class PageMetaForm < ::Cms::BaseModelForm
     model Page
 
-    include ArrayAccessors
+    extend ArrayAccessors
 
     attribute :title
     attribute :description

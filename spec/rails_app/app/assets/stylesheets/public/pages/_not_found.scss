@@ -1,0 +1,9 @@
+@import 'public/helpers/structure';
+
+section.not-found {
+  @include panel;
+
+  background: $white;
+  min-height: 400px;
+  padding-top: 9em;
+}

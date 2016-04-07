@@ -1,0 +1,13 @@
+%header.site-header
+  .inner
+    .logo= render 'layouts/public/logo'
+    = render 'layouts/public/header_menu'
+    .user-menu
+      - if @page && signed_in?
+        .user-menu--item= t('auth.greeting', name: current_user.username)
+        .user-menu--item
+          = t('auth.page_menu.title')
+          = link_to t('auth.page_menu.view'), cms.admin_page_path(@page)
+          –
+          = link_to t('auth.page_menu.edit'), cms.edit_admin_page_path(@page, :content)
+    = link_to '', '#', class: 'sandwich nav-jump-link', data: { :'nav-link' => true }

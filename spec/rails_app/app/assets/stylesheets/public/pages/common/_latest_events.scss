@@ -1,0 +1,97 @@
+$latest-events-header-size: $base-width - 2 * $header-padding;
+
+.latest-events {
+  @include panel {
+    background-color: $white;
+
+    > .inner {
+      padding-top: $panel-padding;
+      padding-bottom: $panel-padding;
+    }
+  }
+
+  header {
+    position: relative;
+    max-width: $latest-events-header-size;
+    margin: 0 auto;
+
+    strong {
+      font-size: 1.5em;
+    }
+
+    h2 {
+      @include heading2($mine-shaft);
+    }
+  }
+
+  .all-events {
+    @include plain-button($border-color: $silver, $text-color: $mine-shaft);
+
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+  }
+
+  hgroup {
+    width: 60%;
+
+    p {
+      color: $tundora;
+    }
+  }
+
+  @include tablet {
+    hgroup {
+      width: 100%;
+      text-align: left;
+
+      p {
+        font-size: 0.9em;
+      }
+    }
+
+    .all-events {
+      position: static;
+      display: inline-block;
+    }
+  }
+
+  @include mobile {
+    .inner {
+      padding: $mobile-panel-padding 1.3em $mobile-panel-padding*2.5 1.3em;
+      position: relative;
+    }
+
+    header {
+      width: initial;
+      text-align: center;
+      position: static;
+    }
+
+    .all-events {
+      position: static;
+      display: inline-block;
+    }
+
+    hgroup {
+      width: 100%;
+      text-align: left;
+
+      p {
+        font-size: 0.9em;
+      }
+    }
+
+    h1 {
+      margin-bottom: 0.55em;
+    }
+
+    .link-wrapper{
+      position: absolute;
+      bottom: 2.3em;
+      left: 0;
+      width: 100%;
+    }
+  }
+}
+

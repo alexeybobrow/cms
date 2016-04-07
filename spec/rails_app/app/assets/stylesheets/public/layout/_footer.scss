@@ -1,0 +1,197 @@
+%sitemap-item {
+  font-size: 0.9em;
+  color: $white;
+  text-decoration: none;
+}
+
+%sitemap-info {
+  font-size: 0.9em;
+  color: $gray;
+  line-height: 1.4em;
+}
+
+.site-footer {
+  @include panel($base-width) {
+    background: #444444;
+
+    .inner {
+      padding-top: 70px;
+      padding-bottom: 70px;
+    }
+  }
+
+  .logo {
+    position: relative;
+    img { opacity: 0.4; }
+  }
+
+  .lang {
+    position: absolute;
+    bottom: 0;
+
+    a {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  .job-offer, .project-offer, .lang {
+    @extend %sitemap-info;
+  }
+
+  .job-offer, .project-offer {
+    margin-top: 20px;
+  }
+
+  @include tablet-portrait {
+    .inner {
+      padding-top: 0;
+    }
+  }
+}
+
+.footer-sitemap {
+  @include display(flex);
+  @include flex-direction(row);
+  @include justify-content(space-between);
+
+  white-space: nowrap;
+
+  dd a {
+    @extend %sitemap-item;
+    line-height: 1.9em;
+    padding: 0.2em 0;
+  }
+
+  dt {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: $white;
+    text-transform: uppercase;
+    margin-bottom: 0.7em;
+  }
+
+  .email-link {
+    @include white-link;
+  }
+
+  .phone-link {
+    color: $gray;
+    text-decoration: none;
+  }
+
+  .contacts-label {
+    font-size: 0.9em;
+    color: $gray;
+  }
+
+  .use-contact-form {
+    display: inline-block;
+    padding: 5px 15px;
+    background: $gray;
+    margin-top: 15px;
+
+    .contacts-label {
+      color: $mine-shaft;
+    }
+  }
+
+  address { white-space: nowrap; }
+
+  @include tablet-portrait {
+    display: block;
+
+    > * {
+      margin: 0 1.3em;
+    }
+
+    dd a {
+      font-size: 0.9em;
+      text-transform: uppercase;
+      line-height: 2.9em;
+      font-weight: bold;
+      display: block;
+    }
+
+    dt {
+      display: none;
+    }
+
+    .project-offer {
+      font-weight: bold;
+    }
+
+    .links {
+      dd {
+        border-bottom: 1px solid rgba($white, 0.2);
+      }
+    }
+
+    .jobs {
+      display: none;
+    }
+
+    .lang {
+      text-align: center;
+      line-height: 2.5em;
+    }
+
+    .contacts {
+      display: inline-block;
+      max-width: 180px;
+      margin-right: 0;
+
+      dl {
+        display: none;
+      }
+    }
+
+    .external-links {
+      display: inline-block;
+      vertical-align: top;
+
+      a {
+        text-transform: none;
+        line-height: 1.4em;
+      }
+    }
+  }
+
+  @include tablet {
+    address { white-space: normal; }
+  }
+
+  @include max-screen(940px) {
+    .logo {
+      margin: 0;
+
+      img {
+        display: none;
+      }
+
+      .lang {
+        position: static;
+        margin-left: 1.3em;
+      }
+    }
+
+    .external-links {
+      a {
+        line-height: 1.2em;
+      }
+    }
+  }
+
+  @include tablet-portrait {
+    dd a {
+      line-height: 1.9em;
+    }
+
+    .external-links {
+      a {
+        line-height: 1.4em;
+      }
+    }
+  }
+}
+

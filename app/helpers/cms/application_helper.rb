@@ -11,5 +11,21 @@ module Cms
          ).html_safe
       end
     end
+
+    def article_tag_list(tags)
+      safe_join(tags.map { |tag| article_tag_tag(tag) }, content_tag(:span, ", "))
+    end
+
+    def article_tag_tag(tag)
+      link_to tag, tag_blog_index_path(tag: format_tag(tag))
+    end
+
+    def author_list(authors)
+      safe_join(authors.map { |author| author_tag(author) }, content_tag(:span, ", "))
+    end
+
+    def author_tag(author)
+      link_to author, author_blog_index_path(locale: I18n.locale, author: author.mb_chars.downcase.to_s.gsub(/\s/, '-')), class: 'author'
+    end
   end
 end

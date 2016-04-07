@@ -1,0 +1,9 @@
+%footer.site-footer
+  .inner
+    #footer-menu.footer-sitemap
+      .logo
+        = render 'layouts/public/logo'
+        .lang
+          =t('footer.language')
+          != locale_switch(@page)
+      = render 'layouts/public/footer_sitemap'

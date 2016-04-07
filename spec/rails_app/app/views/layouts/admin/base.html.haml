@@ -1,0 +1,36 @@
+!!! XML
+!!! 5
+%html
+  %head
+    %title= content_for?(:title) ? content_for(:title) : t('admin.title')
+    = stylesheet_link_tag "admin", media: "all"
+    = javascript_include_tag "admin"
+    = favicon_link_tag
+    = favicon_link_tag '/favicon.png', rel: 'icon'
+    = csrf_meta_tags
+
+  %body
+    .navbar.navbar-default.navbar-static-top
+      .container
+        .navbar-brand= link_to t('project.name'), root_path
+        - if signed_in?
+          %ul.nav.navbar-nav.navbar-right
+            %li.dropdown
+              %a.dropdown-toggle{ href: '#', data: { toggle: 'dropdown' } }= t('auth.greeting', name: current_user.username)
+              %ul.dropdown-menu
+                %li= link_to t('auth.sign_out_link'), sign_out_path
+          %ul.nav.navbar-nav
+            %li{ :class => (controller_name == 'pages' ? 'active' : '') }= link_to "Pages", cms.admin_pages_path
+            %li{ :class => (controller_name == 'fragments' ? 'active' : '') }= link_to "Fragments", cms.admin_fragments_path
+            %li{ :class => (controller_name == 'liquid_variables' ? 'active' : '') }= link_to "Variables", cms.admin_liquid_variables_path
+            %li{ :class => (controller_name == 'occupations' ? 'active' : '') }= link_to "Occupations", admin_occupations_path
+            %li{ :class => (controller_name == 'emails' ? 'active' : '') }= link_to "Emails", admin_emails_path
+            %li{ :class => (controller_name == 'employees' ? 'active' : '') }= link_to "Employees", admin_employees_path
+            %li{ :class => (controller_name == 'users' ? 'active' : '') }= link_to "Users", admin_users_path
+
+    %div.container.master-container
+      = flash_tag
+      = yield
+
+    %footer
+      .container Local

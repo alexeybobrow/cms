@@ -1,0 +1,51 @@
+@mixin sandwich-slice {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 100%;
+  height: 3px;
+}
+
+.sandwich {
+  @include sandwich-color($gray);
+
+  cursor: pointer;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 25px;
+  height: 17px;
+  position: relative;
+  border-bottom-size: 3px;
+  border-bottom-style: solid;
+  transition: all 0.2s linear;
+
+  &:before {
+    @include sandwich-slice;
+    top: 0;
+    left: 0;
+    transition: all 0.2s linear;
+  }
+
+  &:after {
+    @include sandwich-slice;
+    top: 50%;
+    left: 0;
+    transition: all 0.2s linear;
+  }
+
+  &_open {
+    border-bottom-width: 0;
+
+    &:before {
+      background: $gray;
+      @include transform(rotate(45deg));
+      top: 7px;
+    }
+
+    &:after {
+      background: $gray;
+      @include transform(rotate(-45deg));
+      top: 7px;
+    }
+  }
+}

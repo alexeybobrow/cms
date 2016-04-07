@@ -1,0 +1,5 @@
+- text = locals.fetch('text', t('internal_links.contacts'))
+- background = locals.fetch('background', '#4e89a3')
+
+%section.get-in-touch{style: "background: #{background}"}
+  .inner= link_to text, page_path('contacts'), class: 'contacts-link'

@@ -1,0 +1,29 @@
+%h1= t('admin.employees.single_title', name: @employee.name)
+
+- if @employee.avatar?
+  = image_tag @employee.avatar.url
+
+%br
+%br
+
+.row
+  .col-xs-6
+    .panel.panel-default
+      .panel-heading
+        %div.btn-group
+          = link_to t('admin.employees.edit'), [:edit, :admin, @employee]  , :class=>"btn btn-default"
+          - if @employee.employed?
+            = link_to t('admin.employees.retire'), [:retire, :admin, @employee], :class=>"btn btn-danger"
+          - else
+            = link_to t('admin.employees.hire'), [:hire, :admin, @employee], :class=>"btn btn-danger"
+
+      .panel-body
+        %dl.dl-horizontal.meta-panel-list
+          %dt= t('admin.employees.status')
+          %dd= @employee.workflow_state
+
+          %dt= t('admin.employees.position')
+          %dd= @employee.position
+
+          %dt= t('admin.employees.occupation')
+          %dd= @employee.occupation.name

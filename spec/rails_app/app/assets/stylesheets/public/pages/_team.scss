@@ -1,0 +1,23 @@
+@import 'public/helpers/structure';
+@import 'public/helpers/skins';
+@import 'public/helpers/buttons';
+
+@import 'public/snippets/anadea_team';
+
+@import 'team/team_info';
+
+body.team {
+  @include colored-breadcrumbs(none);
+
+  .site-header {
+    @include dim-header;
+
+    &.active {
+      @include bright-header;
+    }
+  }
+}
+
+.anadea-team {
+  @include panel;
+}

@@ -1,0 +1,198 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  project:
+    name: 'Anadea'
+  public:
+    title: 'Anadea'
+    custom_title: '%{title} - Anadea'
+    blog:
+      categories: 'Categories'
+      by: 'By'
+    feed:
+      title: 'Anadea Blog'
+      description: |
+        The web applications we deliver are always based on a great idea requiring a unique software solution.
+        The scope of our projects ranges from individual apps for private clients to large scale national and international solutions.
+    feedback: 'Request a quote'
+    contacts:
+      thanks: |
+        <h2>Thank you for your message!</h2>
+        <p>We'll get back to you as soon as possible</p>
+  kaminari:
+    next: Older
+    prev: Newer
+  sessions:
+    title: 'Anadea login page'
+  activemodel:
+    errors:
+      models:
+        session:
+          attributes:
+            base:
+              auth_failure: 'You are not the one we are looking for'
+
+  time:
+    formats:
+      short: '%e %b'
+      long:  '%B %e, %Y'
+
+  language:
+    name:
+      en: 'English'
+      ru: 'Russian'
+
+  activerecord:
+    attributes:
+      page:
+        url: 'Url'
+        title: 'Title'
+        raw_body: 'Body'
+      user:
+        username: 'User name'
+        is_admin: 'Is admin'
+        is_locked: 'Is locked'
+      employee:
+        remove_avatar: 'Remove?'
+
+  mail_form:
+    errors:
+      models:
+        contact_form:
+          attributes:
+            name:
+              blank: 'Please introduce yourself'
+            email:
+              blank: 'Set your email'
+              invalid: 'Write correct email'
+            message:
+              blank: 'Write your message'
+        codereview_form:
+          attributes:
+            name:
+              blank: 'Full name as you want it to look in an NDA'
+            email:
+              blank: 'How we can reach you'
+              invalid: 'Write correct email'
+            message:
+              blank: 'Any details of the code would be helpful'
+
+  menu:
+    blog: 'Blog'
+    services: 'Services'
+    projects: 'Projects'
+    team: 'Team'
+    about: 'About'
+    contact_us: 'Contact Us'
+    why_us: 'Why Us?'
+    jobs: 'Jobs'
+    all_jobs: 'All jobs'
+    company: 'Company'
+
+  breadcrumbs:
+    home: 'Home'
+    blog: 'Blog'
+    not_found: 'Page not found'
+
+  external_links:
+    facebook: 'Facebook'
+    linked_in: 'LinkedIn'
+    twitter: 'Twitter'
+    google_plus: 'Google+'
+
+  internal_links:
+    contacts: 'Get in Touch'
+
+  footer:
+    language: 'Language:'
+
+  footer_sitemap:
+    category:
+      links: 'Links'
+      contact_us: 'Contact Us'
+      misc: 'Misc'
+
+  auth:
+    sign_in_button: 'Sign in'
+    sign_out_link: 'Sign out'
+    not_authenticated: 'You must be logged in to access this page'
+    not_allowed: 'You do not have enough permissions to visit this page'
+    greeting: 'User: %{name}'
+    page_menu:
+      title: 'Page:'
+      view: 'view'
+      edit: 'edit'
+    already_authenticated: 'We already know who you are, %{name}'
+
+  admin:
+    title: 'Anadea admin area'
+    custom_title: '%{title} - Anadea admin area'
+    actions: 'Actions'
+    show_deleted: 'Show deleted'
+    hide_deleted: 'Hide deleted'
+    edit_link: 'Edit'
+    system_user: 'system'
+    users:
+      title: 'Users'
+      edit_title: 'Edit user'
+      single_title: 'User %{name}'
+      create_link: 'Create new user'
+      delete: 'Delete'
+      edit: 'Edit'
+      new_title: 'Create new user'
+      user_is_locked: 'User is locked'
+      user_is_deleted: 'User is deleted'
+      delete_confirmation: 'Delete user %{name}?'
+      role: 'Role:'
+      roles:
+        regular: 'Regular user'
+        admin: 'Admin'
+    employees:
+      title: 'Employees'
+      single_title: '%{name}'
+      edit_title: 'Edit employee'
+      new_title: 'Create new employee'
+      create_link: 'Create new employee'
+      show_retired: 'Show all'
+      hide_retired: 'Show employed only'
+    occupations:
+      title: 'Occupations'
+      create_link: 'Create new occupation'
+      single_title: 'Occupation: %{name}'
+      edit_title: 'Edit occupation'
+      delete: 'Delete'
+      restore: 'Restore'
+      edit: 'Edit'
+    emails:
+      title: 'Emails'
+      edit_title: 'Edit %{name} email'
+    history:
+      title: 'History of page "%{name}"'
+      created: '%{item_type} Created by %{name}'
+      updated: '%{item_type} Updated by %{name}'
+      deleted: '%{item_type} Deleted by %{name}'
+      change_notice: '%{field} changed from %{from} to %{to}'
+      revert: 'Revert before this change'
+  tags:
+    more: "Read more"
+
+  simple_form:
+    labels:
+      contact_form:
+        name:  'Your name'
+        email:  'Your email'
+        message: 'Your message'
+        send: 'Send'
+        form_description: |
+          Interested in hiring us,
+          working with us,
+          or just learning more about us?
+          We'd love to hear from you.
+      codereview_form:
+        name:  'Your name'
+        email:  'Your email'
+        message: 'Brief description'
+    hints:
+      page:
+        name: 'If left blank then will be substituted with Title'

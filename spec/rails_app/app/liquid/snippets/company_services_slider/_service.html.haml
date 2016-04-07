@@ -1,0 +1,8 @@
+%li.hero{:id => service, :data => { :index => index }}
+  .hero-content
+    %section.hero-description
+      %h2= t("company_services.#{service.underscore}.header")
+      %p= t("company_services.#{service.underscore}.text")
+      -  t("company_services.#{service.underscore}.technologies").each do |technology|
+        %span= technology
+    .hero-media= image_tag "snippets/company_services/#{service}.png"

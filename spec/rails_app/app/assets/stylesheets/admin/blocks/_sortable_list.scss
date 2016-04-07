@@ -1,0 +1,20 @@
+.sortable-list {
+  list-style: none;
+  width: 60%;
+  margin: 0;
+  padding: 0;
+
+  &__item, .ui-state-highlight {
+    cursor: move;
+    padding: 10px;
+    height: 43px;
+  }
+
+  &__icon, &__count {
+    color: #aaa;
+  }
+
+  &__text {
+    padding-left: 7px;
+  }
+}

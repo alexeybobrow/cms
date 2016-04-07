@@ -1,0 +1,30 @@
+%h1= t('admin.users.title')
+= link_to t('admin.users.create_link'), new_admin_user_path, :class=>"btn btn-default"
+.btn.btn-link= switch_deleted_link
+%section
+  .row
+    .col-md-8
+      %table.table.table-hover.table-striped.table-condensed
+        %thead
+          %tr
+            %th.col-md-6
+              %small.muted= User.human_attribute_name(:username)
+            %th
+              %small.muted= User.human_attribute_name(:is_admin)
+            %th
+              %small.muted= User.human_attribute_name(:is_locked)
+            %th
+              %small.muted.pull-right= t "admin.actions"
+        %tbody
+          - @users.each do |user|
+            %tr{ :class => ((user.deleted?) ? 'error' : '') }
+              %td
+                %span= link_to user.username, admin_user_path(user)
+              %td
+                %span=  (user.is_admin)? icon_tag(:ok) : ""
+              %td
+                %span=  (user.is_locked)? icon_tag(:ok) : ""
+              %td
+                %div.btn-group.btn-group-xs.pull-right
+                  = icon_link_to :edit, edit_admin_user_path(user)
+                  = icon_link_to :remove, delete_admin_user_path(user)
