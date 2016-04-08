@@ -1,12 +1,9 @@
-- pages.each do |page|
-  %tr{ class: page_html_class(page) }
-    %td
-      %span= page.url
-    %td
-      %span= link_to page_name(page), admin_page_path(page)
-    %td
-      %span= t("admin.pages.state.#{page.current_state}")
-    %td
-      %div.btn-group.btn-group-xs.pull-right
-        = icon_link_to :remove, delete_admin_page_path(page)
-
+- if folder.nil?
+  = render 'pages_list', pages: pages, nesting_level: nesting_level
+- else
+  %tr{:'data-nesting-level' => nesting_level, :'data-is-folder' => true}
+    %td{colspan: 4}
+      = icon_tag('folder-close')
+      = folder
+  - pages.each do |folder, pages|
+    = render 'pages_folder', folder: folder, pages: pages, nesting_level: nesting_level + 1

@@ -18,4 +18,4 @@
               %small.muted.pull-right= t "admin.actions"
         %tbody
           - Cms::UrlHelper.group_by_ancestors(@pages).each do |folder, pages|
-            = render 'pages_folder', locals: { folder: folder, pages: pages }
+            = render 'pages_folder', folder: folder, pages: pages, nesting_level: 0
