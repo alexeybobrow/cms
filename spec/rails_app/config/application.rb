@@ -10,6 +10,8 @@ module RailsApp
     config.action_mailer.delivery_method = :test
     config.action_mailer.default_url_options = { host: 'lvh.me:3000' }
 
+    config.active_record.raise_in_transactional_callbacks = true
+
     config.generators do |g|
       g.test_framework  false
       g.assets          false

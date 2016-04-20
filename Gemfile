@@ -13,6 +13,7 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "simplecov"
   gem "faker"
+  gem "responders"
 
   gem "rails"
   gem "pg"

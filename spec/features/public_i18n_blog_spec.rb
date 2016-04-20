@@ -14,11 +14,11 @@ RSpec::Matchers.define :contain_posts_in do |lang|
     end
   end
 
-  failure_message_for_should do |page|
+  failure_message do |page|
     "expected that page would contain articles in #{lang}"
   end
 
-  failure_message_for_should_not do |page|
+  failure_message_when_negated do |page|
     "expected that page would not contain articles in #{lang}"
   end
 end
