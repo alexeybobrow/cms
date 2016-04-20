@@ -29,7 +29,7 @@ module Cms
     end
 
     def metaize(text)
-      raw(text).gsub(/\s+/, ' ')
+      meta_pipeline.call(text)[:output].to_s.gsub(/\s+/, ' ').html_safe
     end
 
     def plain_preview(page)

@@ -1,6 +1,12 @@
 module Cms
   module HtmlFilter
 
+    def meta_pipeline
+      HTML::Pipeline.new [
+        Filters::LiquidParser
+      ], context
+    end
+
     def simple_pipeline
       HTML::Pipeline.new [
         Filters::LiquidParser,

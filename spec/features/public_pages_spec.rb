@@ -20,6 +20,12 @@ SRC
       url: '/html-entity-in-title',
       content_body: text_with_code_block
   }
+  let!(:liquid_tag_in_title_page) {
+    create :page,
+      title: "RTFM! - {% link_to 'Manual', path: '/support' %}",
+      url: '/liquid-tag-in-title-page',
+      content_body: text_with_code_block
+  }
   let!(:parent_page) {
     create :page,
       name: 'This is the new *hit',
@@ -58,9 +64,14 @@ SRC
     expect(page).to have_title("A new word in soft development - Anadea")
   end
 
-  it 'not escape html entities in meta title' do
+  it 'does not escape html entities in meta' do
     visit '/html-entity-in-title'
     expect(page).to have_title("Stand up & fight!")
+  end
+
+  it 'evaluate liquid tags in meta' do
+    visit '/liquid-tag-in-title-page'
+    expect(page).to have_title('RTFM! - <a href="/support">Manual</a>')
   end
 
   it 'displays 404 when page is missing' do
