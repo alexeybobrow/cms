@@ -29,7 +29,7 @@ module Cms
     end
 
     def metaize(text)
-      htmlize(text).gsub(/\s+/, ' ')
+      raw(text).gsub(/\s+/, ' ')
     end
 
     def plain_preview(page)

@@ -14,6 +14,12 @@ SRC
       url: '/new-word',
       content_body: 'Follow the white rabbit...'
   }
+  let!(:html_entity_in_title_page) {
+    create :page,
+      title: 'Stand up & fight!',
+      url: '/html-entity-in-title',
+      content_body: text_with_code_block
+  }
   let!(:parent_page) {
     create :page,
       name: 'This is the new *hit',
@@ -50,6 +56,11 @@ SRC
     visit '/new-word'
     expect(page).to have_content('Follow the white rabbit...')
     expect(page).to have_title("A new word in soft development - Anadea")
+  end
+
+  it 'not escape html entities in meta title' do
+    visit '/html-entity-in-title'
+    expect(page).to have_title("Stand up & fight!")
   end
 
   it 'displays 404 when page is missing' do
