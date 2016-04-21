@@ -71,7 +71,7 @@ SRC
 
   it 'evaluate liquid tags in meta' do
     visit '/liquid-tag-in-title-page'
-    expect(page).to have_title('RTFM! - <a href="/support">Manual</a>')
+    expect(page).to have_title('RTFM! - Manual')
   end
 
   it 'displays 404 when page is missing' do
