@@ -8,9 +8,9 @@
       %table.table.table-hover.table-condensed
         %thead
           %tr
-            %th
+            %th.pages--url
               %small.muted= Page.human_attribute_name(:url)
-            %th.col-md-6
+            %th.col-md-6.pages--name
               %small.muted= Page.human_attribute_name(:name)
             %th
               %small.muted= Page.human_attribute_name(:state)
@@ -18,4 +18,4 @@
               %small.muted.pull-right= t "admin.actions"
         %tbody
           - Cms::UrlHelper.group_by_ancestors(@pages).each do |folder, pages|
-            = render 'pages_folder', folder: folder, pages: pages, nesting_level: 0
+            = render 'pages_folder', folder: folder, pages: pages, nesting_level: 0, parent_folder: nil

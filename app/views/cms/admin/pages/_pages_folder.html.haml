@@ -1,9 +1,9 @@
 - if folder.nil?
-  = render 'pages_list', pages: pages, nesting_level: nesting_level
+  = render 'pages_list', pages: pages, nesting_level: nesting_level, parent_folder: parent_folder
 - else
-  %tr{:'data-nesting-level' => nesting_level, :'data-is-folder' => true}
+  %tr{:'data-nesting-level' => nesting_level, :'data-parent-folder' => parent_folder, :'data-is-folder' => true, :'data-folder-name' => folder, :'data-is-open' => "false"}
     %td{colspan: 4}
       = icon_tag('folder-close')
       = folder
-  - pages.each do |folder, pages|
-    = render 'pages_folder', folder: folder, pages: pages, nesting_level: nesting_level + 1
+  - pages.each do |f, pages|
+    = render 'pages_folder', folder: f, pages: pages, nesting_level: nesting_level + 1, parent_folder: folder

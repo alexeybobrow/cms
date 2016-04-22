@@ -1,0 +1,19 @@
+[data-is-folder] {
+  cursor: pointer;
+}
+
+[data-nesting-level="1"] td:first-child {
+  padding-left: 24px ! important;
+}
+
+[data-nesting-level="2"] td:first-child {
+  padding-left: 48px ! important;
+}
+
+[data-nesting-level="3"] td:first-child {
+  padding-left: 72px ! important;
+}
+
+[data-nesting-level="4"] td:first-child {
+  padding-left: 96px ! important;
+}

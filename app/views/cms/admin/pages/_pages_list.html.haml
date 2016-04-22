@@ -1,5 +1,5 @@
 - pages.each do |page|
-  %tr{ class: page_html_class(page), :'data-nesting-level' => nesting_level }
+  %tr{ class: page_html_class(page), :'data-nesting-level' => nesting_level, :'data-parent-folder' => parent_folder }
     %td
       %span= page.url
     %td
