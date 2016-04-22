@@ -209,6 +209,11 @@ describe Page do
       related_articles.pop
       expect(article.related).to match_array(related_articles)
     end
+
+    it "returns Page.none if no tags" do
+      article.tags = []
+      expect(article.related).to match_array([])
+    end
   end
 
   describe 'workflow state machine' do

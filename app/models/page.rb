@@ -76,6 +76,7 @@ class Page < ActiveRecord::Base
   end
 
   def related
+    return Page.none if self.tags.empty?
     nums = 5
     pages = self.class.actual.with_published_state.without(self)
     queries = self.tags.map{ |t| Page.select("name, url, id, deleted_at, workflow_state").by_tag(t.downcase).to_sql }
