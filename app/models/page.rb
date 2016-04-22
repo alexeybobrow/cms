@@ -74,4 +74,12 @@ class Page < ActiveRecord::Base
       .where(url: I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
       .where.not(id: self.id).first
   end
+
+  def related
+    nums = 5
+    pages = self.class.actual.with_published_state.without(self)
+    queries = self.tags.map{ |t| Page.select("name, url, id, deleted_at, workflow_state").by_tag(t.downcase).to_sql }
+    sql_string = Page.connection.unprepared_statement { "(#{queries.join(' UNION ')}) as pages" }
+    pages.from(sql_string).limit(nums)
+  end
 end

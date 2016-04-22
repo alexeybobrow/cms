@@ -196,6 +196,21 @@ describe Page do
     end
   end
 
+  describe "#related" do
+    let!(:related_articles) { create_list :page, 5, :blog, tags: ['React', 'Ruby', 'Front End']}
+    let!(:article) { create :page, :blog, tags: ['React', 'Front End', 'JS'] }
+
+    it "returns 5 related published articles" do
+      expect(article.related).to match_array(related_articles)
+    end
+
+    it "returns only 4 related published articles and not draft ones" do
+      related_articles.last.unpublish!
+      related_articles.pop
+      expect(article.related).to match_array(related_articles)
+    end
+  end
+
   describe 'workflow state machine' do
     it 'invokes #safe_delete on #safe_delete! event' do
       page = create :page
