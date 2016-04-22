@@ -13,9 +13,9 @@
     .view-frame.articles
       - @articles.each do |article|
         %article
-          .date= l article.posted_at, format: :long
           %h2= link_to article.title, article.url
           = author_list(article.authors)
+          = render 'date', article: article
           .content= raw blog_preview article
           .tags= article_tag_list(article.tags)
 
