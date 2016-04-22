@@ -1,0 +1,11 @@
+- pages.each do |page|
+  %tr{ class: page_html_class(page), :'data-nesting-level' => nesting_level, :'data-parent-folder' => parent_folder }
+    %td
+      %span= page.url
+    %td
+      %span= link_to page_name(page), admin_page_path(page)
+    %td
+      %span= t("admin.pages.state.#{page.current_state}")
+    %td
+      %div.btn-group.btn-group-xs.pull-right
+        = icon_link_to :remove, delete_admin_page_path(page)

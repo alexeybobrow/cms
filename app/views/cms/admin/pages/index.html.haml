@@ -8,24 +8,14 @@
       %table.table.table-hover.table-condensed
         %thead
           %tr
-            %th.col-md-6
+            %th.pages--url
+              %small.muted= Page.human_attribute_name(:url)
+            %th.col-md-6.pages--name
               %small.muted= Page.human_attribute_name(:name)
             %th
               %small.muted= Page.human_attribute_name(:state)
             %th
-              %small.muted= Page.human_attribute_name(:url)
-            %th
               %small.muted.pull-right= t "admin.actions"
         %tbody
-          - @pages.each do |page|
-            %tr{ class: page_html_class(page) }
-              %td
-                %span= link_to page_name(page), admin_page_path(page)
-              %td
-                %span= t("admin.pages.state.#{page.current_state}")
-              %td
-                %span= page.url
-              %td
-                %div.btn-group.btn-group-xs.pull-right
-                  = icon_link_to :remove, delete_admin_page_path(page)
-
+          - Cms::UrlHelper.group_by_ancestors(@pages).each do |folder, pages|
+            = render 'pages_folder', folder: folder, pages: pages, nesting_level: 0, parent_folder: nil

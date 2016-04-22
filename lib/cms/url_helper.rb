@@ -25,12 +25,25 @@ module Cms
         normalize_url("#{prefix}#{url_without_locale(url)}")
       end
 
+      def slug(url)
+        url[SLUG_REGEX, 1]
+      end
+
       def parent_url(url)
         url.gsub(SLUG_REGEX, '')
       end
 
-      def slug(url)
-        url[SLUG_REGEX, 1]
+      def ancestor_url(url, prefix=nil)
+        url[/(\A#{prefix}\/[\w\-\.]*)\//, 1]
+      end
+
+      def group_by_ancestors(pages, prefix=nil)
+        pages.group_by do |page|
+          self.ancestor_url(page.url, prefix)
+        end.reduce({}) do |acc, (key, value)|
+          acc[key] = key.nil? ? value : group_by_ancestors(value, key)
+          acc
+        end
       end
 
       #private
