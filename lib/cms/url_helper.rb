@@ -42,8 +42,18 @@ module Cms
           self.ancestor_url(page.url, prefix)
         end.reduce({}) do |acc, (key, value)|
           acc[key] = key.nil? ? value : group_by_ancestors(value, key)
-          acc
+          sort_by_group(acc)
         end
+      end
+
+      def sort_by_group(pages)
+        pages.sort do |(k1, _), (k2, _)|
+          case
+          when k1.nil? then 1
+          when k2.nil? then -1
+          else k1 <=> k2
+          end
+        end.to_h
       end
 
       #private
