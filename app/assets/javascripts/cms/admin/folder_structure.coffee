@@ -4,6 +4,8 @@ $ ->
     $("[data-parent-folder='#{folder_name}']").hide()
 
   $('[data-is-folder]').on 'click', (e) ->
+    e.preventDefault()
+
     folder = $(this)
     folder_name = folder.data().folderName
     is_open = folder.data().isOpen

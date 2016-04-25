@@ -46,6 +46,12 @@ module Cms
         end
       end
 
+      def filter_by_prefix(pages, prefix)
+        prefix.present? ? pages.with_url_prefix(prefix) : pages
+      end
+
+      #private
+
       def sort_by_group(pages)
         pages.sort do |(k1, _), (k2, _)|
           case
@@ -55,8 +61,6 @@ module Cms
           end
         end.to_h
       end
-
-      #private
 
       def prepend_slash_if_missing(url)
         url.starts_with?('/') ? url : "/#{url}"

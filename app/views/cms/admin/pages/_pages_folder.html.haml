@@ -4,6 +4,6 @@
   %tr{:'data-nesting-level' => nesting_level, :'data-parent-folder' => parent_folder, :'data-is-folder' => true, :'data-folder-name' => folder, :'data-is-open' => "false"}
     %td{colspan: 4}
       = icon_tag('folder-close')
-      = folder
+      = link_to folder, admin_pages_path(folder: folder)
   - pages.each do |f, pages|
     = render 'pages_folder', folder: f, pages: pages, nesting_level: nesting_level + 1, parent_folder: folder

@@ -21,6 +21,10 @@ class Page < ActiveRecord::Base
   has_paper_trail only: [:title, :description, :meta, :name, :url, :deleted_at]
 
   class << self
+    def with_url_prefix(prefix)
+      where("url LIKE :prefix", prefix: "#{prefix}/%")
+    end
+
     def scoped_with_array(name)
       ->(value){ where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') = :value)", value: value) }
     end
