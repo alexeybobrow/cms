@@ -14,6 +14,10 @@ module Cms
       page.name.presence || page.title.presence || t('admin.pages.untitled')
     end
 
+    def url_label(url, prefix)
+      url.gsub(/\A#{prefix}/, '')
+    end
+
     def can_publish_page?(page)
       check_policy(PublicationPolicy, page, :publish?)
     end
