@@ -37,16 +37,7 @@ module Cms
         url[/(\A#{prefix}\/[\w\-\.]*)\//, 1]
       end
 
-      def group_by_ancestors(pages, prefix=nil)
-        pages.group_by do |page|
-          self.ancestor_url(page.url, prefix)
-        end.reduce({}) do |acc, (key, value)|
-          acc[key] = key.nil? ? value : group_by_ancestors(value, key)
-          acc
-        end
-      end
-
-      #private
+      # private
 
       def prepend_slash_if_missing(url)
         url.starts_with?('/') ? url : "/#{url}"

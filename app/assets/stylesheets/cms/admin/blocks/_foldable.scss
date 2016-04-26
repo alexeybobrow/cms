@@ -2,6 +2,10 @@
   cursor: pointer;
 }
 
+[data-parent-folder] {
+  display: none;
+}
+
 [data-nesting-level="1"] td:first-child {
   padding-left: 24px ! important;
 }

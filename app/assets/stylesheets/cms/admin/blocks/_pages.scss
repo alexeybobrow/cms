@@ -1,4 +1,8 @@
 .pages {
+  &--title {
+    display: inline-block;
+  }
+
   &--url {
     min-width: 300px;
   }

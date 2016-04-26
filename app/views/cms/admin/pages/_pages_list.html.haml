@@ -1,7 +1,7 @@
 - pages.each do |page|
   %tr{ class: page_html_class(page), :'data-nesting-level' => nesting_level, :'data-parent-folder' => parent_folder }
     %td
-      %span= page.url
+      %span= url_label(page.url, params[:folder])
     %td
       %span= link_to page_name(page), admin_page_path(page)
     %td
