@@ -18,5 +18,5 @@
             %th
               %small.muted.pull-right= t "admin.actions"
         %tbody
-          - Cms::UrlHelper.group_by_ancestors(Cms::UrlHelper.filter_by_prefix(@pages, params[:folder]), params[:folder]).each do |folder, pages|
+          - Cms::FolderStructure.folders(@pages, params[:folder]).each do |folder, pages|
             = render 'pages_folder', folder: folder, pages: pages, nesting_level: 0, parent_folder: nil
