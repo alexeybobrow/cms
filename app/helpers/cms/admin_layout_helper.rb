@@ -10,6 +10,21 @@ module Cms
       end
     end
 
+    def folder_breadcrumbs(folder)
+      if folder
+        path = folder.split('/').reject(&:empty?)
+        current_folder = path.pop
+        path_with_parent = path.reduce([]) {|acc, v| acc << "#{acc.last.to_s}/#{v}" }
+
+        path.zip(path_with_parent).map do |(name, link)|
+          link_to "/#{name}", admin_pages_path(folder: link)
+        end
+        .join()
+        .concat("/#{current_folder}")
+        .html_safe
+      end
+    end
+
     def page_name(page)
       page.name.presence || page.title.presence || t('admin.pages.untitled')
     end

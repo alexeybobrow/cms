@@ -1,5 +1,6 @@
-%h1
-  = t('admin.pages.title')
+%h1.pages--title= link_to t('admin.pages.title'), admin_pages_path
+%span.page-folder-breadcrumbs= folder_breadcrumbs(params[:folder])
+%br
 = link_to t('admin.pages.create_link'), new_admin_page_path, :class=>"btn btn-default"
 .btn.btn-link= switch_deleted_link
 %section
