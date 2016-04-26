@@ -54,8 +54,14 @@ module Cms
       end
 
       def lexer(language)
-        language.aliases.map{ |l| Pygments::Lexer.find_by_name(l.humanize) || Pygments::Lexer.find_by_name(l.upcase) }.compact.first ||
-          Pygments::Lexer.find_by_name('Text only')
+        language.aliases.map do |l|
+          Pygments::Lexer.find_by_name(l.humanize) ||
+          Pygments::Lexer.find_by_name(l.upcase) ||
+          Pygments::Lexer.find_by_alias(l.humanize.downcase)
+        end
+        .compact
+        .first ||
+        Pygments::Lexer.find_by_name('Text only')
       end
     end
   end
