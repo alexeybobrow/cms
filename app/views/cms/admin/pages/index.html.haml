@@ -18,5 +18,5 @@
             %th
               %small.muted.pull-right= t "admin.actions"
         %tbody
-          - Cms::FolderStructure.folders(@pages, params[:folder]).each do |folder, pages|
+          - pages_as_folders(@pages, params[:folder]).each do |folder, pages|
             = render 'pages_folder', folder: folder, pages: pages, nesting_level: 0, parent_folder: nil

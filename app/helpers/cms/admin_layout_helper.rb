@@ -10,6 +10,10 @@ module Cms
       end
     end
 
+    def pages_as_folders(pages, folder)
+      Cms::FolderStructure.folders(pages, folder)
+    end
+
     def folder_breadcrumbs(folder)
       if folder
         path = folder.split('/').reject(&:empty?)
