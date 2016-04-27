@@ -7,6 +7,7 @@ gem "workflow", github: "geekq/workflow"
 group :development, :test do
   gem "rspec-rails"
   gem "rspec-its"
+  gem "timecop"
   gem "factory_girl"
   gem "capybara-webkit"
   gem "capybara-screenshot"

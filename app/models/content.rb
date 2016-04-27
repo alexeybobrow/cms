@@ -1,7 +1,17 @@
 class Content < ActiveRecord::Base
+
+  has_one :_page_as_content, class_name: 'Page', foreign_key: 'content_id'
+  has_one :_page_as_annotation, class_name: 'Page', foreign_key: 'annotation_id'
+
+  after_save :touch_page
+
   def self.formats; %w(html markdown); end
 
   has_paper_trail only: [:body, :markup_language]
+
+  def page
+    _page_as_content || _page_as_annotation
+  end
 
   def attachments
     self.attachments_cache.split(',').map{|i| ImageAttachment.where(id: i).first}.compact
@@ -22,5 +32,11 @@ class Content < ActiveRecord::Base
 
   def restore_to(version)
     version.reify.save!
+  end
+
+  private
+
+  def touch_page
+    page.try(:touch)
   end
 end

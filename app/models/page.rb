@@ -37,8 +37,8 @@ class Page < ActiveRecord::Base
     alias_method :public_get!, :public_get
   end
 
-  belongs_to :content, dependent: :destroy
-  belongs_to :annotation, class_name: 'Content', foreign_key: 'annotation_id', dependent: :destroy
+  belongs_to :content, inverse_of: :_page_as_content, dependent: :destroy
+  belongs_to :annotation, class_name: 'Content', foreign_key: 'annotation_id', inverse_of: :_page_as_annotation, dependent: :destroy
 
   accepts_nested_attributes_for :content
   accepts_nested_attributes_for :annotation
