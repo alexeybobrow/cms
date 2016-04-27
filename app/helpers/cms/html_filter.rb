@@ -17,6 +17,7 @@ module Cms
 
     def markdown_pipeline
       HTML::Pipeline.new [
+        Filters::SetLayout,
         Filters::MarkdownFilter,
         HTML::Pipeline::AbsoluteSourceFilter,
         HTML::Pipeline::HttpsFilter,
