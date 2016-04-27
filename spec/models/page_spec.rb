@@ -212,7 +212,7 @@ describe Page do
 
     it "returns Page.none if no tags" do
       article.tags = []
-      expect(article.related).to match_array([])
+      expect(article.related).to be_empty
     end
   end
 
