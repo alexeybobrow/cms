@@ -79,6 +79,10 @@ describe Page do
       expect(Page.by_tag('react')).to eq([react])
       expect(Page.by_tag('front-end')).to eq([react, bem])
     end
+
+    it 'searches pages by several tags' do
+      expect(Page.by_tag(['react', 'css'])).to eq([react, bem])
+    end
   end
 
   describe '.for_admin' do

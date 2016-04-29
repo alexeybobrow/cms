@@ -26,7 +26,7 @@ class Page < ActiveRecord::Base
     end
 
     def scoped_with_array(name)
-      ->(value){ where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') = :value)", value: value) }
+      ->(value){ where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') IN (:value))", value: value) }
     end
 
     def public_get(param)
@@ -74,4 +74,5 @@ class Page < ActiveRecord::Base
       .where(url: I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
       .where.not(id: self.id).first
   end
+
 end
