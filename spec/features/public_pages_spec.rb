@@ -139,4 +139,37 @@ SRC
       expect(page).to have_content('Home > This is the new *hit > You should pay for the unit tests')
     end
   end
+
+  context 'Layout wrapping' do
+    context '[default layout]' do
+      before do
+        create :fragment, slug: 'default_layout', content_body: '<div class="wrap">{content}</div>'
+      end
+
+      it 'wraps in layout if exists' do
+        visit '/hello-world'
+        expect(page).to have_css '.wrap'
+      end
+
+      it 'does not wrap html pages'do
+        visit '/hello-world-html'
+        expect(page).not_to have_css '.wrap'
+      end
+    end
+
+    it 'does not wrap in layout if not exists' do
+      visit '/hello-world'
+      expect(page).not_to have_css '.wrap'
+    end
+
+    it 'allows to specify layout' do
+      create :fragment, slug: 'blog', content_body: '<div class="blog-wrap">{content}</div>'
+      create :page,
+        content_body: '{ layout = blog }Follow the white rabbit...',
+        url: '/blog-with-layout'
+
+      visit '/blog-with-layout'
+      expect(page).to have_css '.blog-wrap'
+    end
+  end
 end

@@ -27,6 +27,8 @@ group :development, :test do
   gem "simple_form"
   gem "pygments.rb", github: "9peso/pygments.rb"
   gem "gretel"
+  gem "pry"
+
   source "https://rails-assets.org" do
     gem "rails-assets-jquery-ui"
     gem "rails-assets-jquery-file-upload"

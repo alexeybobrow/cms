@@ -17,6 +17,7 @@ module Cms
 
     def markdown_pipeline
       HTML::Pipeline.new [
+        Filters::SetLayout,
         Filters::MarkdownFilter,
         HTML::Pipeline::AbsoluteSourceFilter,
         HTML::Pipeline::HttpsFilter,
@@ -30,6 +31,7 @@ module Cms
       {
         view: self,
         controller: controller,
+        path: request.fullpath,
         base_url: Cms.host,
         image_base_url: root_url(host: Cms.host) # for liquid fragment tag
       }
