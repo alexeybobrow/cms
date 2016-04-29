@@ -23,6 +23,8 @@ module Cms
       end
 
       def layout
+        @layout ||=
+
         if layout_from_var
           find_layout(layout_from_var)
         else
