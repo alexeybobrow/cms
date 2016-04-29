@@ -17,4 +17,11 @@ describe Cms::Filters::SetLayout do
     filter = Cms::Filters::SetLayout.new("{ layout = blog }\ntest")
     expect(filter.call.squish).to eq('<div class="wrap"> test</div>'.squish)
   end
+
+  it 'takes layout from path prefix' do
+    create :fragment, slug: 'blog', content_body: '<div class="wrap">{content}</div>'
+    filter = Cms::Filters::SetLayout.new("test")
+    filter.context[:path] = '/blog/some/article'
+    expect(filter.call.squish).to eq('<div class="wrap">test</div>'.squish)
+  end
 end

@@ -31,6 +31,7 @@ module Cms
       {
         view: self,
         controller: controller,
+        path: request.fullpath,
         base_url: Cms.host,
         image_base_url: root_url(host: Cms.host) # for liquid fragment tag
       }
