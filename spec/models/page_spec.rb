@@ -79,6 +79,10 @@ describe Page do
       expect(Page.by_tag('react')).to eq([react])
       expect(Page.by_tag('front-end')).to eq([react, bem])
     end
+
+    it 'searches pages by several tags' do
+      expect(Page.by_tag(['react', 'css'])).to eq([react, bem])
+    end
   end
 
   describe '.for_admin' do
@@ -193,26 +197,6 @@ describe Page do
       page.restore_to(page.versions.last)
 
       expect(page.reload).not_to be_deleted
-    end
-  end
-
-  describe "#related" do
-    let!(:related_articles) { create_list :page, 5, :blog, tags: ['React', 'Ruby', 'Front End']}
-    let!(:article) { create :page, :blog, tags: ['React', 'Front End', 'JS'] }
-
-    it "returns 5 related published articles" do
-      expect(article.related).to match_array(related_articles)
-    end
-
-    it "returns only 4 related published articles and not draft ones" do
-      related_articles.last.unpublish!
-      related_articles.pop
-      expect(article.related).to match_array(related_articles)
-    end
-
-    it "returns Page.none if no tags" do
-      article.tags = []
-      expect(article.related).to be_empty
     end
   end
 

@@ -26,7 +26,7 @@ class Page < ActiveRecord::Base
     end
 
     def scoped_with_array(name)
-      ->(value){ where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') = :value)", value: value) }
+      ->(value){ where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') IN (:value))", value: value) }
     end
 
     def public_get(param)
@@ -75,12 +75,4 @@ class Page < ActiveRecord::Base
       .where.not(id: self.id).first
   end
 
-  def related
-    return Page.none if self.tags.empty?
-    nums = 5
-    pages = self.class.actual.with_published_state.without(self)
-    queries = self.tags.map{ |t| Page.select("name, url, id, deleted_at, workflow_state").by_tag(t.downcase).to_sql }
-    sql_string = Page.connection.unprepared_statement { "(#{queries.join(' UNION ')}) as pages" }
-    pages.from(sql_string).limit(nums)
-  end
 end
