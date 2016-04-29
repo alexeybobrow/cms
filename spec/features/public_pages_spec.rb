@@ -168,8 +168,8 @@ SRC
         content_body: '{ layout = blog }Follow the white rabbit...',
         url: '/blog-with-layout'
 
-        visit '/blog-with-layout'
-        expect(page).to have_css '.blog-wrap'
-      end
+      visit '/blog-with-layout'
+      expect(page).to have_css '.blog-wrap'
+    end
   end
 end
