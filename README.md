@@ -20,9 +20,45 @@ Or install it yourself as:
 
     $ gem install cms
 
-## Usage
+## Layouts
 
-TODO: Delete this and the text above, and create usage example
+You can create default layout by creating `default_layout` fragment.
+I will be aplied to all `markdown` pages implicitly. It is recommended
+do not use idention because of markdown.
+
+Layout example:
+
+```
+<div class="simple-layout">
+<div class="inner">
+<div class="content">
+{content}
+</div>
+</div>
+</div>
+```
+
+It is possible to set layout explicitly:
+
+```
+{ layout = servivces }
+
+# Services
+
+* Mobile
+* Web
+```
+
+Or if you don't want any layout
+
+```
+{ layout = false }
+```
+
+Also before applying  default layout the system will try to find layout
+corresponding to specified url. For example for pages `/services`,
+`/services/web-development`, `/services/backend/ruby` `services` layout
+will be applied.
 
 ## Development
 
