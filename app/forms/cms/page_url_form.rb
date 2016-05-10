@@ -2,11 +2,15 @@ module Cms
   class PageUrlForm < ::Cms::BaseModelForm
     model Page
 
-    attr_accessor :url
+    attr_writer :url
 
     validates :url, presence: true,
                     format: { with: %r{\A/[/a-z0-9_-]*\z}, allow_blank: true }
     validate :url_uniqueness
+
+    def url
+      @url || model.url
+    end
 
     def before_save
       if @model.new_record?
