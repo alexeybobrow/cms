@@ -12,13 +12,6 @@ module Cms
       @url || model.url
     end
 
-    def before_save
-      if @model.new_record?
-        @model.content = Content.new
-        @model.annotation = Content.new
-      end
-    end
-
     def clean_attributes
       unless model.primary_url
         model.build_primary_url
