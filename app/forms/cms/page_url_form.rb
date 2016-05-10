@@ -16,8 +16,8 @@ module Cms
     end
 
     def clean_attributes
-      unless @model.primary_url
-        @model.build_primary_url
+      unless model.primary_url
+        model.build_primary_url
       end
 
       self.url = Cms::UrlHelper.normalize_url(url)
