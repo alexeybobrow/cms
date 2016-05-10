@@ -6,8 +6,6 @@ describe Cms::PageUrlForm do
   let(:form) { Cms::PageUrlForm.new({}, Page.new) }
   subject { form }
 
-  it { is_expected.to have_attribute(:url).with_default_value_of('/') }
-
   context 'validation' do
     describe '#url' do
       it { is_expected.to allow_value('/ru/article_12').for(:url) }
