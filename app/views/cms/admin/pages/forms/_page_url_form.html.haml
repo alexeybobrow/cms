@@ -2,4 +2,6 @@
   = simple_form_for @form, url: url do |f|
     = hidden_field_tag :form_kind, 'url'
     = f.input :url, label: false
+    = f.fields_for :urls do |uf|
+      = uf.input :name, label: false
     = f.button :submit, I18n.t('admin.pages.forms.button.update_url')
