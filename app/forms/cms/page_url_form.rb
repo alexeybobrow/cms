@@ -5,8 +5,7 @@ module Cms
     attr_writer :url
     attr_accessor :primary_id
 
-    validates :url, presence: true,
-                    format: { with: %r{\A/[/a-z0-9_-]*\z}, allow_blank: true }
+    validates :url, presence: true, format: { with: %r{\A/[/a-z0-9_-]*\z} }
     validate :primary_url_uniqueness
 
     def url
