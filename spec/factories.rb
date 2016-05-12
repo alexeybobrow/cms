@@ -18,7 +18,7 @@ FactoryGirl.define do
   end
 
   factory :url do
-    name "/#{Faker::Internet.slug(nil, '-')}"
+    name "/" + Faker::Internet.slug(nil, '-')
     primary true
   end
 
@@ -53,7 +53,7 @@ FactoryGirl.define do
     transient do
       content_body { Faker::Lorem.paragraphs.join("\n\n") }
       annotation_body { Faker::Lorem.paragraphs.join("\n\n") }
-      url { "/#{title.to_s.downcase.gsub(/ /,'_')}" }
+      url { "/" + title.to_s.downcase.gsub(/ /,'_') }
       user nil
     end
 
