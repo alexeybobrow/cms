@@ -107,7 +107,7 @@ SRC
         click_on 'Edit'
       end
       fill_in 'page_url', with: '/created_page'
-      click_on 'Update Url'
+      click_on 'Update'
 
       # Edit page meta
       within '[data-meta-panel]' do
@@ -165,7 +165,7 @@ SRC
 
     it 'edits a page' do
       fill_in 'page_url', with: '/new_page_url'
-      click_on 'Update Url'
+      click_on 'Update'
 
       expect(current_path).to eq(cms.admin_page_path(test_page))
       expect(page).to have_content ('/new_page_url')
@@ -173,7 +173,7 @@ SRC
 
     it 're-renders edit with validation errors' do
       fill_in 'page_url', with: 'new page url'
-      click_on 'Update Url'
+      click_on 'Update'
 
       expect(current_path).to eq(cms.admin_page_path(test_page))
       expect(page).to have_content('is invalid')

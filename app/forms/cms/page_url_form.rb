@@ -3,8 +3,8 @@ module Cms
     model Page
 
     attr_writer :url
+    attr_accessor :primary_id
 
-    attribute :urls_attributes, default: []
     validates :url, presence: true,
                     format: { with: %r{\A/[/a-z0-9_-]*\z}, allow_blank: true }
     validate :primary_url_uniqueness
@@ -13,12 +13,9 @@ module Cms
       @url || model.url
     end
 
-    def urls
-      model.urls.where.not(id: primary_url.id)
-    end
-
     def clean_attributes
       self.url = Cms::UrlHelper.normalize_url(url)
+      model.set_primary_url(primary_id)
       primary_url.name = self.url
     end
 

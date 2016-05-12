@@ -47,7 +47,7 @@ class Page < ActiveRecord::Base
     alias_method :public_get!, :public_get
   end
 
-  has_many :urls
+  has_many :urls, autosave: true
   has_one :primary_url, -> { where primary: true }, class_name: "Url", autosave: true
   belongs_to :content, inverse_of: :_page_as_content, dependent: :destroy
   belongs_to :annotation, class_name: 'Content', foreign_key: 'annotation_id', inverse_of: :_page_as_annotation, dependent: :destroy
@@ -72,6 +72,12 @@ class Page < ActiveRecord::Base
 
   def url
     primary_url.try(:name)
+  end
+
+  def set_primary_url(id)
+    if new_primary = urls.where(id: id).first
+      urls.each { |u| u.primary = (u == new_primary)}
+    end
   end
 
   def root?
