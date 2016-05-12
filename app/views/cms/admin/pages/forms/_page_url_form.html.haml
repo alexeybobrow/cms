@@ -27,6 +27,7 @@
                     .text-center= f.radio_button :primary_id, url.id, checked: url.primary?, class: 'page-form--checkbox__primary'
                   %td
                     %div.btn-group.btn-group-xs.pull-right
-                      = icon_link_to :remove, '#', method: :delete, data: { 'delete-url-alias': true, confirm: t('admin.fragments.delete_confirmation') }
+                      - unless url.primary?
+                        = icon_link_to :remove, [:admin, @page, url], method: :delete, data: { confirm: t('admin.fragments.delete_confirmation') }
 
     = f.button :submit, 'Update'

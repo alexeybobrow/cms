@@ -7,6 +7,8 @@ Cms::Engine.routes.draw do
         post 'reify', on: :member
       end
 
+      resources :urls, only: :destroy
+
       member do
         get 'edit/:form_kind', action: :edit, as: :edit
         put :publish
