@@ -22,11 +22,11 @@ class Page < ActiveRecord::Base
 
   class << self
     def with_url(name)
-      joins(:urls).where("urls.name = ?", name).first
+      where("urls.name = ?", name).first
     end
 
     def with_url_prefix(prefix)
-      joins(:urls).where("urls.name LIKE ?", "#{prefix}/%")
+      where("urls.name LIKE ?", "#{prefix}/%")
     end
 
     def scoped_with_array(name)
@@ -40,7 +40,6 @@ class Page < ActiveRecord::Base
       id = Integer(param) rescue 0
 
       actual
-      .joins(:urls)
       .where("urls.name = ? OR pages.id = ?", url, id)
       .first!
     end
@@ -52,26 +51,28 @@ class Page < ActiveRecord::Base
   belongs_to :content, inverse_of: :_page_as_content, dependent: :destroy
   belongs_to :annotation, class_name: 'Content', foreign_key: 'annotation_id', inverse_of: :_page_as_annotation, dependent: :destroy
 
+  default_scope { joins('LEFT JOIN "urls" ON "urls"."page_id" = "pages"."id" AND "urls"."primary" = \'t\'') }
+
   accepts_nested_attributes_for :urls, :content, :annotation
 
   default_value_for :posted_at do
     Time.now
   end
 
-  scope :for_admin,        ->(show = nil){ actual(show).joins(:urls).order('urls.name') }
+  scope :for_admin,        ->(show = nil){ actual(show).order('urls.name') }
   scope :blog,             ->(locale){
                                prefix = locale.to_s == 'en' ? '' : "/#{locale}"
                                with_url_prefix("#{prefix}/blog").actual
                              }
   scope :ordered_blog,     ->(locale){ blog(locale).order(posted_at: :desc) }
-  scope :by_slug,          ->(s){ joins(:urls).where('urls.name like ?', "%#{s}") }
+  scope :by_slug,          ->(s){ where('urls.name like ?', "%#{s}") }
   scope :without,          ->(page){ where.not(id: page.id) }
   scope :tags_with_counts, ->(){ select('COUNT(pages.id) AS count, UNNEST(tags) AS tag_name').group('tag_name').order('tag_name') }
   scope :by_tag,           scoped_with_array(:tags)
   scope :by_author,        scoped_with_array(:authors)
 
   def url
-    primary_url.try(:name)
+    primary_url.try(:name) || ''
   end
 
   def set_primary_url(id)
@@ -92,7 +93,6 @@ class Page < ActiveRecord::Base
     self.class
       .actual
       .with_published_state
-      .joins(:urls)
       .where('urls.name' => I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
       .where.not(id: self.id).first
   end
