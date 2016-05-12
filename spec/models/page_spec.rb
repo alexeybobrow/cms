@@ -200,6 +200,37 @@ describe Page do
     end
   end
 
+  describe '#set_primary_url' do
+    let!(:page) { create :page }
+    let!(:primary_url) { create(:url, page: page, primary: true) }
+    let!(:secondary_url) { create(:url, page: page, primary: false) }
+
+    before do
+      page.urls = [primary_url, secondary_url]
+    end
+
+    it 'sets new primary url' do
+      page.set_primary_url(secondary_url.id)
+      page.save!
+
+      expect(primary_url).not_to be_primary
+      expect(secondary_url).to be_primary
+    end
+
+    it 'does nothing if id was not found' do
+      expect { page.set_primary_url(9999) }.not_to raise_error
+    end
+  end
+
+  describe '#url' do
+    it 'returns primary_url#name' do
+      page = create(:page, url: '/primary')
+
+      expect(page.primary_url.name).to eq('/primary')
+      expect(page.url).to eq('/primary')
+    end
+  end
+
   describe 'workflow state machine' do
     it 'invokes #safe_delete on #safe_delete! event' do
       page = create :page

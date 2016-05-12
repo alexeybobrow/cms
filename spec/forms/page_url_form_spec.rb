@@ -29,19 +29,32 @@ describe Cms::PageUrlForm do
         it { is_expected.to_not allow_value('/RU/paGE_Url').for(:url).ignoring_interference_by_writer }
       end
     end
+  end
 
-    describe '#clean_attributes' do
-      it 'prepends / to url if missing' do
-        form.url = 'about-us'
-        form.clean_attributes
-        expect(form.url).to eq('/about-us')
-      end
+  describe '#clean_attributes' do
+    it 'prepends / to url if missing' do
+      form.url = 'about-us'
+      form.clean_attributes
+      expect(form.url).to eq('/about-us')
+    end
 
-      it 'does not prepend / to url if in place' do
-        form.url = '/about-us'
-        form.clean_attributes
-        expect(form.url).to eq('/about-us')
-      end
+    it 'does not prepend / to url if in place' do
+      form.url = '/about-us'
+      form.clean_attributes
+      expect(form.url).to eq('/about-us')
+    end
+
+    it 'sets primary url' do
+      form.primary_id = 42
+      expect(form.model).to receive(:set_primary_url).with(42)
+      form.clean_attributes
+    end
+  end
+
+  describe '#url' do
+    it 'uses model#url as default value' do
+      expect(form.model).to receive(:url).and_return('/about-us')
+      expect(form.url).to eq('/about-us')
     end
   end
 end

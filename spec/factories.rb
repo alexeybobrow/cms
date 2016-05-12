@@ -18,7 +18,7 @@ FactoryGirl.define do
   end
 
   factory :url do
-    name "/" + Faker::Internet.slug(nil, '-')
+    name { "/" + Faker::Internet.slug(nil, '-') }
     primary true
   end
 
