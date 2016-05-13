@@ -44,9 +44,16 @@ describe Cms::PageUrlForm do
       expect(form.url).to eq('/about-us')
     end
 
-    it 'sets primary url' do
+    it 'switches primary url' do
       form.primary_id = 42
-      expect(form.model).to receive(:set_primary_url).with(42)
+      expect(form.model).to receive(:switch_primary_url).with(42)
+      form.clean_attributes
+    end
+
+    it 'updates primary url' do
+      form.url = '/new-primary'
+      new_primary = form.model.build_primary_url
+      expect(form.model).to receive(:update_primary_url).with('/new-primary', new_primary)
       form.clean_attributes
     end
   end

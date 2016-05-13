@@ -14,8 +14,8 @@ module Cms
 
     def clean_attributes
       self.url = Cms::UrlHelper.normalize_url(url)
-      model.set_primary_url(primary_id)
-      primary_url.name = self.url
+      model.switch_primary_url(primary_id)
+      model.update_primary_url(self.url, primary_url)
     end
 
     private

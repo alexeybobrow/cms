@@ -200,7 +200,7 @@ describe Page do
     end
   end
 
-  describe '#set_primary_url' do
+  describe '#switch_primary_url' do
     let!(:page) { create :page }
     let!(:primary_url) { create(:url, page: page, primary: true) }
     let!(:secondary_url) { create(:url, page: page, primary: false) }
@@ -210,7 +210,7 @@ describe Page do
     end
 
     it 'sets new primary url' do
-      page.set_primary_url(secondary_url.id)
+      page.switch_primary_url(secondary_url.id)
       page.save!
 
       expect(primary_url).not_to be_primary
@@ -218,7 +218,37 @@ describe Page do
     end
 
     it 'does nothing if id was not found' do
-      expect { page.set_primary_url(9999) }.not_to raise_error
+      expect { page.switch_primary_url(9999) }.not_to raise_error
+    end
+  end
+
+  describe '#update_primary_url' do
+    it 'sets name for non persisted primary url' do
+      page = build(:page)
+      page.update_primary_url('/services', page.build_primary_url)
+
+      expect(page.primary_url.name).to eq('/services')
+    end
+
+    it 'makes old url an alias and creates new primary' do
+      page = create(:page, url: '/old-primary')
+      page.update_primary_url('/new-primary', page.primary_url)
+      page.save!
+
+      old_primary = Url.where(name: '/old-primary').first
+
+      expect(page.reload.primary_url.name).to eq('/new-primary')
+      expect(page.urls.count).to eq(2)
+      expect(old_primary).not_to be_primary
+      expect(old_primary.page).to eq(page)
+    end
+
+    it 'does nothing if name havent changed' do
+      page = create(:page, url: '/old-primary')
+      page.update_primary_url('/old-primary', page.primary_url)
+
+      expect(page.reload.primary_url.name).to eq('/old-primary')
+      expect(page.urls.count).to eq(1)
     end
   end
 

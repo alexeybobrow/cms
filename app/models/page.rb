@@ -75,9 +75,18 @@ class Page < ActiveRecord::Base
     primary_url.try(:name) || ''
   end
 
-  def set_primary_url(id)
+  def switch_primary_url(id)
     if new_primary = urls.where(id: id).first
       urls.each { |u| u.primary = (u == new_primary)}
+    end
+  end
+
+  def update_primary_url(name, current_primary)
+    if current_primary.new_record?
+      current_primary.name = name
+    elsif current_primary.name != name
+      urls.each { |u| u.primary = false }
+      urls.build(name: name, primary: true)
     end
   end
 
