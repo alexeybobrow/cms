@@ -81,13 +81,13 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def update_primary_url(name, current_primary)
-    if current_primary.new_record?
-      current_primary.name = name
-    elsif current_primary.name != name
-      urls.each { |u| u.primary = false }
-      urls.build(name: name, primary: true)
+  def update_primary_url(name)
+    build_primary_url if primary_url.nil?
+    primary_url.name = name
+    if primary_url.persisted? && primary_url.name_changed?
+      urls.build(name: primary_url.name_was)
     end
+    primary_url.save
   end
 
   def root?

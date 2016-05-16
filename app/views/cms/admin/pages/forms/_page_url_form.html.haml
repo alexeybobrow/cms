@@ -6,6 +6,9 @@
     = f.input :url, label: false
 
     %h3 Url aliases
+    = f.input :url_alias, label: false, wrapper: :vertical_input_group do
+      = f.input_field :url_alias, class: "form-control"
+      .input-group-btn= f.button :submit, 'Add'
     %section
       .row
         .col-md-8

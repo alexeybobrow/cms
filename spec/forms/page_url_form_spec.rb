@@ -22,39 +22,40 @@ describe Cms::PageUrlForm do
           create :page, url: '/ru/page_url'
         end
 
-        it { is_expected.to_not allow_value('/ru/page_url').for(:url).ignoring_interference_by_writer }
-        it { is_expected.to allow_value('/page_url').for(:url).ignoring_interference_by_writer }
-        it { is_expected.to allow_value('/page_URL').for(:url).ignoring_interference_by_writer }
-        it { is_expected.to_not allow_value('/ru/paGE_Url').for(:url).ignoring_interference_by_writer }
-        it { is_expected.to_not allow_value('/RU/paGE_Url').for(:url).ignoring_interference_by_writer }
+        [:url, :url_alias].each do |field|
+          it { is_expected.to_not allow_value('/ru/page_url').for(field).ignoring_interference_by_writer }
+          it { is_expected.to allow_value('/page_url').for(field).ignoring_interference_by_writer }
+          it { is_expected.to allow_value('/page_URL').for(field).ignoring_interference_by_writer }
+          it { is_expected.to_not allow_value('/ru/paGE_Url').for(field).ignoring_interference_by_writer }
+          it { is_expected.to_not allow_value('/RU/paGE_Url').for(field).ignoring_interference_by_writer }
+        end
       end
     end
   end
 
-  describe '#clean_attributes' do
+  describe '#url=' do
     it 'prepends / to url if missing' do
       form.url = 'about-us'
-      form.clean_attributes
       expect(form.url).to eq('/about-us')
     end
 
     it 'does not prepend / to url if in place' do
       form.url = '/about-us'
-      form.clean_attributes
       expect(form.url).to eq('/about-us')
+    end
+  end
+
+  describe '#before_save' do
+    it 'updates primary url' do
+      form.url = '/new-primary'
+      expect(form.model).to receive(:update_primary_url).once.with('/new-primary')
+      form.before_save
     end
 
     it 'switches primary url' do
       form.primary_id = 42
       expect(form.model).to receive(:switch_primary_url).with(42)
-      form.clean_attributes
-    end
-
-    it 'updates primary url' do
-      form.url = '/new-primary'
-      new_primary = form.model.build_primary_url
-      expect(form.model).to receive(:update_primary_url).with('/new-primary', new_primary)
-      form.clean_attributes
+      form.before_save
     end
   end
 

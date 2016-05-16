@@ -67,6 +67,7 @@ FactoryGirl.define do
       end
 
       page.urls = build_list(:url, 1, page: page, name: evaluator.url)
+      page.primary_url = page.urls.first
     end
 
     trait :html do
