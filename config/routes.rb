@@ -32,8 +32,8 @@ Cms::Engine.routes.draw do
 
   scope module: :public do
     scope '(:locale)', locale: /#{I18n.available_locales.join("|")}/, defaults: { locale: I18n.default_locale } do
-      scope constraints: { format: 'html' } do
-        scope constraints: Cms::RoutingConstraints::SetLocaleConstraint.new do
+      constraints(format: 'html') do
+        constraints(Cms::RoutingConstraints::SetLocaleConstraint.new) do
           resources :blog, only: :index do
             get 'category/:tag', action: 'tag', on: :collection, as: :tag
             get 'author/:author', action: 'author', on: :collection, as: :author
@@ -47,8 +47,12 @@ Cms::Engine.routes.draw do
 
     get '/uploads/image_attachment/image/:id/:basename.:extension', to: 'attachments#download'
 
-    scope constraints: { format: 'html' } do
-      get '/*page', to: 'pages#show', as: 'page'
+    constraints(format: 'html') do
+      constraints(Cms::RoutingConstraints::PrimaryUrlConstraint.new) do
+        get '/*page', to: 'pages#show', as: 'page'
+      end
+
+      get '/*page', to: Cms::RoutingConstraints::UrlAliasesDispatcher.new(self)
     end
   end
 
