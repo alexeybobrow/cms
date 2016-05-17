@@ -31,6 +31,9 @@
                   %td
                     %div.btn-group.btn-group-xs.pull-right
                       - unless url.primary?
-                        = icon_link_to :remove, [:admin, @page, url], method: :delete, data: { confirm: t('admin.fragments.delete_confirmation') }
+                        = icon_link_to :remove,
+                          [:admin, @page, url],
+                          method: :delete,
+                          data: { 'delete-url-alias': true, confirm: t('admin.fragments.delete_confirmation') }
 
     = f.button :submit, 'Update'

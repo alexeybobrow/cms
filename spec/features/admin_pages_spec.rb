@@ -178,6 +178,45 @@ SRC
       expect(current_path).to eq(cms.admin_page_path(test_page))
       expect(page).to have_content('is invalid')
     end
+
+    it 'adds new url alias' do
+      fill_in 'page_url_alias', with: '/this-is-page-alias'
+      click_on 'Add'
+
+      expect(current_path).to eq(cms.admin_page_path(test_page))
+      expect(page).to have_content('/this-is-page-alias')
+    end
+
+    it 'changes page url and creates url alias' do
+      fill_in 'page_url', with: '/new_page_url'
+      click_on 'Update'
+
+      expect(page).to have_content ('/new_page_url')
+      expect(page).to have_content ('Url aliases: /page_url')
+    end
+
+    context 'Url aliases manipulation' do
+      let!(:url_alias) { create :url, name: '/this-is-page-alias', primary: false, page: test_page }
+
+      before do
+        visit cms.admin_page_path(test_page)
+        within('.url-panel') { click_on 'Edit' }
+      end
+
+      it 'deletes url alias' do
+        page.first('[data-delete-url-alias]').click
+        expect(page).not_to have_content('/this-is-page-alias')
+        expect(page).to have_content('/page_url')
+        expect(Url.exists?(url_alias.id)).to be_falsy
+      end
+
+      it 'switches to new primary url' do
+        find(:xpath, "//input[@value='#{url_alias.id}']").set(true)
+        click_on 'Update'
+        expect(page).to have_content ('/this-is-page-alias')
+        expect(page).to have_content ('Url aliases: /page_url')
+      end
+    end
   end
 
   context 'update page content' do
