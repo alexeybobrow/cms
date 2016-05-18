@@ -3,11 +3,17 @@ module Cms
     class UrlAliasesDispatcher
       def initialize(router)
         @router = router
+        @failure_app = Cms.failure_app
       end
 
       def call(env)
-        url = Url.where(name: '/'+url_from(env)).first!
-        redirect_to(url.page.url, env)
+        url = Url.where(name: '/'+url_from(env)).first
+
+        if url
+          redirect_to(url.page.url, env)
+        else
+          @failure_app.call(env)
+        end
       end
 
       private

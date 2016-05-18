@@ -7,9 +7,12 @@ module Cms
 
       private
 
+      def name_from(request)
+        request.env["action_dispatch.request.path_parameters"][:page]
+      end
+
       def url_from(request)
-        url_param = request.env["action_dispatch.request.path_parameters"][:page]
-        Url.where(name: '/'+url_param).first
+        Url.where(name: '/'+name_from(request)).first
       end
     end
   end
