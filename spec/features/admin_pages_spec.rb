@@ -300,7 +300,7 @@ SRC
 
       expect(current_path).to eq(cms.admin_pages_path)
       expect(page).not_to have_content('Bad')
-      expect(Page.joins(:urls).where('urls.name' => '/bad_url').first).to be_deleted
+      expect(Page.where('urls.name' => '/bad_url').first).to be_deleted
     end
 
     it 'shows deleted pages on demand' do
