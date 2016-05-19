@@ -7,15 +7,17 @@ describe Cms::PageUrlForm do
   subject { form }
 
   context 'validation' do
-    describe '#url' do
-      it { is_expected.to allow_value('/ru/article_12').for(:url) }
-      it { is_expected.to allow_value('/ru/blog/cool_stories/').for(:url) }
-      it { is_expected.to allow_value('/en').for(:url) }
-      it { is_expected.to allow_value('/blog/cool_stories/article').for(:url) }
-      it { is_expected.to allow_value('/article_12').for(:url) }
+    describe 'url methods' do
+      [:url, :url_alias].each do |field|
+        it { is_expected.to allow_value('/ru/article_12').for(field) }
+        it { is_expected.to allow_value('/ru/blog/cool_stories/').for(field).ignoring_interference_by_writer }
+        it { is_expected.to allow_value('/en').for(field) }
+        it { is_expected.to allow_value('/blog/cool_stories/article').for(field) }
+        it { is_expected.to allow_value('/article_12').for(field) }
 
-      it { is_expected.not_to allow_value('/@#$%^&*').for(:url) }
-      it { is_expected.not_to allow_value('/ page url').for(:url) }
+        it { is_expected.not_to allow_value('/@#$%^&*').for(field) }
+        it { is_expected.not_to allow_value('/ page url').for(field) }
+      end
 
       context 'validates uniqueness with case insensitivity' do
         before do
@@ -66,3 +68,4 @@ describe Cms::PageUrlForm do
     end
   end
 end
+

@@ -1,11 +1,14 @@
 module Cms
   class PageUrlForm < ::Cms::BaseModelForm
+    URL_PATTERN = %r{\A/[/a-z0-9_-]*\z}
+
     model Page
 
     attr_accessor :primary_id
     attr_reader :url_alias
 
-    validates :url, presence: true, format: { with: %r{\A/[/a-z0-9_-]*\z} }
+    validates :url, presence: true, format: { with: URL_PATTERN }
+    validates :url_alias, format: { with: URL_PATTERN }, allow_blank: true
     validate :primary_url_uniqueness
     validate :url_alias_uniqueness
 
