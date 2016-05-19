@@ -20,6 +20,20 @@ Or install it yourself as:
 
     $ gem install cms
 
+## Page not found fallback
+
+You must explicitly specify failure_app for page handling. You can use
+one defined inside gem or make your own
+
+    # inside config/initializers/cms.rb
+    Cms.setup do |config|
+      config.failure_app = Cms::Public::FailureAppController.action(:not_found)
+    end
+
+Or if you still want to handle pages, not found by their slugs
+
+    config.failure_app = Cms::Public::PagesController.action(:show)
+
 ## Layouts
 
 You can create default layout by creating `default_layout` fragment.

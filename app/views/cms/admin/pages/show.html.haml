@@ -21,7 +21,14 @@
         %h3.panel-title
           = t('admin.pages.url')
           = link_to 'Edit', edit_admin_page_path(@page, :url), class: 'btn btn-default pull-right btn-xs'
-      .panel-body= @page.url
+      .panel-body
+        = @page.url
+      .list-group
+        .list-group-item
+          %strong= t('admin.pages.urls')
+        - @page.urls.each do |url|
+          - unless url.primary?
+            .list-group-item= url.name
 
 .row
   .col-xs-6

@@ -26,6 +26,7 @@ en:
       create_link: 'Create new page'
       page_is_deleted: 'Page is deleted'
       url: "Url"
+      urls: "Url aliases: "
       meta: "Meta"
       tags: "Tags"
       authors: "Authors"

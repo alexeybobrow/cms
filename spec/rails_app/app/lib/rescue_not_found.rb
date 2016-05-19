@@ -15,7 +15,6 @@ module RescueNotFound
   def raise_not_found!
     raise ActionController::RoutingError.new("No route matches #{params[:unmatched_route]}")
   end
-private
 
   def render_not_found(exception=nil)
     render "/errors/404", formats: [:html], handlers: [:haml], status: 404

@@ -18,5 +18,8 @@
                 %span= link_to fragment.slug, edit_admin_fragment_path(fragment)
               %td
                 %div.btn-group.btn-group-xs.pull-right
-                  = icon_link_to :remove, admin_fragment_path(fragment), method: :delete, data: { 'delete-fragment': true, confirm: t('admin.fragments.delete_confirmation') }
+                  = icon_link_to :remove,
+                    admin_fragment_path(fragment),
+                    method: :delete,
+                    data: { 'delete-fragment': true, confirm: t('admin.fragments.delete_confirmation') }
 

@@ -15,8 +15,8 @@ describe Cms::PageUpdate do
       end
 
       it 'doesn\'t save page if invalid' do
-        page.url = 'some invalid stuff'
-        subject.save('url') do |model, forms|
+        upd_service = Cms::PageUpdate.new({ page: { url: 'some invalid stuff' } }, page)
+        upd_service.save('url') do |model, forms|
           expect(forms[:page_form].valid?).to be_falsy
           expect(page).not_to be_persisted
           expect(model).to be_nil

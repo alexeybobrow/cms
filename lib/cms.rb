@@ -24,6 +24,13 @@ module Cms
 
   mattr_accessor(:host) { "PLEASE, SET ME!" }
 
+  # inside config/initializers/cms.rb
+  # config.failure_app = Cms::Public::FailureAppController.action(:not_found)
+  #
+  # or if you still want to handle pages, not found by their slugs
+  # config.failure_app = Cms::Public::PagesController.action(:show)
+  mattr_accessor(:failure_app) { "PLEASE, SET ME!" }
+
   def self.setup
     yield(self)
   end

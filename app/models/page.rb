@@ -21,43 +21,74 @@ class Page < ActiveRecord::Base
   has_paper_trail only: [:title, :description, :meta, :name, :url, :deleted_at]
 
   class << self
+    def with_url(name)
+      where("urls.name = ?", name).first
+    end
+
     def with_url_prefix(prefix)
-      where("url LIKE :prefix", prefix: "#{prefix}/%")
+      where("urls.name LIKE ?", "#{prefix}/%")
     end
 
     def scoped_with_array(name)
-      ->(value){ where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') IN (:value))", value: value) }
+      ->(value){
+        where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') IN (:value))", value: value)
+      }
     end
 
     def public_get(param)
       url = Cms::UrlHelper.normalize_url(param)
       id = Integer(param) rescue 0
-      actual.where("url = ? OR id = ?", url, id).first!
+
+      actual
+      .where("urls.name = ? OR pages.id = ?", url, id)
+      .first!
     end
     alias_method :public_get!, :public_get
   end
 
+  has_many :urls, autosave: true
+  has_one :primary_url, -> { where primary: true }, class_name: "Url", autosave: true
   belongs_to :content, inverse_of: :_page_as_content, dependent: :destroy
   belongs_to :annotation, class_name: 'Content', foreign_key: 'annotation_id', inverse_of: :_page_as_annotation, dependent: :destroy
 
-  accepts_nested_attributes_for :content
-  accepts_nested_attributes_for :annotation
+  default_scope { joins('LEFT JOIN "urls" ON "urls"."page_id" = "pages"."id" AND "urls"."primary" = \'t\'') }
+
+  accepts_nested_attributes_for :urls, :content, :annotation
 
   default_value_for :posted_at do
     Time.now
   end
 
-  scope :for_admin,        ->(show = nil){ actual(show).order(:url) }
+  scope :for_admin,        ->(show = nil){ actual(show).order('urls.name') }
   scope :blog,             ->(locale){
                                prefix = locale.to_s == 'en' ? '' : "/#{locale}"
-                               where("url LIKE '#{prefix}/blog/%'").actual
+                               with_url_prefix("#{prefix}/blog").actual
                              }
   scope :ordered_blog,     ->(locale){ blog(locale).order(posted_at: :desc) }
-  scope :by_slug,          ->(s){ where('url like ?', "%#{s}") }
+  scope :by_slug,          ->(s){ where('urls.name like ?', "%#{s}") }
   scope :without,          ->(page){ where.not(id: page.id) }
-  scope :tags_with_counts, ->(){ select('COUNT(id) AS count, UNNEST(tags) AS tag_name').group('tag_name').order('tag_name') }
+  scope :tags_with_counts, ->(){ select('COUNT(pages.id) AS count, UNNEST(tags) AS tag_name').group('tag_name').order('tag_name') }
   scope :by_tag,           scoped_with_array(:tags)
   scope :by_author,        scoped_with_array(:authors)
+
+  def url
+    primary_url.try(:name) || ''
+  end
+
+  def switch_primary_url(id)
+    if new_primary = urls.where(id: id).first
+      urls.each { |u| u.primary = (u == new_primary)}
+    end
+  end
+
+  def update_primary_url(name)
+    build_primary_url if primary_url.nil?
+    primary_url.name = name
+    if primary_url.persisted? && primary_url.name_changed?
+      urls.build(name: primary_url.name_was)
+    end
+    primary_url.save
+  end
 
   def root?
     url.in? %w(/ /ru)
@@ -71,7 +102,7 @@ class Page < ActiveRecord::Base
     self.class
       .actual
       .with_published_state
-      .where(url: I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
+      .where('urls.name' => I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
       .where.not(id: self.id).first
   end
 

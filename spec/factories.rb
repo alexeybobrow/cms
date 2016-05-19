@@ -17,6 +17,11 @@ FactoryGirl.define do
     end
   end
 
+  factory :url do
+    name { "/" + Faker::Internet.slug(nil, '-') }
+    primary true
+  end
+
   factory :liquid_variable do
     name 'width'
     value '100px'
@@ -39,7 +44,6 @@ FactoryGirl.define do
   factory :page do
     sequence(:title) { |n| "Page #{n}" }
     name { title }
-    url { "/#{title.to_s.downcase.gsub(/ /,'_')}" }
     og []
     workflow_state 'published'
 
@@ -49,6 +53,7 @@ FactoryGirl.define do
     transient do
       content_body { Faker::Lorem.paragraphs.join("\n\n") }
       annotation_body { Faker::Lorem.paragraphs.join("\n\n") }
+      url { "/" + title.to_s.downcase.gsub(/ /,'_') }
       user nil
     end
 
@@ -60,6 +65,9 @@ FactoryGirl.define do
       if evaluator.annotation_body.present?
         page.annotation.update_column(:body, evaluator.annotation_body)
       end
+
+      page.urls = build_list(:url, 1, page: page, name: evaluator.url)
+      page.primary_url = page.urls.first
     end
 
     trait :html do
