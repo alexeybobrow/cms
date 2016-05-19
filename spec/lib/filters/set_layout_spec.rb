@@ -40,5 +40,11 @@ describe Cms::Filters::SetLayout do
       filter.context[:path] = '/blog'
       expect(filter.call.squish).to eq('<div class="wrap">test</div>'.squish)
     end
+
+    it 'works for paths with locales' do
+      filter = Cms::Filters::SetLayout.new("test")
+      filter.context[:path] = '/en/blog/some/article'
+      expect(filter.call.squish).to eq('<div class="wrap">test</div>'.squish)
+    end
   end
 end

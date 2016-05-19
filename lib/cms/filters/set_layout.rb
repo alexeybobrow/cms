@@ -4,8 +4,18 @@ module Cms
       include VariablesHelper
 
       CONTENT_PATTERN = /\{\s*content\s*}/
-      PATH_PREFIX_PATTERN = /\A\/([\w\-]*)/
       DEFAULT_LAYOUT = 'default_layout'
+
+      class << self
+        def path_prefix_pattern
+          @path_prefix_pattern ||= compute_pattern
+        end
+
+        def compute_pattern
+          available_locales = I18n.available_locales.map{|l| Regexp.escape(l) + "\/"}
+          /\A\/(?:#{available_locales.join('|')})?([\w\-]*)/
+        end
+      end
 
       def call
         extract_variables!
@@ -43,7 +53,7 @@ module Cms
 
       def layout_from_path
         if path = self.context[:path].presence
-          path.match(PATH_PREFIX_PATTERN).captures.first
+          path.match(SetLayout.path_prefix_pattern).captures.first
         end
       end
     end
