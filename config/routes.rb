@@ -48,11 +48,7 @@ Cms::Engine.routes.draw do
     get '/uploads/image_attachment/image/:id/:basename.:extension', to: 'attachments#download'
 
     constraints(format: 'html') do
-      constraints(Cms::RoutingConstraints::PrimaryUrlConstraint.new) do
-        get '/*page', to: 'pages#show', as: 'page'
-      end
-
-      get '/*page', to: Cms::RoutingConstraints::UrlAliasesDispatcher.new(self)
+      get '/*page', to: 'pages#show', as: 'page'
     end
   end
 
