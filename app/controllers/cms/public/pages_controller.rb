@@ -7,7 +7,7 @@ module Cms
           when :not_found, :primary
             then load_page
           else #:alias
-            redirect_to url.page.url
+            redirect_to url.page.url, status: 301
           end
         end
       end
