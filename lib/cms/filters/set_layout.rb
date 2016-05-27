@@ -48,7 +48,13 @@ module Cms
       end
 
       def layout_from_var
-        @variables['layout']
+        @variables['layout'] || layout_from_context
+      end
+
+      def layout_from_context
+        if template_variables = self.context[:template_variables]
+          template_variables[:layout]
+        end
       end
 
       def layout_from_path

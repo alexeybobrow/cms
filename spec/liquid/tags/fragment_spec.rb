@@ -5,7 +5,7 @@ describe Cms::Liquid::Tags::Fragment do
   include ActionView::TestCase::Behavior
 
   def view
-    _view.extend Cms::FragmentHelper
+    _view.extend Cms::LiquidHelper
     _view.extend Cms::FormattingHelper
     _view
   end

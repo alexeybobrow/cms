@@ -9,6 +9,7 @@ module Cms
 
     def simple_pipeline
       HTML::Pipeline.new [
+        Filters::TemplateVariablesFilter,
         Filters::LiquidParser,
         Filters::SyntaxHighlight,
         HTML::Pipeline::AbsoluteSourceFilter
@@ -17,6 +18,7 @@ module Cms
 
     def markdown_pipeline
       HTML::Pipeline.new [
+        Filters::TemplateVariablesFilter,
         Filters::SetLayout,
         Filters::MarkdownFilter,
         HTML::Pipeline::AbsoluteSourceFilter,
@@ -30,6 +32,7 @@ module Cms
     def context
       {
         view: self,
+        template_variables: template_variables,
         controller: controller,
         path: request.fullpath,
         base_url: Cms.host,

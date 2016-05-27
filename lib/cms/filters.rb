@@ -6,5 +6,6 @@ module Cms
     autoload :MarkdownFilter, 'cms/filters/markdown_filter'
     autoload :SetLayout, 'cms/filters/set_layout'
     autoload :VariablesHelper, 'cms/filters/variables_helper'
+    autoload :TemplateVariablesFilter, 'cms/filters/template_variables_filter'
   end
 end

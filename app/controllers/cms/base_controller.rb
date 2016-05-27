@@ -4,7 +4,7 @@ module Cms
 
     helper 'cms/application'
     helper 'cms/formatting'
-    helper 'cms/fragment'
+    helper 'cms/liquid'
 
     helper_method :check_policy
 
