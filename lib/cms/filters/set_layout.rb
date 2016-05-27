@@ -24,9 +24,16 @@ module Cms
 
       private
 
+      def layout_pipeline
+        HTML::Pipeline.new [
+          Filters::TemplateVariablesFilter
+        ], self.context
+      end
+
       def wrapped_with_layout
         if layout
-          layout.gsub(CONTENT_PATTERN, @text)
+          content = layout.body.gsub(CONTENT_PATTERN, @text)
+          layout_pipeline.call(content)[:output].to_s
         else
           @text
         end
@@ -44,7 +51,7 @@ module Cms
       end
 
       def find_layout(name)
-        ::Fragment.where(slug: name).first.try(:body)
+        ::Fragment.where(slug: name).first
       end
 
       def layout_from_var

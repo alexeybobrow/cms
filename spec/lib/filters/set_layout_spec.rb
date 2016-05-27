@@ -18,6 +18,14 @@ describe Cms::Filters::SetLayout do
     expect(filter.call.squish).to eq('<div class="wrap"> test</div>'.squish)
   end
 
+  it 'reads template variables from layout' do
+    ctxt = { template_variables: {} }
+    create :fragment, slug: 'blog', content_body: '{var = test}{content}'
+    filter = Cms::Filters::SetLayout.new("{ layout = blog }\ntest", ctxt)
+    filter.call
+    expect(ctxt[:template_variables]).to eq({'var' => 'test', 'layout' => 'blog'})
+  end
+
   context 'from path prefix' do
     before do
       create :fragment, slug: 'blog', content_body: '<div class="wrap">{content}</div>'
