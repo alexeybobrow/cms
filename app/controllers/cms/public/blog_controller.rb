@@ -27,7 +27,7 @@ module Cms
       private
 
       def articles(only_published=true)
-        scoped = Page.unscoped.joins(:urls).blog(I18n.locale)
+        scoped = Page.blog(I18n.locale)
         scoped = scoped.with_published_state if only_published
         scoped
       end
