@@ -11,25 +11,25 @@ module Cms
       article_tag.downcase.gsub(/\s/, '-')
     end
 
-    def apply_format(text, markup_language)
+    def apply_format(text, markup_language, options={})
       case markup_language
       when 'html'
-        htmlize(text)
+        htmlize(text, options)
       when 'markdown'
-        markdown(text)
+        markdown(text, options)
       end
     end
 
-    def markdown(text)
-      markdown_pipeline.call(text)[:output].to_s.html_safe
+    def markdown(text, options={})
+      markdown_pipeline(options).call(text)[:output].to_s.html_safe
     end
 
-    def htmlize(text)
-      simple_pipeline.call(text)[:output].to_s.html_safe
+    def htmlize(text, options={})
+      simple_pipeline(options).call(text)[:output].to_s.html_safe
     end
 
-    def metaize(text)
-      meta_pipeline.call(text)[:output].to_s.gsub(/\s+/, ' ').html_safe
+    def metaize(text, options={})
+      meta_pipeline(options).call(text)[:output].to_s.gsub(/\s+/, ' ').html_safe
     end
 
     def plain_preview(page)

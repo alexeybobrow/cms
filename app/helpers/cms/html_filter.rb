@@ -1,23 +1,20 @@
 module Cms
   module HtmlFilter
-
-    def meta_pipeline
-      HTML::Pipeline.new [
-        Filters::LiquidParser
-      ], context
+    def meta_pipeline(options={})
+      create_pipeline [Filters::LiquidParser], options
     end
 
-    def simple_pipeline
-      HTML::Pipeline.new [
+    def simple_pipeline(options={})
+      create_pipeline [
         Filters::TemplateVariablesFilter,
         Filters::LiquidParser,
         Filters::SyntaxHighlight,
         HTML::Pipeline::AbsoluteSourceFilter
-      ], context
+      ], options
     end
 
-    def markdown_pipeline
-      HTML::Pipeline.new [
+    def markdown_pipeline(options={})
+      create_pipeline [
         Filters::TemplateVariablesFilter,
         Filters::SetLayout,
         Filters::MarkdownFilter,
@@ -26,7 +23,12 @@ module Cms
         HTML::Pipeline::AutolinkFilter,
         Filters::LiquidParser,
         Filters::SyntaxHighlight
-      ], context
+      ], options
+    end
+
+    def create_pipeline(filters, options)
+      skip_filters = options[:skip] || []
+      HTML::Pipeline.new(filters - skip_filters, context)
     end
 
     def context
@@ -39,6 +41,5 @@ module Cms
         image_base_url: root_url(host: Cms.host) # for liquid fragment tag
       }
     end
-
   end
 end
