@@ -55,13 +55,6 @@ describe 'admin fragments management' do
       expect(fragment.reload.content.body).to eq('Copyright Anadea')
       expect(fragment.content.markup_language).to eq('html')
     end
-
-    it 'doesn\'t allow slug edit' do
-      visit cms.admin_fragments_path
-      click_on 'contact-us-footer'
-
-      field_labeled('Slug', disabled: true)
-    end
   end
 
   context 'destroy' do
