@@ -7,11 +7,16 @@ module Cms
     attribute :title
     attribute :description
     attribute :name
+    attribute :breadcrumb_name
     attribute :posted_at, type: Date
     attribute :meta
     attribute :tags
     attribute :authors
     attribute :og
+
+    attribute :override_name, type: Boolean
+    attribute :override_title, type: Boolean
+    attribute :override_breadcrumb_name, type: Boolean
 
     validates :posted_at, presence: true
     validates :title,     presence: true

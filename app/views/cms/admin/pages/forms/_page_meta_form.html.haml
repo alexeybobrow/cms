@@ -1,9 +1,17 @@
 .page-form
-  = simple_form_for @form, url: admin_page_path(@page), html: { class: 'form-horizontal page-edit-form' }, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes } do |f|
+  = simple_form_for @form, url: admin_page_path(@page), html: { class: 'form-horizontal page-edit-form' } do |f|
     = hidden_field_tag :form_kind, 'meta'
+
     = f.input :title
-    = f.input :description
+    = f.input :override_title, as: :boolean
+
     = f.input :name
+    = f.input :override_name, as: :boolean
+
+    = f.input :breadcrumb_name
+    = f.input :override_breadcrumb_name, as: :boolean
+
+    = f.input :description
     = f.input :posted_at, as: 'cms/datepicker', format: '%Y-%m-%d'
     = f.input :meta, input_html: {rows: 2}
     = f.input :tags, input_html: {value: f.object.tags.join(', ')}
