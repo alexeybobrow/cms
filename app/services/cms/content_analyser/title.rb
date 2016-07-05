@@ -1,17 +1,5 @@
 module Cms::ContentAnalyser
-  class Title
-    attr_reader :content
-
-    class << self
-      def read(content)
-        self.new(content).run
-      end
-    end
-
-    def initialize(content)
-      @content = content
-    end
-
+  class Title < ::Cms::ContentAnalyser::Base
     def run
       return unless content
 

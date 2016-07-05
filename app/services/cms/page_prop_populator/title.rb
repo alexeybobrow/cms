@@ -1,37 +1,7 @@
 module Cms::PagePropPopulator
-  class Title
-    attr_reader :text
-    attr_reader :model
-    attr_reader :prop
-
-    class << self
-      def analyser
-        Cms::ContentAnalyser::Title
-      end
-
-      def populate(model, prop, content)
-        self.new(model, prop, content).populate
-      end
-
-      def analyse(content)
-        self.analyser.read(content)
-      end
-    end
-
-    def initialize(model, prop, content)
-      @text = self.analyse(content)
-      @model = model
-      @prop = prop
-    end
-
-    def populate
-      if text
-        model[prop] = text
-      end
-    end
-
-    def analyse(content)
-      self.class.analyser.read(content)
+  class Title < ::Cms::PagePropPopulator::Base
+    def self.analyser
+      Cms::ContentAnalyser::Title
     end
   end
 end
