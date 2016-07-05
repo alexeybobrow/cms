@@ -15,7 +15,16 @@ describe Cms::PagePropPopulator::Title do
     expect(populator.text).to eq('some title')
   end
 
-  it 'updates model attribute' do
-    expect {populator.populate}.to change {model.title}.from(nil).to('some title')
+  describe '#populate' do
+    it 'updates model attribute' do
+      expect {populator.populate}.to change {model.title}.from(nil).to('some title')
+    end
+  end
+
+  describe '.analyse' do
+    it 'returns text' do
+      title_populator = Cms::PagePropPopulator::Title
+      expect(title_populator.analyse('# some title')).to eq('some title')
+    end
   end
 end

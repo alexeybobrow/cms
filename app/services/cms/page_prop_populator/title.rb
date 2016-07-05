@@ -5,13 +5,21 @@ module Cms::PagePropPopulator
     attr_reader :prop
 
     class << self
+      def analyser
+        Cms::ContentAnalyser::Title
+      end
+
       def populate(model, prop, content)
         self.new(model, prop, content).populate
+      end
+
+      def analyse(content)
+        self.analyser.read(content)
       end
     end
 
     def initialize(model, prop, content)
-      @text = analyser.read(content)
+      @text = self.analyse(content)
       @model = model
       @prop = prop
     end
@@ -22,8 +30,8 @@ module Cms::PagePropPopulator
       end
     end
 
-    def analyser
-      Cms::ContentAnalyser::Title
+    def analyse(content)
+      self.class.analyser.read(content)
     end
   end
 end
