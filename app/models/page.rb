@@ -21,8 +21,9 @@ class Page < ActiveRecord::Base
 
   has_paper_trail only: [:title, :description, :meta, :name, :url, :deleted_at]
 
-  populate :name, with: Cms::PagePropPopulator::Title, from: :body
-  populate :title, with: Cms::PagePropPopulator::Title, from: :body
+  populate :name,            with: Cms::PagePropPopulator::Title, from: :body, unless: :override_name?
+  populate :title,           with: Cms::PagePropPopulator::Title, from: :body, unless: :override_title?
+  populate :breadcrumb_name, with: Cms::PagePropPopulator::Title, from: :body, unless: :override_breadcrumb_name?
 
   class << self
     def with_url(name)

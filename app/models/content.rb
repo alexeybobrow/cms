@@ -8,8 +8,9 @@ class Content < ActiveRecord::Base
 
   populate with: Cms::PagePropPopulator::Title, from: :body, if: :page do |text, model|
     if text.present?
-      model.page.name = text
-      model.page.title = text
+      model.page.name = text unless model.page.override_name?
+      model.page.title = text unless model.page.override_title?
+      model.page.breadcrumb_name = text unless model.page.override_breadcrumb_name?
     end
   end
 
