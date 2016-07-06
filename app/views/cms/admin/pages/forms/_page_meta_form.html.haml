@@ -2,14 +2,20 @@
   = simple_form_for @form, url: admin_page_path(@page), html: { class: 'form-horizontal page-edit-form' } do |f|
     = hidden_field_tag :form_kind, 'meta'
 
-    = f.input :title
-    = f.input :override_title, as: :boolean
+    = f.input :title, wrapper: :horizontal_input_group do
+      = f.input_field :title, class: 'form-control'
+      .input-group-addon
+        = f.check_box :override_title
 
-    = f.input :name
-    = f.input :override_name, as: :boolean
+    = f.input :name, wrapper: :horizontal_input_group do
+      = f.input_field :name, class: 'form-control'
+      .input-group-addon
+        = f.check_box :override_name
 
-    = f.input :breadcrumb_name
-    = f.input :override_breadcrumb_name, as: :boolean
+    = f.input :breadcrumb_name, wrapper: :horizontal_input_group do
+      = f.input_field :breadcrumb_name, class: 'form-control'
+      .input-group-addon
+        = f.check_box :override_breadcrumb_name
 
     = f.input :description
     = f.input :posted_at, as: 'cms/datepicker', format: '%Y-%m-%d'
