@@ -279,13 +279,6 @@ SRC
       expect(page).to have_content('Title Edited page')
       expect(page).to have_content('Page "Edited page name"')
     end
-
-    it 're-renders edit with validation errors' do
-      fill_in 'Title', with: ''
-      click_on 'Update Page'
-
-      expect(page).to have_content('can\'t be blank')
-    end
   end
 
   context 'destroy' do

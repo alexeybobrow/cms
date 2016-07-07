@@ -36,15 +36,6 @@ describe Cms::PageUpdate do
       it 'saves page if valid' do
         subject.save('meta'){|page| expect(page).to be_persisted }
       end
-
-      it 'doesn\'t save page if invalid' do
-        page.title = ''
-        subject.save('meta') do |model, forms|
-          expect(forms[:page_form].valid?).to be_falsy
-          expect(page).not_to be_persisted
-          expect(model).to be_nil
-        end
-      end
     end
 
     context 'content' do

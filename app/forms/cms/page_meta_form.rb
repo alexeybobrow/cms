@@ -18,9 +18,6 @@ module Cms
     attribute :override_title, type: Boolean
     attribute :override_breadcrumb_name, type: Boolean
 
-    validates :posted_at, presence: true
-    validates :title,     presence: true
-
     array_writer :tags
     array_writer :authors
 
