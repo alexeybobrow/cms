@@ -5,6 +5,7 @@ gemspec
 gem "workflow", github: "geekq/workflow"
 
 group :development, :test do
+  gem 'test-unit'
   gem "rspec-rails"
   gem "rspec-its"
   gem "timecop"
@@ -16,7 +17,7 @@ group :development, :test do
   gem "faker"
   gem "responders"
 
-  gem "rails"
+  gem 'rails', '4.2.5'
   gem "pg"
   gem "haml-rails"
   gem "sass-rails"
