@@ -14,8 +14,8 @@ en:
     labels:
        user:
          username: Username
-       user:
-         username: Username
+       page:
+         breadcrumb_name: Breadcrumb
     # hints:
     #   defaults:
     #     username: 'User name to sign in.'
