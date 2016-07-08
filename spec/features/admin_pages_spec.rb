@@ -265,12 +265,13 @@ SRC
   context 'update page meta info' do
     before do
       visit cms.admin_page_path(test_page)
-      within '.meta-panel' do
-        click_on 'Edit'
-      end
     end
 
     it 'edits a page' do
+      within '.meta-panel' do
+        click_on 'Edit'
+      end
+
       fill_in 'Title', with: 'Edited page'
       fill_in 'Name', with: 'Edited page name'
       click_on 'Update Page'
@@ -278,6 +279,14 @@ SRC
       expect(current_path).to eq(cms.admin_page_path(test_page))
       expect(page).to have_content('Title Edited page')
       expect(page).to have_content('Page "Edited page name"')
+    end
+
+    it 'takes props from content' do
+      within '.content-panel' do
+        click_on 'Edit'
+      end
+
+      fill_in 'Body', with: '# This is my title'
     end
   end
 
