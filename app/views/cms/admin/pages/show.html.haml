@@ -43,12 +43,14 @@
           %dt= t('admin.pages.single_title')
           %dd= @page.title
 
+          %dt= t('admin.pages.single_name')
+          %dd= @page.name
+
+          %dt= t('admin.pages.single_breadcrumb_name')
+          %dd= @page.breadcrumb_name
+
           %dt= t('admin.pages.single_description')
           %dd= @page.description
-
-          - if @page.name
-            %dt= t('admin.pages.single_name')
-            %dd= @page.name
 
           %dt= t('admin.pages.tags')
           %dd= @page.tags
