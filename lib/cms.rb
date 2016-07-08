@@ -21,6 +21,9 @@ module Cms
   autoload :Liquid, 'cms/liquid'
   autoload :ArrayAccessors, 'cms/array_accessors'
   autoload :FolderStructure, 'cms/folder_structure'
+  autoload :PagePropPopulator, 'cms/page_prop_populator'
+  autoload :ContentAnalyser, 'cms/content_analyser'
+  autoload :Populator, 'cms/populator'
 
   mattr_accessor(:host) { "PLEASE, SET ME!" }
 

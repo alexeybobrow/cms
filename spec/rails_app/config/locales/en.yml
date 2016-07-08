@@ -193,6 +193,3 @@ en:
         name:  'Your name'
         email:  'Your email'
         message: 'Brief description'
-    hints:
-      page:
-        name: 'If left blank then will be substituted with Title'

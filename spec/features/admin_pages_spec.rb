@@ -113,6 +113,8 @@ SRC
       within '[data-meta-panel]' do
         click_on 'Edit'
       end
+      check 'page_override_title'
+      check 'page_override_name'
       fill_in 'Title', with: 'Created page'
       fill_in 'Name', with: 'Page name'
       fill_in 'Tags', with: 'RoR, Software Development'
@@ -265,12 +267,13 @@ SRC
   context 'update page meta info' do
     before do
       visit cms.admin_page_path(test_page)
-      within '.meta-panel' do
-        click_on 'Edit'
-      end
     end
 
     it 'edits a page' do
+      within '.meta-panel' do
+        click_on 'Edit'
+      end
+
       fill_in 'Title', with: 'Edited page'
       fill_in 'Name', with: 'Edited page name'
       click_on 'Update Page'
@@ -280,11 +283,49 @@ SRC
       expect(page).to have_content('Page "Edited page name"')
     end
 
-    it 're-renders edit with validation errors' do
-      fill_in 'Title', with: ''
+    it 'takes props from content' do
+      within '.content-panel' do
+        click_on 'Edit'
+      end
+
+      fill_in 'Body', with: '# This is my title'
+      click_on 'Update Content'
+
+      expect(current_path).to eq(cms.admin_page_path(test_page))
+      expect(page).to have_content('Title This is my title')
+      expect(page).to have_content('Name This is my title')
+      expect(page).to have_content('Breadcrumb This is my title')
+    end
+
+    it 'allows override page props' do
+      within '.meta-panel' do
+        click_on 'Edit'
+      end
+
+      check 'page_override_name'
+      fill_in 'Name', with: 'This is my name'
       click_on 'Update Page'
 
-      expect(page).to have_content('can\'t be blank')
+      within '.content-panel' do
+        click_on 'Edit'
+      end
+
+      fill_in 'Body', with: '# This is my title'
+      click_on 'Update Content'
+
+      expect(current_path).to eq(cms.admin_page_path(test_page))
+      expect(page).to have_content('Title This is my title')
+      expect(page).to have_content('Name This is my name')
+    end
+
+    it 'sets fields to readonly unless overrided', driver: :webkit do
+      within '.meta-panel' do
+        click_on 'Edit'
+      end
+
+      expect(find_field('Name')['readonly']).to be_present
+      check 'page_override_name'
+      expect(find_field('Name')['readonly']).not_to be_present
     end
   end
 

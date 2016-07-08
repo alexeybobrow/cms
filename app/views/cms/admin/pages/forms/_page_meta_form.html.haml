@@ -1,9 +1,24 @@
 .page-form
-  = simple_form_for @form, url: admin_page_path(@page), html: { class: 'form-horizontal page-edit-form' }, wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes } do |f|
+  = simple_form_for @form, url: admin_page_path(@page), html: { class: 'form-horizontal page-edit-form' } do |f|
     = hidden_field_tag :form_kind, 'meta'
-    = f.input :title
+
+    = f.input :title, wrapper: :horizontal_input_group do
+      = f.input_field :title, class: 'form-control', data: {'readonly-unless': 'title'}
+      .input-group-addon
+        = f.check_box :override_title, title: 'Override title', data: {'readonly-for': 'title'}
+
+    = f.input :name, wrapper: :horizontal_input_group do
+      = f.input_field :name, class: 'form-control', data: {'readonly-unless': 'name'}
+      .input-group-addon
+        = f.check_box :override_name, title: 'Override name', data: {'readonly-for': 'name'}
+
+    = f.input :breadcrumb_name, wrapper: :horizontal_input_group do
+      = f.input_field :breadcrumb_name, class: 'form-control', data: {'readonly-unless': 'breadcrumb_name'}
+      .input-group-addon
+        = f.check_box :override_breadcrumb_name, title: 'Override breadcrumb', data: {'readonly-for': 'breadcrumb_name'}
+
+
     = f.input :description
-    = f.input :name
     = f.input :posted_at, as: 'cms/datepicker', format: '%Y-%m-%d'
     = f.input :meta, input_html: {rows: 2}
     = f.input :tags, input_html: {value: f.object.tags.join(', ')}

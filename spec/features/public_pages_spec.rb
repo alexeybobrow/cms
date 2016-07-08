@@ -29,12 +29,14 @@ SRC
   let!(:parent_page) {
     create :page,
       name: 'This is the new *hit',
+      breadcrumb_name: 'This is the new *hit',
       url: '/new',
       content_body: 'You take the blue pill, the story ends...'
   }
   let!(:nested_word_page) {
     create :page,
       title: 'You should pay for the unit tests',
+      breadcrumb_name: 'You should pay for the unit tests',
       url: '/new/word',
       content_body: 'The matrix has you...'
   }

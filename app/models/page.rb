@@ -1,5 +1,6 @@
 class Page < ActiveRecord::Base
   include Cms::SafeDelete
+  include Cms::Populator
   include Workflow
 
   workflow do
@@ -19,6 +20,10 @@ class Page < ActiveRecord::Base
   end
 
   has_paper_trail only: [:title, :description, :meta, :name, :url, :deleted_at]
+
+  populate :name, with: Cms::PagePropPopulator::Title, from: :body, unless: :override_name?
+  populate :title, with: Cms::PagePropPopulator::Title, from: :body, unless: :override_title?
+  populate :breadcrumb_name, with: Cms::PagePropPopulator::Title, from: :body, unless: :override_breadcrumb_name?
 
   class << self
     def with_url(name)
@@ -54,6 +59,8 @@ class Page < ActiveRecord::Base
   default_scope { joins('LEFT JOIN "urls" ON "urls"."page_id" = "pages"."id" AND "urls"."primary" = \'t\'') }
 
   accepts_nested_attributes_for :urls, :content, :annotation
+
+  delegate :body, to: :content
 
   default_value_for :posted_at do
     Time.now

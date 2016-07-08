@@ -18,6 +18,7 @@ en:
       edit_annotation: 'Edit page annotation'
       single_title: 'Title'
       single_name: 'Name'
+      single_breadcrumb_name: 'Breadcrumb'
       og_data: 'Open graph data'
       og_name: 'Name'
       og_value: 'Value'

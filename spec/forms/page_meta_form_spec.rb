@@ -16,14 +16,9 @@ describe Cms::PageMetaForm do
   it { is_expected.to have_attribute(:og) }
 
   context 'validation' do
-    context 'posted_at' do
-      it { is_expected.to validate_presence_of(:posted_at) }
-    end
-
     context 'title' do
-      it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to allow_value('Page title').for(:title) }
-      it { is_expected.not_to allow_value('').for(:title) }
+      it { is_expected.to allow_value('').for(:title) }
     end
 
     context 'name' do
