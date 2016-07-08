@@ -3,7 +3,7 @@ crumb :root do
 end
 
 crumb :page do |page|
-  link page.name, page.url
+  link page.breadcrumb_name, page.url
 
   unless Cms::UrlHelper.parent_url(page.url).in? ['/', '/ru', '']
     if parent_page = Page.with_published_state.public_get(Cms::UrlHelper.parent_url(page.url))
@@ -17,7 +17,7 @@ crumb :blog do
 end
 
 crumb :blog_post do |article|
-  link article.name, article.url
+  link article.breadcrumb_name, article.url
   parent :blog
 end
 
