@@ -287,6 +287,43 @@ SRC
       end
 
       fill_in 'Body', with: '# This is my title'
+      click_on 'Update Content'
+
+      expect(current_path).to eq(cms.admin_page_path(test_page))
+      expect(page).to have_content('Title This is my title')
+      expect(page).to have_content('Name This is my title')
+      expect(page).to have_content('Breadcrumb This is my title')
+    end
+
+    it 'allows override page props' do
+      within '.meta-panel' do
+        click_on 'Edit'
+      end
+
+      check 'page_override_name'
+      fill_in 'Name', with: 'This is my name'
+      click_on 'Update Page'
+
+      within '.content-panel' do
+        click_on 'Edit'
+      end
+
+      fill_in 'Body', with: '# This is my title'
+      click_on 'Update Content'
+
+      expect(current_path).to eq(cms.admin_page_path(test_page))
+      expect(page).to have_content('Title This is my title')
+      expect(page).to have_content('Name This is my name')
+    end
+
+    it 'sets fields to readonly unless overrided', driver: :webkit do
+      within '.meta-panel' do
+        click_on 'Edit'
+      end
+
+      expect(find_field('Name')['readonly']).to be_present
+      check 'page_override_name'
+      expect(find_field('Name')['readonly']).not_to be_present
     end
   end
 

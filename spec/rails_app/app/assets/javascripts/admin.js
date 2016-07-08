@@ -15,4 +15,6 @@
 //= require jquery-file-upload
 //= require plugins/jquery/insert_at_caret
 //= require bootstrap
+
+//= require cms/admin/readonly
 //= require_tree ./admin
