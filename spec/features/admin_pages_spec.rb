@@ -113,6 +113,8 @@ SRC
       within '[data-meta-panel]' do
         click_on 'Edit'
       end
+      check 'page_override_title'
+      check 'page_override_name'
       fill_in 'Title', with: 'Created page'
       fill_in 'Name', with: 'Page name'
       fill_in 'Tags', with: 'RoR, Software Development'
