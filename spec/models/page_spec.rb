@@ -233,10 +233,6 @@ describe Page do
     it 'makes old url an alias and creates new primary' do
       page = create(:page, url: '/old-primary')
       page.update_primary_url('/new-primary')
-
-      # Well, primary should be saved first
-      # because of database constraint on url name uniqueness
-      page.primary_url.save!
       page.save!
 
       old_primary = Url.where(name: '/old-primary').first
@@ -250,8 +246,19 @@ describe Page do
     it 'does nothing if name havent changed' do
       page = create(:page, url: '/old-primary')
       page.update_primary_url('/old-primary')
+      page.save!
 
       expect(page.reload.primary_url.name).to eq('/old-primary')
+      expect(page.urls.count).to eq(1)
+    end
+
+    it 'does not create alias if page is in draft' do
+      page = create(:page, url: '/old-primary')
+      page.unpublish!
+      page.update_primary_url('/new-primary')
+      page.save!
+
+      expect(page.reload.primary_url.name).to eq('/new-primary')
       expect(page.urls.count).to eq(1)
     end
   end
