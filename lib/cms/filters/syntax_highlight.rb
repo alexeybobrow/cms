@@ -26,7 +26,8 @@ module Cms
       end
 
       def language_name_from_node node
-        node['lang']
+        # Commonmark set language to code element class like 'language-scala'
+        node.children.first['class'][/language-(.+)/, 1]
       end
 
       def lookup_language name
