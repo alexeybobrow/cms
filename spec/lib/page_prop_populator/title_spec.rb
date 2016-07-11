@@ -1,11 +1,5 @@
 require 'spec_helper'
 
-class FakeModel < Struct.new(:title)
-  def update_attribute(name, value)
-    self[name] = value
-  end
-end
-
 describe Cms::PagePropPopulator::Title do
   let(:model) { FakeModel.new }
   let(:content) { '# some title' }
