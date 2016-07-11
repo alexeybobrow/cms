@@ -25,16 +25,18 @@ module Cms
         context[:detect_syntax] != false
       end
 
-      def language_name_from_node node
+      def language_name_from_node(node)
         # Commonmark set language to code element class like 'language-scala'
-        node.children.first['class'][/language-(.+)/, 1]
+        if class_name = node.children.first['class']
+          class_name[/language-(.+)/, 1]
+        end
       end
 
-      def lookup_language name
+      def lookup_language(name)
         Linguist::Language[name]
       end
 
-      def detect_languages code
+      def detect_languages(code)
         Linguist::Classifier.classify(classifier_db, code, possible_languages)
       end
 
