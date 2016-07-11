@@ -11,7 +11,7 @@
           %tr
             = og_f.input :name, required: false, label: false, wrapper_tag: :td
             = og_f.input :value, required: false, label: false, wrapper_tag: :td
-            = og_f.input :_destroy, as: :boolean, label: false, wrapper_tag: :td, wrapper: :simple_bs_checkbox
+            = og_f.input :_destroy, as: :boolean, label: false, wrapper_tag: :td
       = f.simple_fields_for :og, OpenGraph.new(name: '', value: ''), index: f.object.og.size do |og_f|
         %tr
           = og_f.input :name, required: false, label: false, wrapper_tag: :td
