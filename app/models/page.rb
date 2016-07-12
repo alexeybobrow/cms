@@ -1,6 +1,5 @@
 class Page < ActiveRecord::Base
   include Cms::SafeDelete
-  include Cms::Populator
   include Workflow
 
   workflow do

@@ -1,6 +1,4 @@
 class Content < ActiveRecord::Base
-  include Cms::Populator
-
   has_one :_page_as_content, class_name: 'Page', foreign_key: 'content_id', autosave: true
   has_one :_page_as_annotation, class_name: 'Page', foreign_key: 'annotation_id', autosave: true
 
