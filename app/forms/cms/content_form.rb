@@ -11,7 +11,7 @@ module Cms
 
     def before_save
       if @model.page
-        @model.page.do_populate with: Cms::PagePropPopulator::Title, from: :body do |text, model|
+        @model.page.do_populate with: Cms::PropExtractor::Title, from: :body do |text, model|
           if text.present?
             model.name = text unless model.override_name?
             model.title = text unless model.override_title?

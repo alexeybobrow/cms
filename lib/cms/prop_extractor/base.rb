@@ -1,4 +1,4 @@
-module Cms::PagePropPopulator
+module Cms::PropExtractor
   class Base
     attr_reader :text
     attr_reader :model

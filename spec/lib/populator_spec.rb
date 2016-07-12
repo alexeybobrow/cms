@@ -4,10 +4,10 @@ describe Cms::Populator do
   class Article < ActiveRecord::Base
     include Cms::Populator
 
-    populate :name, with: Cms::PagePropPopulator::Title, from: :body
-    populate :title, with: Cms::PagePropPopulator::Title, from: :body, unless: :test?
-    populate :breadcrumb_name, with: Cms::PagePropPopulator::Title, from: :body, if: :test?
-    populate with: Cms::PagePropPopulator::Title, from: :body do |text, model|
+    populate :name, with: Cms::PropExtractor::Title, from: :body
+    populate :title, with: Cms::PropExtractor::Title, from: :body, unless: :test?
+    populate :breadcrumb_name, with: Cms::PropExtractor::Title, from: :body, if: :test?
+    populate with: Cms::PropExtractor::Title, from: :body do |text, model|
       if text
         model.slug = '/'+text.split.join
       end

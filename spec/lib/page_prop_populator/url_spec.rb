@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe Cms::PagePropPopulator::Url do
+describe Cms::PropExtractor::Url do
   let(:model) { FakeModel.new }
   let(:content) { '# some title' }
-  let(:populator) { Cms::PagePropPopulator::Url.new(model, :title, content) }
+  let(:populator) { Cms::PropExtractor::Url.new(model, :title, content) }
 
   it 'uses analyser to extract text' do
     expect(populator.text).to eq('some-title')
@@ -17,7 +17,7 @@ describe Cms::PagePropPopulator::Url do
 
   describe '.analyse' do
     it 'returns text' do
-      title_populator = Cms::PagePropPopulator::Url
+      title_populator = Cms::PropExtractor::Url
       expect(title_populator.analyse('# some title')).to eq('some-title')
     end
   end
