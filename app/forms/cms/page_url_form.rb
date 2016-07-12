@@ -7,6 +7,8 @@ module Cms
     attr_accessor :primary_id
     attr_reader :url_alias
 
+    attribute :override_url, type: Boolean
+
     validates :url, presence: true, format: { with: URL_PATTERN }
     validates :url_alias, format: { with: URL_PATTERN }, allow_blank: true
     validate :primary_url_uniqueness
@@ -32,7 +34,7 @@ module Cms
 
     def before_save
       model.switch_primary_url(primary_id)
-      model.update_primary_url(self.url)
+      Cms::UrlUpdate.perform(model, self.url)
 
       if url_alias.present?
         model.urls.build(name: self.url_alias)

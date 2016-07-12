@@ -50,7 +50,7 @@ describe Cms::PageUrlForm do
   describe '#before_save' do
     it 'updates primary url' do
       form.url = '/new-primary'
-      expect(form.model).to receive(:update_primary_url).once.with('/new-primary')
+      expect(Cms::UrlUpdate).to receive(:perform).once.with(form.model, '/new-primary')
       form.before_save
     end
 

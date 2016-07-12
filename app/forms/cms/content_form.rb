@@ -21,7 +21,7 @@ module Cms
 
         Cms::PropPopulator.populate @model.page, with: Cms::PropExtractor::Url, from: :body do |text, model|
           if text.present?
-            model.update_primary_url(text) unless model.override_url?
+            Cms::UrlUpdate.perform(model, text) unless model.override_url?
           end
         end
       end
