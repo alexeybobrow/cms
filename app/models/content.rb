@@ -6,14 +6,6 @@ class Content < ActiveRecord::Base
 
   after_save :touch_page
 
-  populate with: Cms::PagePropPopulator::Title, from: :body, if: :page do |text, model|
-    if text.present?
-      model.page.name = text unless model.page.override_name?
-      model.page.title = text unless model.page.override_title?
-      model.page.breadcrumb_name = text unless model.page.override_breadcrumb_name?
-    end
-  end
-
   def self.formats; %w(html markdown); end
 
   has_paper_trail only: [:body, :markup_language]
