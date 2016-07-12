@@ -1,5 +1,5 @@
 module Cms::PropExtractor
-  class Title < ::Cms::PropExtractor::Base
+  class Title < Base
     def self.analyser
       Cms::ContentAnalyser::Title
     end

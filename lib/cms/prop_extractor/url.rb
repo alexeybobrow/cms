@@ -1,7 +1,7 @@
 require 'babosa'
 
 module Cms::PropExtractor
-  class Url < ::Cms::PropExtractor::Base
+  class Url < Base
     def self.analyser
       Cms::ContentAnalyser::Url
     end
