@@ -107,5 +107,4 @@ class Page < ActiveRecord::Base
       .where('urls.name' => I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
       .where.not(id: self.id).first
   end
-
 end
