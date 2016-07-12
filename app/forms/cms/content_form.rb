@@ -18,6 +18,12 @@ module Cms
             model.breadcrumb_name = text unless model.override_breadcrumb_name?
           end
         end
+
+        Cms::PropPopulator.populate @model.page, with: Cms::PropExtractor::Url, from: :body do |text, model|
+          if text.present?
+            model.update_primary_url(text) unless model.override_url?
+          end
+        end
       end
     end
   end
