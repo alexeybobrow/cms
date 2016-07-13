@@ -190,7 +190,7 @@ SRC
     end
   end
 
-  context 'update page url' do
+  context 'update page url', driver: :webkit do
     before do
       visit cms.admin_page_path(test_page)
       within '.url-panel' do
@@ -199,6 +199,7 @@ SRC
     end
 
     it 'edits a page' do
+      check 'page_override_url'
       fill_in 'page_url', with: '/new_page_url'
       click_on 'Update'
 
@@ -207,6 +208,7 @@ SRC
     end
 
     it 're-renders edit with validation errors' do
+      check 'page_override_url'
       fill_in 'page_url', with: 'new page url'
       click_on 'Update'
 
@@ -223,6 +225,7 @@ SRC
     end
 
     it 'changes page url and creates url alias' do
+      check 'page_override_url'
       fill_in 'page_url', with: '/new_page_url'
       click_on 'Update'
 
