@@ -40,6 +40,24 @@ describe Cms::UrlUpdate do
       expect(page.reload.primary_url.name).to eq('/new-primary')
       expect(page.urls.count).to eq(1)
     end
-  end
 
+    it 'adds index if url already exists' do
+      create(:page, url: '/primary')
+      page = create(:page, url: '/non-primary')
+
+      Cms::UrlUpdate.perform(page, '/primary')
+
+      expect(page.primary_url.name).to eq('/primary-1')
+    end
+
+    it 'increments index if url already exists' do
+      create(:page, url: '/primary')
+      create(:page, url: '/primary-1')
+      page = create(:page, url: '/non-primary')
+
+      Cms::UrlUpdate.perform(page, '/primary')
+
+      expect(page.primary_url.name).to eq('/primary-2')
+    end
+  end
 end
