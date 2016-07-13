@@ -1,5 +1,3 @@
-require 'babosa'
-
 module Cms::PropExtractor
   class Url < Base
     def self.analyser
