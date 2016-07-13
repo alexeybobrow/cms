@@ -11,11 +11,11 @@ module Cms
 
     def before_save
       if @model.page
-        Cms::PropPopulator.populate @model.page, with: Cms::PropExtractor::Title, from: :body do |text, model|
+        Cms::PropPopulator.populate @model.page, with: Cms::PropExtractor::Title, from: :body do |text, page|
           if text.present?
-            model.name = text unless model.override_name?
-            model.title = text unless model.override_title?
-            model.breadcrumb_name = text unless model.override_breadcrumb_name?
+            page.name = text unless page.override_name?
+            page.title = text unless page.override_title?
+            page.breadcrumb_name = text unless page.override_breadcrumb_name?
           end
         end
 
