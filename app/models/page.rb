@@ -1,6 +1,5 @@
 class Page < ActiveRecord::Base
   include Cms::SafeDelete
-  include Cms::Populator
   include Workflow
 
   workflow do
@@ -20,10 +19,6 @@ class Page < ActiveRecord::Base
   end
 
   has_paper_trail only: [:title, :description, :meta, :name, :url, :deleted_at]
-
-  populate :name, with: Cms::PagePropPopulator::Title, from: :body, unless: :override_name?
-  populate :title, with: Cms::PagePropPopulator::Title, from: :body, unless: :override_title?
-  populate :breadcrumb_name, with: Cms::PagePropPopulator::Title, from: :body, unless: :override_breadcrumb_name?
 
   class << self
     def with_url(name)
@@ -88,15 +83,6 @@ class Page < ActiveRecord::Base
     end
   end
 
-  def update_primary_url(name)
-    build_primary_url if primary_url.nil?
-    primary_url.name = name
-    if primary_url.persisted? && primary_url.name_changed?
-      urls.build(name: primary_url.name_was)
-    end
-    primary_url.save
-  end
-
   def root?
     url.in? %w(/ /ru)
   end
@@ -112,5 +98,4 @@ class Page < ActiveRecord::Base
       .where('urls.name' => I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
       .where.not(id: self.id).first
   end
-
 end

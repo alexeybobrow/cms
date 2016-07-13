@@ -1,18 +1,8 @@
 class Content < ActiveRecord::Base
-  include Cms::Populator
-
   has_one :_page_as_content, class_name: 'Page', foreign_key: 'content_id', autosave: true
   has_one :_page_as_annotation, class_name: 'Page', foreign_key: 'annotation_id', autosave: true
 
   after_save :touch_page
-
-  populate with: Cms::PagePropPopulator::Title, from: :body, if: :page do |text, model|
-    if text.present?
-      model.page.name = text unless model.page.override_name?
-      model.page.title = text unless model.page.override_title?
-      model.page.breadcrumb_name = text unless model.page.override_breadcrumb_name?
-    end
-  end
 
   def self.formats; %w(html markdown); end
 

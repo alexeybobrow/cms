@@ -222,40 +222,6 @@ describe Page do
     end
   end
 
-  describe '#update_primary_url' do
-    it 'sets name for non persisted primary url' do
-      page = build(:page)
-      page.update_primary_url('/services')
-
-      expect(page.primary_url.name).to eq('/services')
-    end
-
-    it 'makes old url an alias and creates new primary' do
-      page = create(:page, url: '/old-primary')
-      page.update_primary_url('/new-primary')
-
-      # Well, primary should be saved first
-      # because of database constraint on url name uniqueness
-      page.primary_url.save!
-      page.save!
-
-      old_primary = Url.where(name: '/old-primary').first
-
-      expect(page.reload.primary_url.name).to eq('/new-primary')
-      expect(page.urls.count).to eq(2)
-      expect(old_primary).not_to be_primary
-      expect(old_primary.page).to eq(page)
-    end
-
-    it 'does nothing if name havent changed' do
-      page = create(:page, url: '/old-primary')
-      page.update_primary_url('/old-primary')
-
-      expect(page.reload.primary_url.name).to eq('/old-primary')
-      expect(page.urls.count).to eq(1)
-    end
-  end
-
   describe '#url' do
     it 'returns primary_url#name' do
       page = create(:page, url: '/primary')

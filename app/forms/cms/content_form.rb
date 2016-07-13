@@ -8,5 +8,10 @@ module Cms
     attribute :attachments_cache
 
     validates :markup_language, inclusion: { in: Content.formats }
+
+    def before_save
+      Cms::PropPopulator::ForPage.populate(model.page)
+      Cms::PropPopulator::ForUrl.populate(model.page)
+    end
   end
 end

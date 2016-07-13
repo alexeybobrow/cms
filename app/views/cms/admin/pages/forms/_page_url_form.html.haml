@@ -2,11 +2,16 @@
   = simple_form_for @form,
     url: url,
     html: { class: 'form-horizontal page-edit-form' } do |f|
+
     = hidden_field_tag :form_kind, 'url'
-    = f.input :url, label: false
+
+    = f.input :url, label: false, wrapper: :horizontal_input_group do
+      = f.input_field :url, class: 'form-control', data: {'readonly-unless': 'url'}
+      .input-group-addon
+        = f.check_box :override_url, title: 'Override url', data: {'readonly-for': 'url'}
 
     %h3 Url aliases
-    = f.input :url_alias, label: false, wrapper: :vertical_input_group do
+    = f.input :url_alias, label: false, wrapper: :horizontal_input_group do
       = f.input_field :url_alias, class: "form-control"
       .input-group-btn= f.button :submit, 'Add'
     %section

@@ -78,23 +78,54 @@ SRC
   end
 
   context 'create' do
-    it 'redirects to content edit' do
+    before do
       visit cms.admin_pages_path
+    end
+
+    it 'redirects to content edit' do
       click_on 'Create new page'
       expect(page).to have_content('Edit page content')
     end
 
-    it 'creates page you cannot publish' do
-      visit cms.admin_pages_path
+    it 'creates page with url as id' do
       click_on 'Create new page'
       click_on 'Update Content'
-      publish_button = find("a", text: "Publish")
+      id = current_path[/\/admin\/pages\/(\d+)/, 1]
+      expect(page).to have_content("/#{id}")
+    end
 
-      expect(publish_button[:class].strip.split).to include('disabled')
+    it 'creates page with url from content' do
+      click_on 'Create new page'
+      fill_in 'Body', with: '# Some title'
+      click_on 'Update Content'
+      expect(page).to have_content("/some-title")
+    end
+
+    it 'remembers folder when creates url' do
+      click_on '/ru'
+      click_on 'Create new page'
+      fill_in 'Body', with: '# Some title'
+      click_on 'Update Content'
+      expect(page).to have_content("/ru/some-title")
+    end
+
+    it 'remembers folder event after content update' do
+      click_on '/ru'
+      click_on 'Create new page'
+      fill_in 'Body', with: '# Some title'
+      click_on 'Update Content'
+
+      within '[data-content-panel]' do
+        click_on 'Edit'
+      end
+
+      fill_in 'Body', with: '# Another title'
+      click_on 'Update Content'
+
+      expect(page).to have_content("/ru/another-title")
     end
 
     it 'creates a new page', driver: :webkit do
-      visit cms.admin_pages_path
       click_on 'Create new page'
 
       # Edit page content
@@ -106,6 +137,8 @@ SRC
       within '[data-url-panel]' do
         click_on 'Edit'
       end
+
+      check 'page_override_url'
       fill_in 'page_url', with: '/created_page'
       click_on 'Update'
 
@@ -157,7 +190,7 @@ SRC
     end
   end
 
-  context 'update page url' do
+  context 'update page url', driver: :webkit do
     before do
       visit cms.admin_page_path(test_page)
       within '.url-panel' do
@@ -166,6 +199,7 @@ SRC
     end
 
     it 'edits a page' do
+      check 'page_override_url'
       fill_in 'page_url', with: '/new_page_url'
       click_on 'Update'
 
@@ -174,6 +208,7 @@ SRC
     end
 
     it 're-renders edit with validation errors' do
+      check 'page_override_url'
       fill_in 'page_url', with: 'new page url'
       click_on 'Update'
 
@@ -190,6 +225,7 @@ SRC
     end
 
     it 'changes page url and creates url alias' do
+      check 'page_override_url'
       fill_in 'page_url', with: '/new_page_url'
       click_on 'Update'
 
