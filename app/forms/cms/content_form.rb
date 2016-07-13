@@ -19,9 +19,11 @@ module Cms
           end
         end
 
-        Cms::PropPopulator.populate @model.page, with: Cms::PropExtractor::Url, from: :body do |text, model|
-          if text.present?
-            Cms::UrlUpdate.perform(model, text) unless model.override_url?
+        Cms::PropPopulator.populate @model.page, with: Cms::PropExtractor::Url, from: :body do |text, page|
+          unless page.override_url?
+            text ||= page.id
+            new_url = page.parent_url.to_s + Cms::UrlHelper.normalize_url(text)
+            Cms::UrlUpdate.perform(page, new_url)
           end
         end
       end
