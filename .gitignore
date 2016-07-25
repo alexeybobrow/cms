@@ -9,4 +9,4 @@
 /tmp/
 /.env
 /spec/rails_app/db/schema.rb
-tags
+/tags
