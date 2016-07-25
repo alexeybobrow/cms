@@ -1,6 +1,10 @@
+require 'actionpack/action_caching'
+
 module Cms
   module Public
     class PagesController < ::Cms::Public::BaseController
+      caches_action :show
+
       def show
         UrlAliasesDispatcher.new(params[:page]).dispatch do |result, url|
           case result

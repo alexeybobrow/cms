@@ -26,6 +26,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "actionpack-action_caching", ">= 1.1.0"
   spec.add_dependency "commonmarker", ">= 0.7.0"
   spec.add_dependency "palmister", ">= 0.0.2"
   spec.add_dependency "liquid", ">= 3.0.6"
