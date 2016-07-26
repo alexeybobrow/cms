@@ -21,5 +21,9 @@ module Cms
       content_is_valid = self.content.valid?
       super && content_is_valid
     end
+
+    def before_save
+      Rails.cache.clear
+    end
   end
 end

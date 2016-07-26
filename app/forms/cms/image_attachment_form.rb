@@ -3,5 +3,9 @@ module Cms
     model ImageAttachment
 
     attribute :image
+
+    def before_save
+      Rails.cache.clear
+    end
   end
 end

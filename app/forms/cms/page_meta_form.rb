@@ -35,5 +35,9 @@ module Cms
       og_values = og.is_a?(Array) ? og : og.values
       self.og = og_values.reject {|v| skip_val?(v) }.map {|v| v.slice('name', 'value')}
     end
+
+    def before_save
+      Rails.cache.clear
+    end
   end
 end
