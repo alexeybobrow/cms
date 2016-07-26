@@ -6,7 +6,7 @@ class @UserMenu
 
   getMenu: ->
     @getUser().then (data) =>
-      @template(data)
+      @template(data) if data.page
 
   template: (data) -> """
     <div class="user-menu">

@@ -11,7 +11,7 @@ module Cms
       private
 
       def page
-        Page.public_get params[:page]
+        Page.with_url params[:page]
       end
     end
   end
