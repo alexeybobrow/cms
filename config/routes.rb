@@ -26,6 +26,7 @@ Cms::Engine.routes.draw do
     end
     resources :liquid_variables, except: :show
     resource :cache, only: :destroy
+    resource :session, only: :show
   end
 
   get "/#{I18n.default_locale}", to: redirect('/')

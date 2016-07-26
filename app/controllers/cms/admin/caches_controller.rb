@@ -3,7 +3,12 @@ module Cms
     class CachesController < ::Cms::Admin::BaseController
       def destroy
         Rails.cache.clear
-        redirect_to admin_pages_path
+
+        if request.xhr?
+          render nothing: true, status: :ok
+        else
+          redirect_to admin_pages_path
+        end
       end
     end
   end
