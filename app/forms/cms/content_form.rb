@@ -12,6 +12,8 @@ module Cms
     def before_save
       Cms::PropPopulator::ForPage.populate(model.page)
       Cms::PropPopulator::ForUrl.populate(model.page)
+
+      Rails.cache.clear
     end
   end
 end
