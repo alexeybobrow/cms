@@ -42,6 +42,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mini_magick", ">= 4.3.6"
   spec.add_dependency "babosa", ">= 1.0.2"
 
+  spec.add_dependency "capybara", ">= 2.0.2"
+  spec.add_dependency "poltergeist", '>= 1.10.0'
+
   spec.add_dependency "pygments.rb"
   spec.add_dependency "github-linguist", ">= 4.7.0"
 

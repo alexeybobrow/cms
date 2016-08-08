@@ -23,6 +23,7 @@ module Cms
   autoload :FolderStructure, 'cms/folder_structure'
   autoload :PropExtractor, 'cms/prop_extractor'
   autoload :ContentAnalyser, 'cms/content_analyser'
+  autoload :ClearCache, 'cms/clear_cache'
 
   mattr_accessor(:host) { "PLEASE, SET ME!" }
 
