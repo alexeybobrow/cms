@@ -60,6 +60,12 @@ corresponding to specified url. For example for pages `/services`,
 `/services/web-development`, `/services/backend/ruby` `services` layout
 will be applied.
 
+## Restore cache after page update
+
+```
+bundle exec sidekiq -c 1 -q restore_cache
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

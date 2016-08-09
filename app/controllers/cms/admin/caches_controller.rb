@@ -2,7 +2,7 @@ module Cms
   module Admin
     class CachesController < ::Cms::Admin::BaseController
       def destroy
-        Rails.cache.clear
+        Cms::ClearCache.perform
 
         if request.xhr?
           render nothing: true, status: :ok
