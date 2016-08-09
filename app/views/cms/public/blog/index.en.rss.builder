@@ -11,7 +11,7 @@ xml.rss :version => "2.0", :'xmlns:atom' =>"http://www.w3.org/2005/Atom" do
       xml.item do
         xml.title article.name
         xml.pubDate article.posted_at.to_s(:rfc822)
-        xml.link URI::HTTP.build(:host => Cms.host, :path => article.url).to_s
+        xml.link Cms.host + article.url
         xml.guid Digest::MD5.hexdigest("shonibudsboku#{article.id}iszadi"), isPermaLink: false
         xml.description blog_preview(article)
 
