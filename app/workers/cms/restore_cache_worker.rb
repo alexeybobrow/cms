@@ -2,12 +2,9 @@ require 'capybara'
 require 'capybara/dsl'
 require 'capybara/poltergeist'
 
-Capybara.run_server = false
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, window_size: [1600, 768])
 end
-Capybara.current_driver = :poltergeist
-Capybara.app_host = 'http://localhost:3000'
 
 module Cms
   class RestoreCacheWorker
@@ -17,6 +14,10 @@ module Cms
     sidekiq_options queue: :restore_cache
 
     def perform(url)
+      Capybara.run_server = false
+      Capybara.current_driver = :poltergeist
+      Capybara.app_host = Cms.host
+
       visit url
     end
   end
