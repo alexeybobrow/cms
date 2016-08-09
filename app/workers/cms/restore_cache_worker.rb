@@ -11,7 +11,7 @@ module Cms
     include Sidekiq::Worker
     include Capybara::DSL
 
-    sidekiq_options queue: :restore_cache
+    sidekiq_options queue: :restore_cache, retry: 3
 
     def perform(url)
       Capybara.run_server = false
