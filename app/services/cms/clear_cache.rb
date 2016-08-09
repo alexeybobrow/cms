@@ -5,7 +5,15 @@ module Cms
     end
 
     def perform
-      Rails.cache.clear
+      begin
+        Rails.cache.clear
+      rescue Errno::ENOTEMPTY
+        # Likely to happen in test environment
+        # with FileStore cache
+
+        puts "Cache dir is not empty"
+      end
+
       Page.with_published_state.map(&:url).each do |url|
         Cms::RestoreCacheWorker.perform_async(url)
       end
