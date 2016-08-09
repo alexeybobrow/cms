@@ -10,13 +10,14 @@ Capybara.current_driver = :poltergeist
 Capybara.app_host = 'http://localhost:3000'
 
 module Cms
-  class ClearCache
+  class RestoreCacheWorker
+    include Sidekiq::Worker
     include Capybara::DSL
 
-    def run
-      Page.with_published_state.map(&:url).each do |url|
-        visit url
-      end
+    sidekiq_options queue: :restore_cache
+
+    def perform(url)
+      visit url
     end
   end
 end

@@ -13,7 +13,7 @@ module Cms
       Cms::PropPopulator::ForPage.populate(model.page)
       Cms::PropPopulator::ForUrl.populate(model.page)
 
-      Rails.cache.clear
+      Cms::ClearCache.perform
     end
   end
 end

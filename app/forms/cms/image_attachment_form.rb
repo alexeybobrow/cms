@@ -5,7 +5,7 @@ module Cms
     attribute :image
 
     def before_save
-      Rails.cache.clear
+      Cms::ClearCache.perform
     end
   end
 end
