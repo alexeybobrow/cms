@@ -11,6 +11,7 @@ require "linguist"
 require "pygments"
 require "kaminari"
 require "carrierwave"
+require "sidekiq"
 
 module Cms
   autoload :RoutingConstraints, 'cms/routing_constraints'
