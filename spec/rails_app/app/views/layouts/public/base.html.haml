@@ -10,6 +10,7 @@
     %link{rel: "alternate", type: "application/rss+xml", title: t('public.feed.title'), href: blog_index_url(format: :rss)}
 
   %body{content_class}
+    = flash_tag
     = render 'layouts/public/header'
     = render 'layouts/public/breadcrumbs'
     #main.main
