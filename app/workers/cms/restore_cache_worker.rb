@@ -14,11 +14,22 @@ module Cms
     sidekiq_options queue: :restore_cache, retry: 3
 
     def perform(url)
+      initalize_driver!
+
+      visit url
+    end
+
+    private
+
+    def initalize_driver!
       Capybara.run_server = false
       Capybara.current_driver = :poltergeist
       Capybara.app_host = Cms.host
 
-      visit url
+      page.driver.browser.url_blacklist = [
+        'https://s.ytimg.com',
+        'https://mc.yandex.ru'
+      ]
     end
   end
 end
