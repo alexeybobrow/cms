@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Cms::Engine.routes.draw do
   root to: 'public/pages#show'
 
@@ -27,6 +29,8 @@ Cms::Engine.routes.draw do
     resources :liquid_variables, except: :show
     resource :cache, only: :destroy
     resource :session, only: :show
+
+    mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
   end
 
   get "/#{I18n.default_locale}", to: redirect('/')
