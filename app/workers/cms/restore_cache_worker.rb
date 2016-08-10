@@ -3,7 +3,7 @@ require 'capybara/dsl'
 require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, window_size: [1600, 768])
+  Capybara::Poltergeist::Driver.new(app, window_size: [1600, 768], js_errors: false)
 end
 
 module Cms
