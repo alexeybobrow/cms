@@ -30,7 +30,7 @@ Cms::Engine.routes.draw do
     resource :cache, only: :destroy
     resource :session, only: :show
 
-    mount Sidekiq::Web => '/sidekiq' if Rails.env.development?
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   get "/#{I18n.default_locale}", to: redirect('/')
