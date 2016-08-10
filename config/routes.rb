@@ -53,6 +53,8 @@ Cms::Engine.routes.draw do
 
     get '/uploads/image_attachment/image/:id/:basename.:extension', to: 'attachments#download'
 
+    resource :csrf_token, only: :show
+
     constraints(format: 'html') do
       get '/*page', to: 'pages#show', as: 'page'
     end

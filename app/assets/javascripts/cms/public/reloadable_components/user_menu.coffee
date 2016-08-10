@@ -1,14 +1,10 @@
 class @UserMenu
-  USER_URL: '/admin/session'
+  USER_URL = '/admin/session'
 
-  getUser: ->
-    $.getJSON(@USER_URL, page: window.location.pathname)
+  getUser = ->
+    $.getJSON(USER_URL, page: window.location.pathname)
 
-  getMenu: ->
-    @getUser().then (data) =>
-      @template(data) if data.page
-
-  template: (data) -> """
+  template = (data) -> """
     <div class="user-menu">
       <div class="user-menu--item">User: #{data.user.name}</div>
       <div class="user-menu--item">
@@ -20,3 +16,9 @@ class @UserMenu
       </div>
     </div>
   """
+
+  # public
+
+  fetch: ->
+    getUser().then (data) =>
+      template(data) if data.page
