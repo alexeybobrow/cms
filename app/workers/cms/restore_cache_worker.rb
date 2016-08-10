@@ -28,7 +28,8 @@ module Cms
 
       page.driver.browser.url_blacklist = [
         'https://s.ytimg.com',
-        'https://mc.yandex.ru'
+        'https://mc.yandex.ru',
+        'https://www.youtube.com'
       ]
     end
   end
