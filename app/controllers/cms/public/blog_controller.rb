@@ -5,6 +5,8 @@ module Cms
       before_action :redirect_first_pagination_page
       before_action :set_tags_with_counts
 
+      caches_action :show, :index, :tag, :author
+
       def index
         @articles = articles.order(posted_at: :desc).page(params[:page]).per(4)
         respond_with @articles
