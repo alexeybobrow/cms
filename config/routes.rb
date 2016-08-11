@@ -3,6 +3,10 @@ require 'sidekiq/web'
 Cms::Engine.routes.draw do
   root to: 'public/pages#show'
 
+  constraints Cms::RoutingConstraints::CanAccessSidekiq.new do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   namespace :admin do
     resources :pages do
       resources :page_versions, only: :index do
@@ -29,8 +33,6 @@ Cms::Engine.routes.draw do
     resources :liquid_variables, except: :show
     resource :cache, only: :destroy
     resource :session, only: :show
-
-    mount Sidekiq::Web => '/sidekiq'
   end
 
   get "/#{I18n.default_locale}", to: redirect('/')
