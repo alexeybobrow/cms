@@ -1,3 +1,5 @@
+require 'actionpack/action_caching'
+
 module Cms
   module Public
     class BlogController < ::Cms::Public::BaseController
