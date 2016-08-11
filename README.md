@@ -60,7 +60,15 @@ corresponding to specified url. For example for pages `/services`,
 `/services/web-development`, `/services/backend/ruby` `services` layout
 will be applied.
 
-## Restore cache after page update
+## Caching
+
+Caching requires redis. To enable caching set
+
+```
+Rails.application.config.action_controller.perform_caching = true
+```
+
+To enable cache invalidation run
 
 ```
 bundle exec sidekiq -c 1 -q restore_cache
