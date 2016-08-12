@@ -11,6 +11,8 @@ module Cms
         Page.with_published_state.map(&:url).each do |url|
           Cms::RestoreCacheWorker.perform_async(url)
         end
+
+        Cms::StopBrowserWorker.perform_async
       end
     end
   end
