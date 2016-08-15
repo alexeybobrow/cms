@@ -3,16 +3,18 @@ require 'actionpack/action_caching'
 module Cms
   module Public
     class BlogController < ::Cms::Public::BaseController
-      respond_to :html, :rss
       before_action :redirect_first_pagination_page
       before_action :set_tags_with_counts
 
       caches_action :show
       caches_action :index, :tag, :author, cache_path: Proc.new { |c| c.request.url }
 
+      def feed
+        @articles = articles.order(posted_at: :desc)
+      end
+
       def index
         @articles = articles.order(posted_at: :desc).page(params[:page]).per(4)
-        respond_with @articles
       end
 
       def show

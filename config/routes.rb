@@ -48,8 +48,8 @@ Cms::Engine.routes.draw do
           end
         end
 
+        get '/blog/feed', constraints: { format: 'rss' }, as: :blog_feed, to: 'blog#feed'
         resources :blog, only: :show
-        resources :blog, only: :index, constraints: { format: 'rss' }
       end
     end
 
