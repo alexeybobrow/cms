@@ -15,7 +15,7 @@ module Tags
     def posts
       current_page = view.instance_variable_get(:@page)
 
-      scoped = Page.ordered_blog(I18n.locale).with_published_state
+      scoped = Page.blog(I18n.locale).order(posted_at: :desc).with_published_state
       scoped = scoped.without(current_page) if current_page
       scoped.limit(posts_limit)
     end

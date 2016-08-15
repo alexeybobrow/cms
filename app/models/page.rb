@@ -25,10 +25,6 @@ class Page < ActiveRecord::Base
       where("urls.name = ?", name).first
     end
 
-    def with_url_prefix(prefix)
-      where("urls.name LIKE ?", "#{prefix}/%")
-    end
-
     def scoped_with_array(name)
       ->(value){
         where("EXISTS(SELECT * FROM UNNEST(#{name}) AS value WHERE REPLACE(LOWER(value), ' ', '-') IN (:value))", value: value)
@@ -66,12 +62,13 @@ class Page < ActiveRecord::Base
                                prefix = locale.to_s == 'en' ? '' : "/#{locale}"
                                with_url_prefix("#{prefix}/blog").actual
                              }
-  scope :ordered_blog,     ->(locale){ blog(locale).order(posted_at: :desc) }
   scope :by_slug,          ->(s){ where('urls.name like ?', "%#{s}") }
   scope :without,          ->(page){ where.not(id: page.id) }
   scope :tags_with_counts, ->(){ select('COUNT(pages.id) AS count, UNNEST(tags) AS tag_name').group('tag_name').order('tag_name') }
+  scope :with_url_prefix,  ->(prefix) { where("urls.name LIKE ?", "#{prefix}/%") }
   scope :by_tag,           scoped_with_array(:tags)
   scope :by_author,        scoped_with_array(:authors)
+
 
   def url
     primary_url.try(:name) || ''

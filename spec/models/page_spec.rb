@@ -117,10 +117,6 @@ describe Page do
 
     let!(:about_us) { create :page, url: '/about'}
 
-    it 'displays all blog pages ordered by created at' do
-      expect(Page.ordered_blog(:en)).to eq([second_blog_page, first_blog_page])
-    end
-
     it 'does not display deleted pages' do
       expect(Page.blog(:en)).not_to include(:deleted_page)
     end
