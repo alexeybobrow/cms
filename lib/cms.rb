@@ -15,6 +15,7 @@ require "sidekiq"
 
 module Cms
   autoload :RoutingConstraints, 'cms/routing_constraints'
+  autoload :SidekiqMiddleware, 'cms/sidekiq_middleware'
   autoload :Filters, 'cms/filters'
   autoload :UrlHelper, 'cms/url_helper'
   autoload :LocaleRedirector, 'cms/locale_redirector'
