@@ -44,7 +44,7 @@ FactoryGirl.define do
   factory :page do
     sequence(:title) { |n| "Page #{n}" }
     name { title }
-    og []
+    meta []
     workflow_state 'published'
 
     content

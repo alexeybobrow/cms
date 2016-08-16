@@ -10,10 +10,10 @@ describe Cms::PageMetaForm do
   it { is_expected.to have_attribute(:title) }
   it { is_expected.to have_attribute(:name) }
   it { is_expected.to have_attribute(:posted_at) }
-  it { is_expected.to have_attribute(:meta) }
+  it { is_expected.to have_attribute(:raw_meta) }
   it { is_expected.to have_attribute(:tags) }
   it { is_expected.to have_attribute(:authors) }
-  it { is_expected.to have_attribute(:og) }
+  it { is_expected.to have_attribute(:meta) }
 
   context 'validation' do
     context 'title' do
@@ -27,16 +27,16 @@ describe Cms::PageMetaForm do
     end
   end
 
-  describe '#og' do
+  describe '#meta' do
     context 'empty values' do
       it 'skips values with empty name' do
-        form = described_class.new({og: [{'name' => 'test', 'value' => ''}]}, Page.new)
-        expect(form.og).to eq([])
+        form = described_class.new({meta: [{'name' => 'test', 'value' => ''}]}, Page.new)
+        expect(form.meta).to eq([])
       end
 
       it 'skips values with empty value' do
-        form = described_class.new({og: [{'name' => '', 'value' => 'test'}]}, Page.new)
-        expect(form.og).to eq([])
+        form = described_class.new({meta: [{'name' => '', 'value' => 'test'}]}, Page.new)
+        expect(form.meta).to eq([])
       end
     end
 
@@ -45,13 +45,13 @@ describe Cms::PageMetaForm do
       let(:hash_attributes) { {'0'=>{'name' => 'test', 'value' => 'test'}} }
 
       it 'takes an array' do
-        form = described_class.new({og: array_attributes}, Page.new)
-        expect(form.og).to eq(array_attributes)
+        form = described_class.new({meta: array_attributes}, Page.new)
+        expect(form.meta).to eq(array_attributes)
       end
 
       it 'takes a hash' do
-        form = described_class.new({og: hash_attributes}, Page.new)
-        expect(form.og).to eq(array_attributes)
+        form = described_class.new({meta: hash_attributes}, Page.new)
+        expect(form.meta).to eq(array_attributes)
       end
     end
   end

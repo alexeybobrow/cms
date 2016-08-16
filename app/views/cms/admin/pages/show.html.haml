@@ -65,10 +65,10 @@
                 %td= t('admin.pages.og_name')
                 %td= t('admin.pages.og_value')
             %tbody
-              - @page.og.each do |og|
+              - @page.meta.each do |meta|
                 %tr
-                  %td= og['name']
-                  %td= og['value']
+                  %td= meta['name']
+                  %td= meta['value']
 
 .panel.panel-default.content-panel{data: {content_panel: true}}
   .panel-heading

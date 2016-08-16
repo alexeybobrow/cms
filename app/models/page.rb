@@ -18,7 +18,7 @@ class Page < ActiveRecord::Base
     end
   end
 
-  has_paper_trail only: [:title, :description, :meta, :name, :url, :deleted_at]
+  has_paper_trail only: [:title, :description, :raw_meta, :name, :url, :deleted_at]
 
   class << self
     def with_url(name)

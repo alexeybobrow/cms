@@ -178,11 +178,11 @@ SRC
       expect(new_page.tags).to eq(['RoR', 'Software Development'])
       expect(new_page.authors).to eq(['Kent Beck', 'DHH'])
 
-      expect(new_page.og.count).to eq(2)
-      expect(new_page.og.first['name']).to eq('og:type')
-      expect(new_page.og.first['value']).to eq('site')
-      expect(new_page.og.last['name']).to eq('og:description')
-      expect(new_page.og.last['value']).to eq('site description')
+      expect(new_page.meta.count).to eq(2)
+      expect(new_page.meta.first['name']).to eq('og:type')
+      expect(new_page.meta.first['value']).to eq('site')
+      expect(new_page.meta.last['name']).to eq('og:description')
+      expect(new_page.meta.last['value']).to eq('site description')
 
       expect(current_path).to eq(cms.admin_page_path(new_page))
       expect(page).to have_content('Page name')

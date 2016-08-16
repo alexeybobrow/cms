@@ -48,7 +48,7 @@ RSpec.configure do |config|
   config.include Integration::AuthHelpers
   config.include Integration::FixtureHelpers
   config.include Integration::AttachmentHelpers
-  config.include Integration::OgTagsHelpers
+  config.include Integration::MetaTagsHelpers
   config.include FactoryGirl::Syntax::Methods
 
   if config.files_to_run.one?

@@ -6,16 +6,16 @@
         %td Value
         %td Destroy
     %tbody
-      - f.object.og.each_with_index do |og, index|
-        = f.simple_fields_for :og, OpenGraph.new(og), index: index do |og_f|
+      - f.object.meta.each_with_index do |meta, index|
+        = f.simple_fields_for :meta, OpenGraph.new(meta), index: index do |meta_f|
           %tr
-            = og_f.input :name, required: false, label: false, wrapper_tag: :td
-            = og_f.input :value, required: false, label: false, wrapper_tag: :td
-            = og_f.input :_destroy, as: :boolean, label: false, wrapper_tag: :td
-      = f.simple_fields_for :og, OpenGraph.new(name: '', value: ''), index: f.object.og.size do |og_f|
+            = meta_f.input :name, required: false, label: false, wrapper_tag: :td
+            = meta_f.input :value, required: false, label: false, wrapper_tag: :td
+            = meta_f.input :_destroy, as: :boolean, label: false, wrapper_tag: :td
+      = f.simple_fields_for :meta, OpenGraph.new(name: '', value: ''), index: f.object.meta.size do |meta_f|
         %tr
-          = og_f.input :name, required: false, label: false, wrapper_tag: :td
-          = og_f.input :value, required: false, label: false, wrapper_tag: :td
+          = meta_f.input :name, required: false, label: false, wrapper_tag: :td
+          = meta_f.input :value, required: false, label: false, wrapper_tag: :td
           %td
 
   = button_tag 'Add tag', class: 'btn btn-default add-og-tag'

@@ -9,10 +9,10 @@ module Cms
     attribute :name
     attribute :breadcrumb_name
     attribute :posted_at, type: Date
-    attribute :meta
+    attribute :raw_meta
     attribute :tags
     attribute :authors
-    attribute :og
+    attribute :meta
 
     attribute :override_name, type: Boolean
     attribute :override_title, type: Boolean
@@ -22,7 +22,7 @@ module Cms
     array_writer :authors
 
     def after_initialize
-      normalize_og!
+      normalize_meta!
     end
 
     private
@@ -31,9 +31,9 @@ module Cms
       '1' == value['_destroy'] || value['name'].blank? || value['value'].blank?
     end
 
-    def normalize_og!
-      og_values = og.is_a?(Array) ? og : og.values
-      self.og = og_values.reject {|v| skip_val?(v) }.map {|v| v.slice('name', 'value')}
+    def normalize_meta!
+      meta_values = meta.is_a?(Array) ? meta : meta.values
+      self.meta = meta_values.reject {|v| skip_val?(v) }.map {|v| v.slice('name', 'value')}
     end
 
     def before_save
