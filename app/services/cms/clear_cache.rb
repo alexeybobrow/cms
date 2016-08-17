@@ -1,19 +1,23 @@
 module Cms
   class ClearCache
-    def self.perform
-      new.perform
+    cattr_accessor :around_perform do
+      ->(options, &perform) { perform.call }
+    end
+
+    class << self
+      def configure
+        yield self
+      end
+
+      def perform(options={})
+        self.around_perform.call(options) do
+          new.perform
+        end
+      end
     end
 
     def perform
-      if Rails.application.config.action_controller.perform_caching
-        Rails.cache.clear
-
-        Page.with_published_state.map(&:url).each do |url|
-          Cms::RestoreCacheWorker.perform_async(url)
-        end
-
-        Cms::StopBrowserWorker.perform_async
-      end
+      Rails.cache.clear
     end
   end
 end

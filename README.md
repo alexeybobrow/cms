@@ -62,13 +62,32 @@ will be applied.
 
 ## Caching
 
-Caching requires redis. To enable caching set
+Caching requires redis. You can configure caching to make actions
+before and after perform. Or skip it altogether with condition
 
 ```
 Rails.application.config.action_controller.perform_caching = true
+
+Cms::ClearCache.configure do |config|
+  config.around_perform = lambda do |options, &perform|
+    if Rails.application.config.action_controller.perform_caching
+
+      perform.call
+
+      # Schedule cache warmup for published pages
+      Page.with_published_state.map(&:url).each do |url|
+        Cms::RestoreCacheWorker.perform_async(url)
+      end
+
+      # Stop phantomjs
+      Cms::StopBrowserWorker.perform_async
+    end
+  end
+end
+
 ```
 
-To enable cache invalidation run
+To enable cache warmup run
 
 ```
 bundle exec sidekiq -c 1 -q restore_cache
