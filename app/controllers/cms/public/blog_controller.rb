@@ -6,8 +6,8 @@ module Cms
       before_action :redirect_first_pagination_page
       before_action :set_tags_with_counts
 
-      caches_action :show
-      caches_action :index, :tag, :author, cache_path: Proc.new { |c| c.request.url }
+      caches_action :show, if: -> { page.published? }
+      caches_action :index, :tag, :author, cache_path: -> (c) { c.request.url }
 
       def feed
         @articles = articles.order(posted_at: :desc)
@@ -18,7 +18,7 @@ module Cms
       end
 
       def show
-        @page = articles(!current_user).by_slug(params[:id]).first!
+        page
       end
 
       def tag
@@ -32,6 +32,10 @@ module Cms
       end
 
       private
+
+      def page
+        @page ||= articles(!current_user).by_slug(params[:id]).first!
+      end
 
       def articles(only_published=true)
         scoped = Page.blog(I18n.locale)
