@@ -37,7 +37,7 @@ module Cms
     end
 
     def before_save
-      Cms::ClearCache.perform
+      Cms::ClearCache.perform(self.model)
     end
   end
 end

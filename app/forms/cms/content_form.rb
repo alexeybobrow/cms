@@ -10,10 +10,10 @@ module Cms
     validates :markup_language, inclusion: { in: Content.formats }
 
     def before_save
-      Cms::PropPopulator::ForPage.populate(model.page)
-      Cms::PropPopulator::ForUrl.populate(model.page)
+      Cms::PropPopulator::ForPage.populate(self.model.page)
+      Cms::PropPopulator::ForUrl.populate(self.model.page)
 
-      Cms::ClearCache.perform
+      Cms::ClearCache.perform(page: self.model.page)
     end
   end
 end
