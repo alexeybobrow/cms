@@ -28,12 +28,12 @@ module Cms
     private
 
     def skip_val?(value)
-      '1' == value['_destroy'] || value['name'].blank? || value['value'].blank?
+      '1' == value['_destroy'] || value['property'].blank? || value['content'].blank?
     end
 
     def normalize_meta!
       meta_values = meta.is_a?(Array) ? meta : meta.values
-      self.meta = meta_values.reject {|v| skip_val?(v) }.map {|v| v.slice('name', 'value')}
+      self.meta = meta_values.reject {|v| skip_val?(v) }.map {|v| v.slice('property', 'content')}
     end
 
     def before_save

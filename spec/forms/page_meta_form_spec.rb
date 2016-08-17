@@ -29,20 +29,20 @@ describe Cms::PageMetaForm do
 
   describe '#meta' do
     context 'empty values' do
-      it 'skips values with empty name' do
-        form = described_class.new({meta: [{'name' => 'test', 'value' => ''}]}, Page.new)
+      it 'skips values with empty property' do
+        form = described_class.new({meta: [{'property' => 'test', 'content' => ''}]}, Page.new)
         expect(form.meta).to eq([])
       end
 
-      it 'skips values with empty value' do
-        form = described_class.new({meta: [{'name' => '', 'value' => 'test'}]}, Page.new)
+      it 'skips values with empty content' do
+        form = described_class.new({meta: [{'property' => '', 'content' => 'test'}]}, Page.new)
         expect(form.meta).to eq([])
       end
     end
 
     context 'attributes normalization after initialize' do
-      let(:array_attributes) { [{'name' => 'test', 'value' => 'test'}] }
-      let(:hash_attributes) { {'0'=>{'name' => 'test', 'value' => 'test'}} }
+      let(:array_attributes) { [{'property' => 'test', 'content' => 'test'}] }
+      let(:hash_attributes) { {'0'=>{'property' => 'test', 'content' => 'test'}} }
 
       it 'takes an array' do
         form = described_class.new({meta: array_attributes}, Page.new)

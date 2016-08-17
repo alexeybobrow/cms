@@ -67,8 +67,8 @@
             %tbody
               - @page.meta.each do |meta|
                 %tr
-                  %td= meta['name']
-                  %td= meta['value']
+                  %td= meta['property']
+                  %td= meta['content']
 
 .panel.panel-default.content-panel{data: {content_panel: true}}
   .panel-heading

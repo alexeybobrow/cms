@@ -152,11 +152,11 @@ SRC
       fill_in 'Name', with: 'Page name'
       fill_in 'Tags', with: 'RoR, Software Development'
       fill_in 'Authors', with: 'Kent Beck, DHH'
-      fill_in_tag 'name', with: 'og:type'
-      fill_in_tag 'value', with: 'site'
+      fill_in_tag 'property', with: 'og:type'
+      fill_in_tag 'content', with: 'site'
       click_on 'Add tag'
-      fill_in_tag 'name', with: 'og:description'
-      fill_in_tag 'value', with: 'site description'
+      fill_in_tag 'property', with: 'og:description'
+      fill_in_tag 'content', with: 'site description'
       click_on 'Update Page'
 
       # Edit page annotation
@@ -179,10 +179,10 @@ SRC
       expect(new_page.authors).to eq(['Kent Beck', 'DHH'])
 
       expect(new_page.meta.count).to eq(2)
-      expect(new_page.meta.first['name']).to eq('og:type')
-      expect(new_page.meta.first['value']).to eq('site')
-      expect(new_page.meta.last['name']).to eq('og:description')
-      expect(new_page.meta.last['value']).to eq('site description')
+      expect(new_page.meta.first['property']).to eq('og:type')
+      expect(new_page.meta.first['content']).to eq('site')
+      expect(new_page.meta.last['property']).to eq('og:description')
+      expect(new_page.meta.last['content']).to eq('site description')
 
       expect(current_path).to eq(cms.admin_page_path(new_page))
       expect(page).to have_content('Page name')
