@@ -9,7 +9,6 @@ module Cms
     attribute :name
     attribute :breadcrumb_name
     attribute :posted_at, type: Date
-    attribute :raw_meta
     attribute :tags
     attribute :authors
     attribute :meta

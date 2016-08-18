@@ -10,7 +10,6 @@ describe Cms::PageMetaForm do
   it { is_expected.to have_attribute(:title) }
   it { is_expected.to have_attribute(:name) }
   it { is_expected.to have_attribute(:posted_at) }
-  it { is_expected.to have_attribute(:raw_meta) }
   it { is_expected.to have_attribute(:tags) }
   it { is_expected.to have_attribute(:authors) }
   it { is_expected.to have_attribute(:meta) }
