@@ -33,16 +33,24 @@ module Cms
       end
     end
 
-    def meta_hash(properties)
-      Hash[properties.to_a.zip((0..properties.size).map{''})]
+    def meta_index
+      @meta_index ||= 0
+      @meta_index += 1
     end
 
-    def meta_index
-      @index ||= 0
-      @index += 1
+    def meta_field(meta)
+      if meta.is_a? Hash
+        OpenGraph.new(meta)
+      else
+        OpenGraph.new(meta_hash(meta))
+      end
     end
 
     private
+
+    def meta_hash(properties)
+      Hash[properties.to_a.zip((0..properties.size).map{''})]
+    end
 
     def skip_val?(value)
       '1' == value['_destroy'] || value.values.any?(&:blank?)

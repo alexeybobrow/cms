@@ -1,6 +1,6 @@
-- Cms::PageMetaForm::META_GROUPS.each do |properties|
-  - meta_tags = f.object.grouped_meta[properties]
-  = field_set_tag "Meta data as <#{properties.to_a.join(', ')}>", class: 'og-data' do
+- Cms::PageMetaForm::META_GROUPS.each do |props|
+  - meta_tags = @form.grouped_meta[props]
+  = field_set_tag "Meta data as <#{props.to_a.join(', ')}>", class: 'og-data' do
     %table.table.open-graph-fields
       %thead
         %tr
@@ -9,14 +9,14 @@
           %td Destroy
       %tbody
         - meta_tags && meta_tags.each do |meta|
-          = f.simple_fields_for :meta, OpenGraph.new(meta), index: f.object.meta_index do |meta_f|
+          = f.simple_fields_for :meta, @form.meta_field(meta), index: @form.meta_index do |meta_f|
             %tr
-              - properties.each do |meta_prop|
+              - props.each do |meta_prop|
                 = meta_f.input meta_prop, required: false, label: false, wrapper_tag: :td
               = meta_f.input :_destroy, as: :boolean, label: false, wrapper_tag: :td
-        = f.simple_fields_for :meta, OpenGraph.new(f.object.meta_hash(properties)), index: f.object.meta_index do |meta_f|
+        = f.simple_fields_for :meta, @form.meta_field(props), index: @form.meta_index do |meta_f|
           %tr
-            - properties.each do |meta_prop|
+            - props.each do |meta_prop|
               = meta_f.input meta_prop, required: false, label: false, wrapper_tag: :td
             %td
 
