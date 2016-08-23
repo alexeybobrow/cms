@@ -1,6 +1,7 @@
 - Cms::PageMetaForm::META_GROUPS.each do |props|
+  - meta_tags_type = props.to_a.join('_')
   - meta_tags = @form.grouped_meta[props]
-  = field_set_tag "Meta data as <#{props.to_a.join(', ')}>", class: 'og-data' do
+  = field_set_tag "Meta data as <#{props.to_a.join(', ')}>", class: "meta-tags #{meta_tags_type}" do
     %table.table.open-graph-fields
       %thead
         %tr
@@ -15,9 +16,11 @@
                 = meta_f.input meta_prop, required: false, label: false, wrapper_tag: :td
               = meta_f.input :_destroy, as: :boolean, label: false, wrapper_tag: :td
         = f.simple_fields_for :meta, @form.meta_field(props), index: @form.meta_index do |meta_f|
-          %tr
+          %tr{data: { 'meta-field-template': meta_tags_type }}
             - props.each do |meta_prop|
               = meta_f.input meta_prop, required: false, label: false, wrapper_tag: :td
             %td
-
-    = button_tag 'Add tag', class: 'btn btn-default add-og-tag'
+  %div= button_tag t("admin.pages.forms.button.add_tag.#{meta_tags_type}"),
+    class: 'btn btn-default',
+    data: { 'meta-field-from': meta_tags_type, 'meta-field-index': @form.meta_index }
+  %br

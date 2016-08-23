@@ -17,4 +17,5 @@
 //= require bootstrap
 
 //= require cms/admin/readonly
+//= require cms/admin/meta_tags
 //= require_tree ./admin

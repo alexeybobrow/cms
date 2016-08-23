@@ -49,6 +49,9 @@ en:
       forms:
         button:
           update_url: 'Update Url'
+          add_tag:
+            property_content: 'Add open graph meta tag'
+            name_content: 'Add regular meta tag'
     history:
       title: 'History of page "%{name}"'
       created: '%{item_type} Created by %{name}'

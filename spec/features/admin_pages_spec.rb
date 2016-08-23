@@ -152,11 +152,12 @@ SRC
       fill_in 'Name', with: 'Page name'
       fill_in 'Tags', with: 'RoR, Software Development'
       fill_in 'Authors', with: 'Kent Beck, DHH'
-      fill_in_tag 'property', with: 'og:type'
-      fill_in_tag 'content', with: 'site'
-      click_on 'Add tag'
-      fill_in_tag 'property', with: 'og:description'
-      fill_in_tag 'content', with: 'site description'
+      fill_in_tag 'property', with: 'og:type', within_class: 'property_content'
+      fill_in_tag 'content', with: 'site', within_class: 'property_content'
+      click_on 'Add open graph meta tag'
+      fill_in_tag 'property', with: 'og:description', within_class: 'property_content'
+      fill_in_tag 'content', with: 'site description', within_class: 'property_content'
+      screenshot_and_save_page
       click_on 'Update Page'
 
       # Edit page annotation
