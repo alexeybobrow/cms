@@ -1,7 +1,9 @@
 module Cms::PropExtractor
-  class AbsoluteUrl < Base
-    def self.analyser
-      Cms::ContentAnalyser::AbsoluteUrl
+  class AbsoluteUrl < Url
+    def self.analyse(content)
+      if url = super
+        Cms.host + url
+      end
     end
   end
 end

@@ -43,6 +43,8 @@ module Cms
     end
 
     class ForPageMeta
+      attr_reader :model
+
       cattr_accessor :defaults do
         []
       end
@@ -53,28 +55,51 @@ module Cms
         end
 
         def populate(model)
-          populate_with_defaults(model)
+          new(model)
+        end
+      end
 
-          PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body, unless: :override_meta_tags? do |text, page|
-            if text.present?
-              page.set_meta({'property' => 'og:title'}, { 'content' => text })
-            end
-          end
+      def initialize(model)
+        @model = model
 
-          PropPopulator.populate model, with: Cms::PropExtractor::AbsoluteUrl, from: :body, unless: :override_meta_tags? do |text, page|
-            if text.present?
-              page.set_meta({'property' => 'og:url'}, { 'content' => text })
-            end
+        populate_with_defaults
+        populate_og_title
+        populate_og_url
+        populate_og_type
+      end
+
+      private
+
+      def populate_with_defaults
+        return if model.override_meta_tags?
+
+        ForPageMeta.defaults.each do |default_meta|
+          default_meta.each do |(meta_id, meta_value)|
+            model.set_meta(meta_id, meta_value)
           end
         end
+      end
 
-        def populate_with_defaults(model)
-          return if model.override_meta_tags?
+      def populate_og_title
+        PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body, unless: :override_meta_tags? do |text, page|
+          if text.present?
+            page.set_meta({'property' => 'og:title'}, { 'content' => text })
+          end
+        end
+      end
 
-          ForPageMeta.defaults.each do |default_meta|
-            default_meta.each do |(meta_id, meta_value)|
-              model.set_meta(meta_id, meta_value)
-            end
+      def populate_og_url
+        PropPopulator.populate model, with: Cms::PropExtractor::AbsoluteUrl, from: :body, unless: :override_meta_tags? do |text, page|
+          if text.present?
+            page.set_meta({'property' => 'og:url'}, { 'content' => text })
+          end
+        end
+      end
+
+      def populate_og_type
+        PropPopulator.populate model, with: Cms::PropExtractor::PageType, from: :url, unless: :override_meta_tags? do |text, page|
+          if text.present?
+            page.set_meta({'property' => 'og:type'}, { 'content' => text })
           end
         end
       end

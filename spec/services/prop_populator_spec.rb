@@ -130,8 +130,9 @@ describe Cms::PropPopulator do
 
         populator.populate(page)
         expect(page.meta).to eq([
-          {'property' => 'og:title', 'content' => 'Some header' },
-          {'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' }
+          { 'property' => 'og:title', 'content' => 'Some header' },
+          { 'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' },
+          { 'property' => 'og:type', 'content' => 'website' }
         ])
       end
 
@@ -145,7 +146,7 @@ describe Cms::PropPopulator do
       end
 
       it 'fills defaults' do
-        expect(populator).to receive(:populate_with_defaults)
+        expect_any_instance_of(populator).to receive(:populate_with_defaults)
         populator.populate(page)
       end
 
@@ -155,20 +156,22 @@ describe Cms::PropPopulator do
 
         populator.populate(page)
         expect(page.meta).to eq([
-          {'property' => 'og:title', 'content' => 'Some header' },
-          {'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' }
+          { 'property' => 'og:title', 'content' => 'Some header' },
+          { 'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' },
+          { 'property' => 'og:type', 'content' => 'website' }
         ])
       end
 
       it 'adds to the existing meta' do
         page.content.body = '# Some header'
-        page.meta = [{'property' => 'og:type', 'content' => 'site' }]
+        page.meta = [{'property' => 'og:id', 'content' => '42' }]
 
         populator.populate(page)
         expect(page.meta).to eq([
-          {'property' => 'og:type', 'content' => 'site' },
-          {'property' => 'og:title', 'content' => 'Some header' },
-          {'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' }
+          { 'property' => 'og:id', 'content' => '42' },
+          { 'property' => 'og:title', 'content' => 'Some header' },
+          { 'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' },
+          { 'property' => 'og:type', 'content' => 'website' }
         ])
       end
     end
@@ -180,7 +183,10 @@ describe Cms::PropPopulator do
 
       it 'populates meta with provided defaults' do
         populator.populate(page)
-        expect(page.meta).to eq([{ 'property' => 'twitter:site', 'content' => '@AnadeaInc' }])
+        expect(page.meta).to eq([
+          { 'property' => 'twitter:site', 'content' => '@AnadeaInc' },
+          { 'property' => 'og:type', 'content' => 'website' }
+        ])
       end
 
       it 'skips defaults if override was set' do
