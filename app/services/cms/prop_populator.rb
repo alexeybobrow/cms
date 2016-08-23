@@ -60,6 +60,12 @@ module Cms
               page.set_meta({'property' => 'og:title'}, { 'content' => text })
             end
           end
+
+          PropPopulator.populate model, with: Cms::PropExtractor::AbsoluteUrl, from: :body, unless: :override_meta_tags? do |text, page|
+            if text.present?
+              page.set_meta({'property' => 'og:url'}, { 'content' => text })
+            end
+          end
         end
 
         def populate_with_defaults(model)

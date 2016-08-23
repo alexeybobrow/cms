@@ -129,7 +129,10 @@ describe Cms::PropPopulator do
         page.content.body = '# Some header'
 
         populator.populate(page)
-        expect(page.meta).to eq([{'property' => 'og:title', 'content' => 'Some header' }])
+        expect(page.meta).to eq([
+          {'property' => 'og:title', 'content' => 'Some header' },
+          {'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' }
+        ])
       end
 
       it 'does nothing if override was set' do
@@ -151,17 +154,21 @@ describe Cms::PropPopulator do
         page.meta = [{'property' => 'og:title', 'content' => 'Old title' }]
 
         populator.populate(page)
-        expect(page.meta).to eq([{'property' => 'og:title', 'content' => 'Some header' }])
+        expect(page.meta).to eq([
+          {'property' => 'og:title', 'content' => 'Some header' },
+          {'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' }
+        ])
       end
 
       it 'adds to the existing meta' do
         page.content.body = '# Some header'
-        page.meta = [{'property' => 'og:url', 'content' => 'https://anadea.info' }]
+        page.meta = [{'property' => 'og:type', 'content' => 'site' }]
 
         populator.populate(page)
         expect(page.meta).to eq([
-          {'property' => 'og:url', 'content' => 'https://anadea.info' },
-          {'property' => 'og:title', 'content' => 'Some header' }
+          {'property' => 'og:type', 'content' => 'site' },
+          {'property' => 'og:title', 'content' => 'Some header' },
+          {'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' }
         ])
       end
     end
