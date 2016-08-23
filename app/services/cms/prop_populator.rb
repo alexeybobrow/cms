@@ -34,12 +34,10 @@ module Cms
 
     class ForUrl
       def self.populate(model)
-        PropPopulator.populate model, with: Cms::PropExtractor::Url, from: :body do |text, page|
-          unless page.override_url?
-            text ||= page.id
-            new_url = page.parent_url.to_s + Cms::UrlHelper.normalize_url(text)
-            Cms::UrlUpdate.perform(page, new_url)
-          end
+        PropPopulator.populate model, with: Cms::PropExtractor::Url, from: :body, unless: :override_url? do |text, page|
+          text ||= page.id
+          new_url = page.parent_url.to_s + Cms::UrlHelper.normalize_url(text)
+          Cms::UrlUpdate.perform(page, new_url)
         end
       end
     end
@@ -57,8 +55,8 @@ module Cms
         def populate(model)
           populate_with_defaults(model)
 
-          PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body do |text, page|
-            if text.present? && !page.override_meta_tags?
+          PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body, unless: :override_meta_tags? do |text, page|
+            if text.present?
               page.set_meta({'property' => 'og:title'}, { 'content' => text })
             end
           end
