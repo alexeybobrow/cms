@@ -90,6 +90,7 @@ module Cms
       def populate_og_title
         PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body, unless: :override_meta_tags? do |text, page|
           populate_with_meta(page, {'property' => 'og:title'}, text)
+          populate_with_meta(page, {'property' => 'twitter:title'}, text)
         end
       end
 
@@ -108,6 +109,7 @@ module Cms
       def populate_og_image
         PropPopulator.populate model, with: Cms::PropExtractor::Image, from: :body, unless: :override_meta_tags? do |text, page|
           populate_with_meta(page, {'property' => 'og:image'}, text)
+          populate_with_meta(page, {'property' => 'twitter:image'}, text)
         end
       end
     end

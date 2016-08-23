@@ -131,6 +131,7 @@ describe Cms::PropPopulator do
         populator.populate(page)
         expect(page.meta).to eq([
           { 'property' => 'og:title', 'content' => 'Some header' },
+          { 'property' => 'twitter:title', 'content' => 'Some header' },
           { 'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' },
           { 'property' => 'og:type', 'content' => 'website' }
         ])
@@ -157,6 +158,7 @@ describe Cms::PropPopulator do
         populator.populate(page)
         expect(page.meta).to eq([
           { 'property' => 'og:title', 'content' => 'Some header' },
+          { 'property' => 'twitter:title', 'content' => 'Some header' },
           { 'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' },
           { 'property' => 'og:type', 'content' => 'website' }
         ])
@@ -170,6 +172,7 @@ describe Cms::PropPopulator do
         expect(page.meta).to eq([
           { 'property' => 'og:id', 'content' => '42' },
           { 'property' => 'og:title', 'content' => 'Some header' },
+          { 'property' => 'twitter:title', 'content' => 'Some header' },
           { 'property' => 'og:url', 'content' => 'lvh.me:3000/some-header' },
           { 'property' => 'og:type', 'content' => 'website' }
         ])
