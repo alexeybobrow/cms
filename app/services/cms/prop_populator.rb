@@ -43,5 +43,37 @@ module Cms
         end
       end
     end
+
+    class ForPageMeta
+      cattr_accessor :defaults do
+        []
+      end
+
+      class << self
+        def configure
+          yield self
+        end
+
+        def populate(model)
+          populate_with_defaults(model)
+
+          PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body do |text, page|
+            if text.present? && !page.override_meta_tags?
+              page.set_meta({'property' => 'og:title'}, { 'content' => text })
+            end
+          end
+        end
+
+        def populate_with_defaults(model)
+          return if model.override_meta_tags?
+
+          ForPageMeta.defaults.each do |default_meta|
+            default_meta.each do |(meta_id, meta_value)|
+              model.set_meta(meta_id, meta_value)
+            end
+          end
+        end
+      end
+    end
   end
 end

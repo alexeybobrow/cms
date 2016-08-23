@@ -69,6 +69,13 @@ class Page < ActiveRecord::Base
   scope :by_tag,           scoped_with_array(:tags)
   scope :by_author,        scoped_with_array(:authors)
 
+  def set_meta(meta_hash, meta_value)
+    if meta_tag = self.meta.find { |m| m.merge(meta_hash) == m }
+      meta_tag.merge!(meta_value)
+    else
+      self.meta << meta_hash.merge(meta_value)
+    end
+  end
 
   def url
     primary_url.try(:name) || ''

@@ -148,6 +148,7 @@ SRC
       end
       check 'page_override_title'
       check 'page_override_name'
+      check 'Override meta tags'
       fill_in 'Title', with: 'Created page'
       fill_in 'Name', with: 'Page name'
       fill_in 'Tags', with: 'RoR, Software Development'

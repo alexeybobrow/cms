@@ -227,6 +227,24 @@ describe Page do
     end
   end
 
+  describe '#set_meta' do
+    let(:page) { create :page, meta: [{'property' => 'og:title', 'content' => 'Clojure is future'}] }
+
+    it 'changes existing meta tags' do
+      page.set_meta({'property' => 'og:title'}, {'content' => 'Indeed, Clojure is future'})
+
+      expect(page.meta.size).to eq(1)
+      expect(page.meta.first['content']).to eq('Indeed, Clojure is future')
+    end
+
+    it 'adds new meta tags' do
+      page.set_meta({'property' => 'og:site'}, {'content' => 'anadea.info'})
+
+      expect(page.meta.size).to eq(2)
+      expect(page.meta.last['content']).to eq('anadea.info')
+    end
+  end
+
   describe 'workflow state machine' do
     it 'invokes #safe_delete on #safe_delete! event' do
       page = create :page

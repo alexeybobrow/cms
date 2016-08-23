@@ -19,6 +19,7 @@ module Cms
     attribute :override_name, type: Boolean
     attribute :override_title, type: Boolean
     attribute :override_breadcrumb_name, type: Boolean
+    attribute :override_meta_tags, type: Boolean
 
     array_writer :tags
     array_writer :authors
