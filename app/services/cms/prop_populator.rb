@@ -80,27 +80,27 @@ module Cms
         end
       end
 
+      def populate_with_meta(page, meta_id, content)
+        if content.present?
+          page.set_meta(meta_id, { 'content' => content })
+        end
+      end
+
       def populate_og_title
         PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body, unless: :override_meta_tags? do |text, page|
-          if text.present?
-            page.set_meta({'property' => 'og:title'}, { 'content' => text })
-          end
+          populate_with_meta(page, {'property' => 'og:title'}, text)
         end
       end
 
       def populate_og_url
         PropPopulator.populate model, with: Cms::PropExtractor::AbsoluteUrl, from: :body, unless: :override_meta_tags? do |text, page|
-          if text.present?
-            page.set_meta({'property' => 'og:url'}, { 'content' => text })
-          end
+          populate_with_meta(page, {'property' => 'og:url'}, text)
         end
       end
 
       def populate_og_type
         PropPopulator.populate model, with: Cms::PropExtractor::PageType, from: :url, unless: :override_meta_tags? do |text, page|
-          if text.present?
-            page.set_meta({'property' => 'og:type'}, { 'content' => text })
-          end
+          populate_with_meta(page, {'property' => 'og:type'}, text)
         end
       end
     end
