@@ -174,6 +174,16 @@ describe Cms::PropPopulator do
           { 'property' => 'og:type', 'content' => 'website' }
         ])
       end
+
+      it 'fills image meta' do
+        page.content.body = '![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)'
+
+        populator.populate(page)
+        expect(page.meta).to eq([
+          { 'property' => 'og:type', 'content' => 'website' },
+          { 'property' => 'og:image', 'content' => 'https://octodex.github.com/images/yaktocat.png' }
+        ])
+      end
     end
 
     describe '.populate_with_defaults' do

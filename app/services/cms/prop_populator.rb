@@ -66,6 +66,7 @@ module Cms
         populate_og_title
         populate_og_url
         populate_og_type
+        populate_og_image
       end
 
       private
@@ -101,6 +102,12 @@ module Cms
       def populate_og_type
         PropPopulator.populate model, with: Cms::PropExtractor::PageType, from: :url, unless: :override_meta_tags? do |text, page|
           populate_with_meta(page, {'property' => 'og:type'}, text)
+        end
+      end
+
+      def populate_og_image
+        PropPopulator.populate model, with: Cms::PropExtractor::Image, from: :body, unless: :override_meta_tags? do |text, page|
+          populate_with_meta(page, {'property' => 'og:image'}, text)
         end
       end
     end
