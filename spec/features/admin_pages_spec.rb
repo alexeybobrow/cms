@@ -153,8 +153,8 @@ SRC
       fill_in 'Name', with: 'Page name'
       fill_in 'Tags', with: 'RoR, Software Development'
       fill_in 'Authors', with: 'Kent Beck, DHH'
-      fill_in_tag 'property', with: 'og:type', within_class: 'property_content'
-      fill_in_tag 'content', with: 'site', within_class: 'property_content'
+      fill_in_tag 'property', with: 'og:id', within_class: 'property_content'
+      fill_in_tag 'content', with: '42', within_class: 'property_content'
       click_on 'Add open graph meta tag'
       fill_in_tag 'property', with: 'og:description', within_class: 'property_content'
       fill_in_tag 'content', with: 'site description', within_class: 'property_content'
@@ -180,9 +180,11 @@ SRC
       expect(new_page.tags).to eq(['RoR', 'Software Development'])
       expect(new_page.authors).to eq(['Kent Beck', 'DHH'])
 
-      expect(new_page.meta.count).to eq(2)
+      expect(new_page.meta.count).to eq(3)
       expect(new_page.meta.first['property']).to eq('og:type')
-      expect(new_page.meta.first['content']).to eq('site')
+      expect(new_page.meta.first['content']).to eq('website')
+      expect(new_page.meta.second['property']).to eq('og:id')
+      expect(new_page.meta.second['content']).to eq('42')
       expect(new_page.meta.last['property']).to eq('og:description')
       expect(new_page.meta.last['content']).to eq('site description')
 

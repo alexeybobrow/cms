@@ -184,7 +184,8 @@ describe Cms::PropPopulator do
         populator.populate(page)
         expect(page.meta).to eq([
           { 'property' => 'og:type', 'content' => 'website' },
-          { 'property' => 'og:image', 'content' => 'https://octodex.github.com/images/yaktocat.png' }
+          { 'property' => 'og:image', 'content' => 'https://octodex.github.com/images/yaktocat.png' },
+          { 'property' => 'twitter:image', 'content' => 'https://octodex.github.com/images/yaktocat.png' }
         ])
       end
     end
