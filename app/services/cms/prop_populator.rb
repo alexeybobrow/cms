@@ -34,12 +34,82 @@ module Cms
 
     class ForUrl
       def self.populate(model)
-        PropPopulator.populate model, with: Cms::PropExtractor::Url, from: :body do |text, page|
-          unless page.override_url?
-            text ||= page.id
-            new_url = page.parent_url.to_s + Cms::UrlHelper.normalize_url(text)
-            Cms::UrlUpdate.perform(page, new_url)
+        PropPopulator.populate model, with: Cms::PropExtractor::Url, from: :body, unless: :override_url? do |text, page|
+          text ||= page.id
+          new_url = page.parent_url.to_s + Cms::UrlHelper.normalize_url(text)
+          Cms::UrlUpdate.perform(page, new_url)
+        end
+      end
+    end
+
+    class ForPageMeta
+      attr_reader :model
+
+      cattr_accessor :defaults do
+        []
+      end
+
+      class << self
+        def configure
+          yield self
+        end
+
+        def populate(model)
+          new(model)
+        end
+      end
+
+      def initialize(model)
+        @model = model
+
+        populate_with_defaults
+        populate_og_title
+        populate_og_url
+        populate_og_type
+        populate_og_image
+      end
+
+      private
+
+      def populate_with_defaults
+        return if model.override_meta_tags?
+
+        ForPageMeta.defaults.each do |default_meta|
+          default_meta.each do |(meta_id, meta_value)|
+            model.set_meta(meta_id, meta_value)
           end
+        end
+      end
+
+      def populate_with_meta(page, meta_id, content)
+        if content.present?
+          page.set_meta(meta_id, { 'content' => content })
+        end
+      end
+
+      def populate_og_title
+        PropPopulator.populate model, with: Cms::PropExtractor::Title, from: :body, unless: :override_meta_tags? do |text, page|
+          populate_with_meta(page, {'property' => 'og:title'}, text)
+          populate_with_meta(page, {'property' => 'twitter:title'}, text)
+        end
+      end
+
+      def populate_og_url
+        PropPopulator.populate model, with: Cms::PropExtractor::AbsoluteUrl, from: :body, unless: :override_meta_tags? do |text, page|
+          populate_with_meta(page, {'property' => 'og:url'}, text)
+        end
+      end
+
+      def populate_og_type
+        PropPopulator.populate model, with: Cms::PropExtractor::PageType, from: :url, unless: :override_meta_tags? do |text, page|
+          populate_with_meta(page, {'property' => 'og:type'}, text)
+        end
+      end
+
+      def populate_og_image
+        PropPopulator.populate model, with: Cms::PropExtractor::Image, from: :body, unless: :override_meta_tags? do |text, page|
+          populate_with_meta(page, {'property' => 'og:image'}, text)
+          populate_with_meta(page, {'property' => 'twitter:image'}, text)
         end
       end
     end

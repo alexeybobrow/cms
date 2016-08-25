@@ -12,6 +12,7 @@ module Cms
     def before_save
       Cms::PropPopulator::ForPage.populate(self.model.page)
       Cms::PropPopulator::ForUrl.populate(self.model.page)
+      Cms::PropPopulator::ForPageMeta.populate(self.model.page)
 
       Cms::ClearCache.perform(page: self.model.page)
     end

@@ -1,8 +1,8 @@
 = content_for(:meta)
 
 - if @page
-  - @page.og.each do |og|
-    %meta{ property:og['name'], content:og['value'] }
+  - @page.meta.each do |meta|
+    %meta{ property:meta['name'], content:meta['value'] }
 
 %meta{name: 'viewport', content: 'width=device-width, initial-scale=1'}
 %meta{:content => "text/html;charset=UTF-8", "http-equiv" => "content-type"}/

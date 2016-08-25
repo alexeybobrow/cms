@@ -113,7 +113,7 @@ SRC
   end
 
   it 'renders og data' do
-    create :page, og: [{'name' =>'og:type', 'value' => 'site'}], url: '/og-test'
+    create :page, meta: [{'name' =>'og:type', 'value' => 'site'}], url: '/og-test'
     visit '/og-test'
     expect(page).to have_css 'meta[property="og:type"]', :visible => false
   end

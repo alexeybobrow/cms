@@ -19,7 +19,7 @@ module Cms::PropExtractor
     end
 
     def initialize(model, prop, content)
-      @text = self.analyse(content)
+      @text = self.class.analyse(content)
       @model = model
       @prop = prop
     end
@@ -28,10 +28,6 @@ module Cms::PropExtractor
       if text
         model[prop] = text
       end
-    end
-
-    def analyse(content)
-      self.class.analyser.read(content)
     end
   end
 end

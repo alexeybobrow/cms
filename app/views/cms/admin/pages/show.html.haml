@@ -49,9 +49,6 @@
           %dt= t('admin.pages.single_breadcrumb_name')
           %dd= @page.breadcrumb_name
 
-          %dt= t('admin.pages.single_description')
-          %dd= @page.description
-
           %dt= t('admin.pages.tags')
           %dd= @page.tags
 
@@ -65,10 +62,10 @@
                 %td= t('admin.pages.og_name')
                 %td= t('admin.pages.og_value')
             %tbody
-              - @page.og.each do |og|
+              - @page.meta.each do |meta|
                 %tr
-                  %td= og['name']
-                  %td= og['value']
+                  - meta.each do |(name, value)|
+                    %td= value
 
 .panel.panel-default.content-panel{data: {content_panel: true}}
   .panel-heading
