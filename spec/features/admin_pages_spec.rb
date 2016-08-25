@@ -158,7 +158,6 @@ SRC
       click_on 'Add open graph meta tag'
       fill_in_tag 'property', with: 'og:description', within_class: 'property_content'
       fill_in_tag 'content', with: 'site description', within_class: 'property_content'
-      screenshot_and_save_page
       click_on 'Update Page'
 
       # Edit page annotation
