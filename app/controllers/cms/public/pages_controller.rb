@@ -3,13 +3,13 @@ require 'actionpack/action_caching'
 module Cms
   module Public
     class PagesController < ::Cms::Public::BaseController
-      caches_action :show, if: -> { page.published? }
+      caches_action :show, if: -> { page && page.published? }
 
       def show
         UrlAliasesDispatcher.new(params[:page]).dispatch do |result, url|
           case result
           when :not_found, :primary
-            then page
+            then page_for_visitor
           else #:alias
             redirect_to url.page.url, status: 301
           end
@@ -19,6 +19,10 @@ module Cms
       private
 
       def page
+        page_scope.with_url(Cms::UrlHelper.normalize_url(params[:page]))
+      end
+
+      def page_for_visitor
         @page ||= page_scope.public_get params[:page]
       end
 
