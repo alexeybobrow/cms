@@ -195,6 +195,10 @@ describe Cms::PropPopulator do
         populator.defaults = [{ 'property' => 'twitter:site' } => { 'content' => '@AnadeaInc' }]
       end
 
+      after do
+        populator.defaults = []
+      end
+
       it 'populates meta with provided defaults' do
         populator.populate(page)
         expect(page.meta).to eq([

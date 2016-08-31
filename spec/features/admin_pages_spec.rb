@@ -179,13 +179,11 @@ SRC
       expect(new_page.tags).to eq(['RoR', 'Software Development'])
       expect(new_page.authors).to eq(['Kent Beck', 'DHH'])
 
-      expect(new_page.meta.count).to eq(3)
-      expect(new_page.meta.first['property']).to eq('og:type')
-      expect(new_page.meta.first['content']).to eq('website')
-      expect(new_page.meta.second['property']).to eq('og:id')
-      expect(new_page.meta.second['content']).to eq('42')
-      expect(new_page.meta.last['property']).to eq('og:description')
-      expect(new_page.meta.last['content']).to eq('site description')
+      expect(new_page.meta).to eq([
+        {"property"=>"og:type", "content"=>"website"},
+        {"property"=>"og:id", "content"=>"42"},
+        {"property"=>"og:description", "content"=>"site description"}
+      ])
 
       expect(current_path).to eq(cms.admin_page_path(new_page))
       expect(page).to have_content('Page name')
