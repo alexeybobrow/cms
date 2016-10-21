@@ -11,4 +11,9 @@ describe 'public pages redirect' do
     visit '/home-page-alias'
     expect(current_path).to eq('/home-page')
   end
+
+  it 'redirects url with not ascii symbols to 404' do
+    visit '/en/%E2%80%8B'
+    expect(page).to have_content("The page you were looking for doesn't exist.")
+  end
 end

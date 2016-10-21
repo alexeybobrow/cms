@@ -1,7 +1,7 @@
 module Cms
   class LocaleRedirector
     def call(params, request)
-      "/#{params[:page]}#{query_string(request)}"
+      "/#{URI.encode(params[:page])}#{query_string(request)}"
     end
 
     private
