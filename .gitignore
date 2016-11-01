@@ -10,3 +10,4 @@
 /.env
 /spec/rails_app/db/schema.rb
 /tags
+.DS_Store
