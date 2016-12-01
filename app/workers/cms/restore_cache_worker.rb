@@ -26,6 +26,10 @@ module Cms
       Capybara.current_driver = :poltergeist
       Capybara.app_host = Cms.host
 
+      page.driver.basic_authorize(
+        ENV['APP_AUTH_USER'], ENV['APP_AUTH_PASSWORD']
+      ) if ENV['APP_AUTH_USER'] && ENV['APP_AUTH_PASSWORD']
+
       page.driver.browser.url_blacklist = [
         'https://s.ytimg.com',
         'https://mc.yandex.ru',
