@@ -4,7 +4,7 @@
 %section.blog-article
   .inner
     %article
-      %h1= @page.name
+      %h1=  (@page.h1.present? ? @page.h1 : @page.title)
       = render 'authors', authors: @page.authors
       = render 'date', article: @page
       = format_page @page

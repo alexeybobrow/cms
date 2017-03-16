@@ -5,6 +5,7 @@ module Cms
     extend ArrayAccessors
 
     attribute :title
+    attribute :h1
     attribute :description
     attribute :name
     attribute :posted_at, type: Date

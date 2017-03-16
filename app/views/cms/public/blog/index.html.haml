@@ -13,7 +13,7 @@
     .view-frame.articles
       - @articles.each do |article|
         %article
-          %h2= link_to article.title, article.url
+          %h2= link_to (article.h1.present? ? article.h1 : article.title), article.url
           = author_list(article.authors)
           = render 'date', article: article
           .content= raw blog_preview article
