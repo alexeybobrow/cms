@@ -3,7 +3,7 @@ require 'actionpack/action_caching'
 module Cms
   module Public
     class PagesController < ::Cms::Public::BaseController
-      caches_action :show, if: -> { page && page.published? }
+      caches_action :show, if: -> { page && page.published? && params[:page] !~ Cms.prevent_cache_urls }
 
       def show
         UrlAliasesDispatcher.new(params[:page]).dispatch do |result, url|

@@ -27,9 +27,14 @@ module Cms
   autoload :ContentAnalyser, 'cms/content_analyser'
 
   mattr_accessor(:host) { "PLEASE, SET ME!" }
+  mattr_accessor(:prevent_cache_urls) { [] }
 
   def self.setup
     yield(self)
+  end
+
+  def self.prevent_cache_regexp
+    Regexp.union(prevent_cache_urls)
   end
 end
 
