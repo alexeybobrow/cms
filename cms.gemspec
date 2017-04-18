@@ -6,8 +6,8 @@ require 'cms/version'
 Gem::Specification.new do |spec|
   spec.name          = "cms"
   spec.version       = Cms::VERSION
-  spec.authors       = ["dak", "akd"]
-  spec.email         = ["dak@anahoret.com", "akd@anahoret.com"]
+  spec.authors       = ["dak", "akd", "ib"]
+  spec.email         = ["dak@anahoret.com", "akd@anahoret.com", "ib@anahoret.com"]
 
   spec.summary       = %q{CMS engine}
   spec.description   = %q{RoR plugin to host manageable static pages}
