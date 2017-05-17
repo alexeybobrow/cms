@@ -51,7 +51,7 @@ class Page < ActiveRecord::Base
 
   accepts_nested_attributes_for :urls, :content, :annotation
 
-  delegate :body, to: :content
+  delegate :body, :text?, to: :content
 
   default_value_for :posted_at do
     Time.now

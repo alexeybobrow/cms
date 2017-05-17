@@ -55,7 +55,9 @@ Cms::Engine.routes.draw do
 
     resource :csrf_token, only: :show
 
-    get '/*page', to: 'pages#show', as: 'page'
+    constraints(format: :html) do
+      get '/*page', to: 'pages#show', as: 'page'
+    end
   end
 
 end

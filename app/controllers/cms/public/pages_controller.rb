@@ -9,7 +9,7 @@ module Cms
         UrlAliasesDispatcher.new(params[:page]).dispatch do |result, url|
           case result
           when :not_found, :primary
-            then page_for_visitor
+            then render_page_for_visitor
           else #:alias
             redirect_to url.page.url, status: 301
           end
@@ -22,8 +22,9 @@ module Cms
         page_scope.with_url(Cms::UrlHelper.normalize_url(params[:page]))
       end
 
-      def page_for_visitor
-        @page ||= page_scope.public_get params[:page]
+      def render_page_for_visitor
+        @page = page_scope.public_get params[:page]
+        render text: @page.body, content_type: 'text/plain' if @page.text?
       end
 
       def page_scope

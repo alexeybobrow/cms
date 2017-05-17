@@ -4,9 +4,13 @@ class Content < ActiveRecord::Base
 
   after_save :touch_page
 
-  def self.formats; %w(html markdown); end
+  def self.formats; %w(html markdown text); end
 
   has_paper_trail only: [:body, :markup_language]
+
+  def text?
+    markup_language == 'text'
+  end
 
   def page
     _page_as_content || _page_as_annotation
