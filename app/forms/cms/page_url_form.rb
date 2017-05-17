@@ -1,6 +1,6 @@
 module Cms
   class PageUrlForm < ::Cms::BaseModelForm
-    URL_PATTERN = %r{\A/[/a-z0-9_-]*\z}
+    URL_PATTERN = %r{\A/[/\.a-z0-9_-]*\z}
 
     model Page
 
