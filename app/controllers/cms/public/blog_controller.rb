@@ -6,7 +6,7 @@ module Cms
       before_action :set_tags_with_counts
 
       def index
-        @articles = articles.order(posted_at: :desc).page(params[:page]).per(4)
+        @articles = articles.order(posted_at: :desc).page(params[Kaminari.config.param_name]).per(4)
         respond_with @articles
       end
 
@@ -15,12 +15,12 @@ module Cms
       end
 
       def tag
-        @articles = articles.order(posted_at: :desc).by_tag(params[:tag]).page(params[:page]).per(4)
+        @articles = articles.order(posted_at: :desc).by_tag(params[:tag]).page(params[Kaminari.config.param_name]).per(4)
         render :index
       end
 
       def author
-        @articles = articles.order(posted_at: :desc).by_author(params[:author]).page(params[:page]).per(4)
+        @articles = articles.order(posted_at: :desc).by_author(params[:author]).page(params[Kaminari.config.param_name]).per(4)
         render :index
       end
 
@@ -33,7 +33,7 @@ module Cms
       end
 
       def redirect_first_pagination_page
-        redirect_to(page: nil, status: 301) if params[:page] == '1'
+        redirect_to(page: nil, status: 301) if params[Kaminari.config.param_name] == '1'
       end
 
       def set_tags_with_counts
