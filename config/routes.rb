@@ -46,7 +46,7 @@ Cms::Engine.routes.draw do
     get '/uploads/image_attachment/image/:id/:basename.:extension', to: 'attachments#download'
 
     scope constraints: { format: 'html' } do
-      get '/*page', to: 'pages#show', as: 'page'
+      get '/*page_slug', to: 'pages#show', as: 'page'
     end
   end
 
