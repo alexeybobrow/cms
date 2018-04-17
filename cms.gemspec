@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "palmister", ">= 0.0.2"
   spec.add_dependency "liquid", ">= 3.0.6", "< 4"
   spec.add_dependency "workflow"
-  spec.add_dependency "paper_trail", ">= 4.0.0"
+  spec.add_dependency "paper_trail", ">= 4.0.0", '< 9.0.0'
   spec.add_dependency "default_value_for", ">= 3.0.1"
   spec.add_dependency "active_attr", ">= 0.8.5"
   spec.add_dependency "html-pipeline", ">= 2.2.2"
