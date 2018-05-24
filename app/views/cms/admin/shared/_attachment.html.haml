@@ -6,5 +6,6 @@
       = link_to attachment.image_identifier, attachment.image_url
     .description
       = attachment.created_at.strftime("%d %b %H:%M")
+      %div= 'Image url: ' + attachment.image_url
       = form_for [:admin, attachment], html: { class: 'delete', remote: true }, method: :delete do |f|
         = f.submit 'Delete', class: 'link-styled-button'

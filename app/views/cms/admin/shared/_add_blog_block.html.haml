@@ -1,0 +1,34 @@
+.annonation-block
+  %button.btn.btn-primary{ 'data-target': '#addBlockModal', 'data-toggle': 'modal' } Add block
+
+  #addBlockModal.modal.fade
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{ 'data-dismiss': 'modal' }
+            %span ×
+          %h4#addBlockModalLabel.modal-title Add block
+        .modal-body
+          - inputs = [:background_color, :title_color, :description_color, :title, :description, :image_url]
+          - inputs.each do |i|
+            = label_tag i
+            = text_field_tag i, nil, class: 'form-control'
+        .modal-footer
+          %button.btn.btn-default{ 'data-dismiss': 'modal' } Close
+          %button.btn.btn-primary.add-btn Add block
+
+:javascript
+  $(".annonation-block .add-btn").on('click', function(){
+    var bg_color = $('#background_color').val(),
+    t_color = $('#title_color').val(),
+    d_color = $('#description_color').val(),
+    title = $('#title').val(),
+    description = $('#description').val(),
+    img_url = $('#image_url').val(),
+
+    snippet = "\n{% snippet 'blog_annotation_block', background_color: '" + bg_color + "', title_color: '" + t_color +
+    "', description_color: '" + d_color + "', title: '" + title + "', description: '" + description + "', img_url: '" + img_url + "' %}"
+
+    $('[class*=content-body]').insertAtCaret(snippet)
+    $('#addBlockModal').modal('hide')
+  });
