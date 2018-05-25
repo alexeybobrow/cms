@@ -14,7 +14,7 @@ module Cms
       end
 
       def index
-        @articles = articles.order(posted_at: :desc).page(params[:page]).per(4)
+        @articles = articles.order(posted_at: :desc).page(params[:page]).per(6)
       end
 
       def show
@@ -22,12 +22,12 @@ module Cms
       end
 
       def tag
-        @articles = articles.order(posted_at: :desc).by_tag(params[:tag]).page(params[:page]).per(4)
+        @articles = articles.order(posted_at: :desc).by_tag(params[:tag]).page(params[:page]).per(6)
         render :index
       end
 
       def author
-        @articles = articles.order(posted_at: :desc).by_author(params[:author]).page(params[:page]).per(4)
+        @articles = articles.order(posted_at: :desc).by_author(params[:author]).page(params[:page]).per(6)
         render :index
       end
 
