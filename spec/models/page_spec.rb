@@ -129,7 +129,7 @@ describe Page do
       create :rate, page_id: first_blog_page.id, value: 5
       create :rate, page_id: first_blog_page.id, value: 4
 
-      expect(first_blog_page.average_rate).to eq (5+4)/2.0
+      expect(first_blog_page.average_rate).to eq 4.5
     end
   end
 
