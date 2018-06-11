@@ -92,6 +92,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :rate do
+    value 5
+  end
+
   factory :fragment do
     sequence(:slug) { |n| "slug_#{n}" }
 

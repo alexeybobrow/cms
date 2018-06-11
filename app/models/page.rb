@@ -43,6 +43,7 @@ class Page < ActiveRecord::Base
   end
 
   has_many :urls, autosave: true
+  has_many :rates, dependent: :destroy
   has_one :primary_url, -> { where primary: true }, class_name: "Url", autosave: true
   belongs_to :content, inverse_of: :_page_as_content, dependent: :destroy
   belongs_to :annotation, class_name: 'Content', foreign_key: 'annotation_id', inverse_of: :_page_as_annotation, dependent: :destroy
@@ -101,5 +102,9 @@ class Page < ActiveRecord::Base
       .with_published_state
       .where('urls.name' => I18n.available_locales.map{|locale| Cms::UrlHelper.compose_url(locale, self.url)})
       .where.not(id: self.id).first
+  end
+
+  def average_rate
+    self.rates.empty? ? 0 : (self.rates.inject(0) { |sum, x| sum += x.value } / self.rates.size.to_f).round(2)
   end
 end

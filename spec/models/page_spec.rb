@@ -101,7 +101,7 @@ describe Page do
   end
 
   describe '.blog' do
-    let!(:first_blog_page) {
+    let(:first_blog_page) {
       create :page, :blog, url: '/blog/how-to-lisp',
                            created_at: 2.weeks.ago
     }
@@ -119,6 +119,17 @@ describe Page do
 
     it 'does not display deleted pages' do
       expect(Page.blog(:en)).not_to include(:deleted_page)
+    end
+
+    it 'returns 0 if there no any rates' do
+      expect(first_blog_page.average_rate).to eq 0
+    end
+
+    it 'returns average rate' do
+      create :rate, page_id: first_blog_page.id, value: 5
+      create :rate, page_id: first_blog_page.id, value: 4
+
+      expect(first_blog_page.average_rate).to eq 4.5
     end
   end
 
