@@ -36,7 +36,7 @@ module Cms
         view: self,
         template_variables: template_variables,
         controller: controller,
-        path: request.fullpath,
+        path: request.try(:fullpath),
         base_url: Cms.host,
         image_base_url: root_url(host: Cms.host) # for liquid fragment tag
       }
