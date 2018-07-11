@@ -3,11 +3,14 @@ module Cms
     class ImageAttachmentsController < ::Cms::Admin::BaseController
       def create
         attachments = image_params.fetch(:image, nil)
+        content = Content.find(image_params[:content_id])
         respond_to do |format|
           format.js do
             @upload = ImageAttachment.new(image: attachments.try{|p| p[0]})
             if @upload.save
-              render json: @upload.to_json_params
+              content.add_attachments_to_cache([@upload.id])
+              @upload.update_attribute(:is_main, true) if content.attachments.size == 1
+              @attachments = content.attachments.map(&:id)
             else
               render json: { result: 'error'}
             end

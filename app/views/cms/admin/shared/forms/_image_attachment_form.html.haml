@@ -4,6 +4,7 @@
       .controls
         %span.btn.btn-success.fileinput-button
           %span Add images...
+          = f.hidden_field :content_id, value: content_id
           = f.file_field :image, multiple: true
   - if attachments.any?
     - attachments.each do |attachment|

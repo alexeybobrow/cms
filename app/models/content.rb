@@ -30,7 +30,7 @@ class Content < ActiveRecord::Base
   end
 
   def main_image
-    self.attachments && self.attachments.first
+    self.attachments && self.attachments.select{ |attach| attach.is_main }.first
   end
 
   def restore_to(version)
