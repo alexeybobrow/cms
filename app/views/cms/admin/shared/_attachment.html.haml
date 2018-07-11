@@ -10,5 +10,9 @@
       .is_header
         - if attachment.is_main
           %div= 'Header image'
+        - else
+          = form_for :image_attachment, url: edit_admin_image_attachment_path(attachment.id), html: { class: 'edit', remote: true }, method: :get do |f|
+            = f.hidden_field :attachments, value: attachments
+            = f.submit 'Set as header image', class: 'link-styled-button'
       = form_for [:admin, attachment], html: { class: 'delete', remote: true }, method: :delete do |f|
         = f.submit 'Delete', class: 'link-styled-button'

@@ -18,6 +18,18 @@ module Cms
         end
       end
 
+      def edit
+        @upload = ImageAttachment.find(params[:id])
+        @attachments = image_params[:attachments].split(' ').map{ |id| ImageAttachment.find(id) } - [@upload]
+
+        @attachments.each{ |attachment| attachment.update_attribute(:is_main, false) }
+        @upload.update_attribute(:is_main, true)
+
+        respond_to do |format|
+          format.js
+        end
+      end
+
       def destroy
         @upload = ImageAttachment.find(params[:id])
         @upload.remove

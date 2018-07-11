@@ -8,26 +8,11 @@
           = f.file_field :image, multiple: true
   - if attachments.any?
     - attachments.each do |attachment|
-      = render 'cms/admin/shared/attachment', attachment: attachment
+      = render 'cms/admin/shared/attachment', attachment: attachment, attachments: attachments.map(&:id)
 
 :javascript
   $(function () {
     $('.upload').fileupload({
-      dataType: 'json',
-      done: function (e, data) {
-        var attachments_cache = $('#attachments_cache');
-        attachments_cache.val(attachments_cache.val() + ',' + data.result.id);
-        if (data.result.result === undefined ) {
-          $('.upload').append(
-            "<div id='image_attachment_" + data.result.id + "' class='image-attachment thumbnail'>" +
-            "<div class='image-logo'><img src='"+ data.result.pic_path + "' data-url='" + data.result.data_url + "' alt='" + data.result.name + "'>" +
-            "</div><div class='info'><div class='file-name'><a href='" + data.result.data_url + "'>" + data.result.name + "</a>" +
-            "</div><div class='description'>" + data.result.created_at +
-            "\n<a rel='nofollow' data-remote='true' data-method='delete' class='delete' href='#{admin_image_attachments_path}/" + data.result.id +
-            "'>Delete</a></div></div></div>"
-          );
-        }
-      },
       add: function (e, data) {
         data.submit();
       },
