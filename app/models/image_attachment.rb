@@ -13,14 +13,6 @@ class ImageAttachment < ActiveRecord::Base
     File.exists?(path) ? path : nil
   end
 
-  def remove
-    self.update_attribute(:deleted, true)
-  end
-
-  def restore
-    self.update_attribute(:deleted, false)
-  end
-
   def available?
     !self.deleted?
   end

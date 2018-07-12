@@ -4,11 +4,11 @@
       .controls
         %span.btn.btn-success.fileinput-button
           %span Add images...
-          = f.hidden_field :content_id, value: content_id
+          = f.hidden_field :content_id, value: content.id
           = f.file_field :image, multiple: true
-  - if attachments.any?
-    - attachments.each do |attachment|
-      = render 'cms/admin/shared/attachment', attachment: attachment, attachments: attachments.map(&:id)
+  - if content.attachments.any?
+    - content.attachments.each do |attachment|
+      = render 'cms/admin/shared/attachment', attachment: attachment, content: content
 
 :javascript
   $(function () {

@@ -1,6 +1,6 @@
 var attachments_cache = $('#attachments_cache');
-attachments_cache.val(attachments_cache.val() + ',' + "<%= @upload.id %>");
+attachments_cache.val(attachments_cache.val() + ',' + "<%= @attachment.id %>");
 
 $('.files').append(
-  '<%= escape_javascript render(partial: "cms/admin/shared/attachment", locals: { attachment: @upload, attachments: @attachments }) %>'
+  '<%= escape_javascript render(partial: "cms/admin/shared/attachment", locals: { attachment: @attachment, content: @content }) %>'
 );

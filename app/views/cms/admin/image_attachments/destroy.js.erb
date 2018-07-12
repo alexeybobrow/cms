@@ -1,7 +1,7 @@
-var imageAttachmentBlock = $("#image_attachment_<%= @upload.id %>");
-imageAttachmentBlock.addClass('deleted');
-imageAttachmentBlock.find('form.delete, a.delete').replaceWith(
-  "<a href='<%= admin_image_attachment_restore_path(@upload)%>'" +
-  "data-method='post' data-remote='true' rel='nofollow' class='restore'>Restore</a>");
-var attachmentsCache = $('#attachments_cache')
-attachmentsCache.val(attachmentsCache.val().replace(','+"<%= @upload.id %>", ''));
+$("#image_attachment_<%= @attachment.id %>").remove();
+
+<% @others.each do |attach| %>
+  $("#image_attachment_<%= attach.id %>").replaceWith(
+    '<%= escape_javascript render(partial: "cms/admin/shared/attachment", locals: { attachment: attach, content: @content }) %>'
+  );
+<% end %>

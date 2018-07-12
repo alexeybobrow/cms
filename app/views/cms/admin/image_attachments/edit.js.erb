@@ -1,5 +1,5 @@
-<% (@attachments + [@upload]).each do |attach| %>
+<% @content.attachments.each do |attach| %>
   $("#image_attachment_<%= attach.id %>").replaceWith(
-    '<%= escape_javascript render(partial: "cms/admin/shared/attachment", locals: { attachment: attach, attachments: (@attachments + [@upload]).map(&:id) }) %>'
+    '<%= escape_javascript render(partial: "cms/admin/shared/attachment", locals: { attachment: attach, content: @content }) %>'
   );
 <% end %>
