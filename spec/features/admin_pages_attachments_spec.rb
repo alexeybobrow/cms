@@ -1,107 +1,71 @@
 require 'spec_helper'
 
-describe 'admin pages attachments' do
-  before do
-    skip "Haven't been visited for a while"
-  end
-
+describe 'admin pages attachments', js: true do
   let!(:user) { create :user }
   let!(:test_page_1) { create :page, title: 'Test page 1',
-                                     url: 'page_1_url',
+                                     url: '/page_1_url',
                                      content_body: "put images here!" }
 
-  context 'management', js: true do
-    before do
-      sign_in user
-      visit cms.admin_pages_path
-      click_on 'Test page 1'
-      click_on 'Edit'
-      page.attach_file('image_attachment_image', fixture_file_path('image_1.jpg', 'image_2.png'))
-    end
-
-    it 'adds attachments to the page for markdown format' do
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-      page.select 'markdown', from: 'Format'
-      page.find(:xpath,"//img[@alt='image_1.jpg']").click
-      page.find(:xpath,"//img[@alt='image_2.png']").click
-      click_on 'Update Page'
-      visit '/page_1_url'
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-    end
-
-    it 'adds attachments to the page for html format' do
-      page.select 'html', from: 'Format'
-      page.find(:xpath,"//img[@alt='image_1.jpg']").click
-      page.find(:xpath,"//img[@alt='image_2.png']").click
-      click_on 'Update Page'
-      visit '/page_1_url'
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-    end
-
-    it 'delete an attachment from the page' do
-      page.find(:xpath,"//img[@alt='image_1.jpg']").click
-      delete_image('image_1.jpg')
-      assert_image_deleted('image_1.jpg')
-      click_on 'Update Page'
-      visit '/page_1_url'
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      visit page.find("img[@alt='image_1.jpg']")['src']
-      expect(page.status_code).to be 404
-    end
-
-    it 'delete and restore an attachment on the page' do
-      page.find(:xpath,"//img[@alt='image_1.jpg']").click
-      delete_image('image_1.jpg')
-      assert_image_deleted('image_1.jpg')
-      restore_image('image_1.jpg')
-      assert_image_restored('image_1.jpg')
-      click_on 'Update Page'
-      visit '/page_1_url'
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      visit page.find("img[@alt='image_1.jpg']")['src']
-      expect(page.status_code).to be 200
-    end
+  before do
+    sign_in user
+    visit cms.admin_pages_path
+    click_on 'Test page 1'
+    find('.content-panel .btn').click
+    page.execute_script("$('input[type=\"file\"]')[0].style.position = 'static'") # attach_file can't set hidden file input (visible: false not work) :(
+    page.execute_script("$('input[type=\"file\"]')[0].style.opacity = '1'")
+    page.execute_script("$('input[type=\"file\"]')[0].style.fontSize = '15px'")
+    page.attach_file('image_attachment[image][]', fixture_file_path('image_1.jpg', 'image_2.png'))
+    expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
+    expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
   end
 
-  context 'management (without js)' do
-    it 'adds attachments to the existing page' do
-      sign_in user
-      visit admin_users_path
-      click_on 'Test page 1'
-      click_on 'Edit'
-      page.attach_file('image_attachment_image', fixture_file_path('image_1.jpg', 'image_2.png'))
-      click_on "Upload Files"
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-      delete_image('image_1.jpg')
-      expect(page).not_to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-    end
+  after do
+    FileUtils.rm_rf(Dir["spec/rails_app/public/uploads"])
+  end
 
-    it 'adds attachments to the new page' do
-      sign_in user
-      visit admin_users_path
-      click_on 'Create a new page'
-      page.attach_file('image_attachment_image', fixture_file_path('image_1.jpg', 'image_2.png'))
-      click_on "Upload Files"
-      delete_image('image_1.jpg')
-      expect(page).not_to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-      page.attach_file('image_attachment_image', fixture_file_path('image_1.jpg'))
-      click_on "Upload Files"
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-      fill_in 'Title', with: 'Created page'
-      fill_in 'Url', with: 'created_page'
-      fill_in 'Body', with: 'Body of newly created page'
-      select 'regular', from: 'page_kind'
-      click_on 'Create Page'
-      click_on 'Edit'
-      expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-      expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
-    end
+  it 'adds attachments to the page for markdown format' do
+    page.select 'markdown', from: 'Markup language'
+    page.find(:xpath,"//img[contains(@src,'image_1.jpg')]").click
+    page.find(:xpath,"//img[contains(@src,'image_2.png')]").click
+    click_on 'Update Content'
+    visit '/page_1_url'
+    expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
+    expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
+  end
+
+  it 'adds attachments to the page for html format' do
+    page.select 'html', from: 'Markup language'
+    page.find(:xpath,"//img[contains(@src,'image_1.jpg')]").click
+    page.find(:xpath,"//img[contains(@src,'image_2.png')]").click
+    click_on 'Update Content'
+    visit '/page_1_url'
+    expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
+    expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
+  end
+
+  it 'delete an attachment from the page' do
+    page.find(:xpath,"//img[contains(@src,'image_1.jpg')]").click
+    page.find(:xpath, "//div[@class='file-name']/a[contains(text(),'image_1.jpg')]/../../div[@class='description']//*[@value='Delete' or contains(text(), 'Delete')]").click
+    expect(page).to_not have_xpath("//img[contains(@src,'image_1.jpg')]")
+    click_on 'Update Content'
+    visit '/page_1_url'
+    expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
+    visit page.find(:xpath,"//img[contains(@src,'image_1.jpg')]")['src']
+    expect(page.status_code).to be 404
+  end
+
+  it 'changes main attachment' do
+    content = test_page_1.content.reload
+    expect(content.attachments.size).to eq(2)
+
+    expect(page).to have_xpath("//div[@class='file-name']/a[contains(text(),'image_1.jpg')]/../../div[@class='description']/div[@class='is_header']//*[@value='Header image' or contains(text(), 'Header image')]")
+    expect(page).to have_xpath("//div[@class='file-name']/a[contains(text(),'image_2.png')]/../../div[@class='description']/div[@class='is_header']//*[@value='Set as header image' or contains(text(), 'Set as header image')]")
+    expect(content.main_image.image.file.filename).to eq('image_1.jpg')
+
+    click_on 'Set as header image'
+
+    expect(page).to have_xpath("//div[@class='file-name']/a[contains(text(),'image_1.jpg')]/../../div[@class='description']/div[@class='is_header']//*[@value='Set as header image' or contains(text(), 'Set as header image')]")
+    expect(page).to have_xpath("//div[@class='file-name']/a[contains(text(),'image_2.png')]/../../div[@class='description']/div[@class='is_header']//*[@value='Header image' or contains(text(), 'Header image')]")
+    expect(content.reload.main_image.image.file.filename).to eq('image_2.png')
   end
 end

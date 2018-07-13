@@ -16,6 +16,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.12.0'
   gem 'faker', '~> 1.6.4'
   gem 'responders', '~> 2.2.0'
+  gem 'test_after_commit'
 
   gem 'rails', '4.2.5'
   gem 'pg', '~> 0.18.4'

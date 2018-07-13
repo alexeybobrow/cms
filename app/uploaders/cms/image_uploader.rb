@@ -59,8 +59,10 @@ module Cms
     private
 
     def optimize_image
-      image_optim = ImageOptim.new(Rails.application.config.assets.image_optim)
-      image_optim.optimize_image!(self.path)
+      unless Rails.env.test?
+        image_optim = ImageOptim.new(Rails.application.config.assets.image_optim)
+        image_optim.optimize_image!(self.path)
+      end
     end
   end
 end
