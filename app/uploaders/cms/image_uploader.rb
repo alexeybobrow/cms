@@ -59,10 +59,11 @@ module Cms
     private
 
     def optimize_image
-      unless Rails.env.test?
-        image_optim = ImageOptim.new(Rails.application.config.assets.image_optim)
-        image_optim.optimize_image!(self.path)
-      end
+      # Enable jpegoptim, jpegrecompress, pngcrush compressors
+      options = {svgo: false, pngout: false, advpng: false, gifsicle: false, jhead: false, jpegtran: false, optipng: false, pngquant: false}
+      
+      image_optim = ImageOptim.new(options)
+      image_optim.optimize_image!(self.path)
     end
   end
 end

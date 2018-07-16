@@ -1,5 +1,5 @@
 class AddIsMainToImageAttachments < ActiveRecord::Migration
-  def change
+  def up
     add_column :image_attachments, :is_main, :boolean, default: false
 
     execute <<-sql
@@ -12,5 +12,9 @@ class AddIsMainToImageAttachments < ActiveRecord::Migration
         FROM contents
       );
     sql
+  end
+
+  def down
+    remove_column :image_attachments, :is_main
   end
 end

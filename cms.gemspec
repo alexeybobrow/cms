@@ -49,6 +49,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "pygments.rb"
   spec.add_dependency "github-linguist", ">= 4.7.0"
 
+  spec.add_dependency "image_optim"
+  spec.add_dependency "image_optim_pack"
+
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"

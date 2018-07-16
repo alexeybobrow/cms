@@ -12,6 +12,8 @@ require "pygments"
 require "kaminari"
 require "carrierwave"
 require "sidekiq"
+require 'image_optim'
+require 'image_optim_pack'
 
 module Cms
   autoload :RoutingConstraints, 'cms/routing_constraints'

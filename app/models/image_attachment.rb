@@ -12,17 +12,4 @@ class ImageAttachment < ActiveRecord::Base
     path = self.image.path.gsub(self.image_identifier, "#{name}.#{extension}")
     File.exists?(path) ? path : nil
   end
-
-  def available?
-    !self.deleted?
-  end
-
-  def to_json_params
-    { pic_path:    self.image_url(:thumb),
-      data_url:    self.image_url,
-      name:        self.image_identifier,
-      id:          self.id,
-      created_at:  self.created_at.strftime("%d %b %H:%M") }
-  end
-
 end

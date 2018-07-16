@@ -31,6 +31,9 @@ group :development, :test do
   gem 'gretel', '~> 3.0.8'
   gem 'pry', '~> 0.10.3'
 
+  gem 'image_optim'
+  gem 'image_optim_pack'
+
   source "https://rails-assets.org" do
     gem "rails-assets-jquery", '~> 1.12'
     gem 'rails-assets-jquery-ui', '~> 1.11.4'
