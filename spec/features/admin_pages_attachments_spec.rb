@@ -14,8 +14,9 @@ describe 'admin pages attachments', js: true do
     page.execute_script("$('input[type=\"file\"]')[0].style.position = 'static'") # attach_file can't set hidden file input (visible: false not work) :(
     page.execute_script("$('input[type=\"file\"]')[0].style.opacity = '1'")
     page.execute_script("$('input[type=\"file\"]')[0].style.fontSize = '15px'")
-    page.attach_file('image_attachment[image][]', fixture_file_path('image_1.jpg', 'image_2.png'))
+    page.attach_file('image_attachment[image][]', fixture_file_path('image_1.jpg'))
     expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
+    page.attach_file('image_attachment[image][]', fixture_file_path('image_2.png'))
     expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
   end
 
