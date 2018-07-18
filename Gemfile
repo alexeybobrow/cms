@@ -16,6 +16,7 @@ group :development, :test do
   gem 'simplecov', '~> 0.12.0'
   gem 'faker', '~> 1.6.4'
   gem 'responders', '~> 2.2.0'
+  gem 'test_after_commit'
 
   gem 'rails', '4.2.5'
   gem 'pg', '~> 0.18.4'
@@ -29,6 +30,9 @@ group :development, :test do
   gem "pygments.rb", github: "9peso/pygments.rb"
   gem 'gretel', '~> 3.0.8'
   gem 'pry', '~> 0.10.3'
+
+  gem 'image_optim'
+  gem 'image_optim_pack'
 
   source "https://rails-assets.org" do
     gem "rails-assets-jquery", '~> 1.12'

@@ -4,4 +4,4 @@
 
 .row
   .col-xs-10= render 'cms/admin/fragments/forms/fragment_form', url: admin_fragment_path(@fragment)
-  .col-xs-2= render 'cms/admin/shared/forms/image_attachment_form', attachments: @fragment.content.attachments
+  .col-xs-2= render 'cms/admin/shared/forms/image_attachment_form', content: @fragment.content

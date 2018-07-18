@@ -1,7 +1,0 @@
-var imageAttachmentBlock = $("#image_attachment_<%= @upload.id %>");
-imageAttachmentBlock.removeClass('deleted');
-imageAttachmentBlock.find('a.restore').replaceWith(
-  "<a class='delete' rel='nofollow' data-remote='true' data-method='delete' href='<%= admin_image_attachment_path(@upload) %>'>Delete</a>"
-);
-var attachmentsCache = $('#attachments_cache');
-attachmentsCache.val(attachmentsCache.val() + ','+"<%= @upload.id %>");

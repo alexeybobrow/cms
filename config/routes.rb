@@ -22,9 +22,7 @@ Cms::Engine.routes.draw do
         get :delete
       end
     end
-    resources :image_attachments, only: [:create, :destroy] do
-      post :restore
-    end
+    resources :image_attachments, only: [:create, :destroy, :edit]
     resources :fragments, except: :show do
       resources :fragment_versions, only: :index do
         post 'reify', on: :member

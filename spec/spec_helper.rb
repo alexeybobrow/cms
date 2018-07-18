@@ -47,7 +47,6 @@ RSpec.configure do |config|
 
   config.include Integration::AuthHelpers
   config.include Integration::FixtureHelpers
-  config.include Integration::AttachmentHelpers
   config.include Integration::MetaTagsHelpers
   config.include FactoryGirl::Syntax::Methods
 
@@ -57,6 +56,10 @@ RSpec.configure do |config|
 
   config.order = :random
   Kernel.srand config.seed
+end
+
+Capybara::Webkit.configure do |config|
+  config.allow_url("lvh.me")
 end
 
 Shoulda::Matchers.configure do |config|
