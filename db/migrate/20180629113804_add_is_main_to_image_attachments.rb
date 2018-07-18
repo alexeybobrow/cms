@@ -6,7 +6,7 @@ class AddIsMainToImageAttachments < ActiveRecord::Migration
       UPDATE image_attachments
       SET is_main = TRUE
       WHERE id IN (
-        SELECT CASE WHEN attachments_cache LIKE ''
+        SELECT DISTINCT CASE WHEN attachments_cache LIKE ''
           THEN 0
           ELSE split_part(attachments_cache, ',', 2)::INT END
         FROM contents
