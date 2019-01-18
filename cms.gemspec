@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "actionpack-action_caching", ">= 1.1.0", "< 1.2"
-  spec.add_dependency "commonmarker", ">= 0.7.0"
+  spec.add_dependency "commonmarker", ">= 0.18.0"
   spec.add_dependency "palmister", ">= 0.0.2"
   spec.add_dependency "liquid", ">= 3.0.6", "< 4"
   spec.add_dependency "workflow"

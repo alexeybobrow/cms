@@ -1,6 +1,10 @@
 module Cms
   module Liquid
     class HtmlRenderer < CommonMarker::HtmlRenderer
+      def initialize(options: :UNSAFE)
+        super
+      end
+
       def paragraph(node)
         if is_liquid_tag?(node.to_html)
           out(:children)
