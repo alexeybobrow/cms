@@ -6,7 +6,7 @@ module Cms
       end
 
       def paragraph(node)
-        if is_liquid_tag?(node.to_html)
+        if is_liquid_tag?(node)
           out(:children)
         else
           super
@@ -17,8 +17,8 @@ module Cms
 
       # Example:
       #   "<p>{% layout width: 600px %}</p>"
-      def is_liquid_tag?(markup)
-        /<p>\s*{%.*%}\s*<\/p>/ === markup
+      def is_liquid_tag?(node)
+        /{%.*%}/ === node.first_child.string_content
       end
     end
   end
