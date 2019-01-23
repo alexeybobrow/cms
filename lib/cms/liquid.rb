@@ -4,6 +4,7 @@ module Cms
     autoload :MultipleFileSystem, 'cms/liquid/multiple_file_system'
     autoload :Tags, 'cms/liquid/tags'
     autoload :TemplateVariables, 'cms/liquid/template_variables'
+    autoload :HtmlAttributesParser, 'cms/liquid/html_attributes_parser'
 
     def self.load!(options)
       ::Liquid::Template.file_system = Liquid::MultipleFileSystem.new options[:template_paths]
