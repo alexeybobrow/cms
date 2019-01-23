@@ -14,10 +14,25 @@ module Cms
         end
       end
 
+      def link(node)
+        if is_html_attr?(node.next.string_content)
+          @attrs = html_attr_to_s?(node.next.string_content)
+          if /_blank/ === @attrs
+            @attrs << ' rel="noopener noreferrer"'
+          end
+          node.next.string_content = ''
+        end
+        out('<a href="', node.url.nil? ? '' : escape_href(node.url), '"')
+        if node.title && !node.title.empty?
+          out(' title="', escape_html(node.title), '"')
+        end
+        out("#{@attrs}>", :children, '</a>')
+      end
+
       def paragraph(node)
         if is_liquid_tag?(node)
           out(:children)
-        elsif is_html_attr?(node)
+        elsif is_html_attr?(node.first_child.string_content)
           @attrs = html_attr_to_s?(node.first_child.string_content)
 
           if  node.first_child.next === nil
@@ -44,9 +59,9 @@ module Cms
       end
 
       # Example:
-      #   "{ .class.next__class.another--class, #id, data:{content: "test"}, style: "display: inline-block;" }"
-      def is_html_attr?(node)
-        /{[^%].*}/ === node.first_child.string_content
+      #   "{: .class.next__class.another--class, #id, data:{content: "test"}, style: "display: inline-block;", target="_blank" }"
+      def is_html_attr?(string)
+        /{:.*}/ === string
       end
 
       def html_attr_to_s?(str)
