@@ -18,7 +18,11 @@ module Cms
         if is_html_attr?(node.next.string_content)
           @attrs = html_attr_to_s?(node.next.string_content)
           if /_blank/ === @attrs
-            @attrs << ' rel="noopener noreferrer"'
+            if /nofollow/ === @attrs
+              @attrs = @attrs.gsub(/rel='nofollow'/, 'rel="noopener noreferrer nofollow"')
+            else
+              @attrs << ' rel="noopener noreferrer"'
+            end
           end
           node.next.string_content = ''
         end
@@ -59,7 +63,7 @@ module Cms
       end
 
       # Example:
-      #   "{: .class.next__class.another--class, #id, data:{content: "test"}, style: "display: inline-block;", target="_blank" }"
+      #   "{: .class.next__class.another--class, #id, data:{content: "test"}, style: "display: inline-block;", target: "_blank", rel: "nofollow" }"
       def is_html_attr?(string)
         /{:.*}/ === string
       end
