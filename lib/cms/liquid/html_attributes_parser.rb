@@ -4,7 +4,7 @@ module Cms
       private_class_method :new
 
       def self.transform(str: '')
-        return {} unless str.present? || !str.is_a?(String)
+        return {} if str.blank? || !str.is_a?(String)
         new(str).call
       end
 
