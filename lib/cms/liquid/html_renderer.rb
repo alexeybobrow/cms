@@ -40,14 +40,19 @@ module Cms
           @attrs = html_attr_to_s?(node.to_html)
           if node.first_child.next === nil
             node.first_child.delete
-          else
-            block do
-              container("<p #{sourcepos(node)}#{@attrs}>\n", '</p>') do
-                node.first_child.delete
-                out(:children)
+          elsif @in_tight && node.parent.type != :blockquote
+              out(:children)
+            else
+              block do
+                container("<p#{sourcepos(node)}>", '</p>') do
+                  out(:children)
+                  if node.parent.type == :footnote_definition && node.next.nil?
+                    out(" ")
+                    out_footnote_backref
+                  end
+                end
               end
             end
-          end
         else
           super
         end
