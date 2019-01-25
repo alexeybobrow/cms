@@ -15,8 +15,8 @@ module Cms
       end
 
       def link(node)
-        if is_html_attr?(node.next.string_content)
-          @attrs = html_attr_to_s?(node.next.string_content)
+        if is_html_attr?(node.next.to_html)
+          @attrs = html_attr_to_s?(node.next.to_html)
           if /_blank/ === @attrs
             if /nofollow/ === @attrs
               @attrs = @attrs.gsub(/rel='nofollow'/, 'rel="noopener noreferrer nofollow"')
@@ -34,12 +34,11 @@ module Cms
       end
 
       def paragraph(node)
-        if is_liquid_tag?(node)
+        if is_liquid_tag?(node.to_html)
           out(:children)
-        elsif is_html_attr?(node.first_child.string_content)
-          @attrs = html_attr_to_s?(node.first_child.string_content)
-
-          if  node.first_child.next === nil
+        elsif is_html_attr?(node.to_html)
+          @attrs = html_attr_to_s?(node.to_html)
+          if node.first_child.next === nil
             node.first_child.delete
           else
             block do
@@ -58,14 +57,14 @@ module Cms
 
       # Example:
       #   "{% layout width: 600px %}"
-      def is_liquid_tag?(node)
-        /{%.*%}/ === node.first_child.string_content
+      def is_liquid_tag?(string)
+        /{%.*%}/ === string
       end
 
       # Example:
-      #   "{: .class.next__class.another--class, #id, data:{content: "test"}, style: "display: inline-block;", target: "_blank", rel: "nofollow" }"
+      #   "{: .class.next__class.another--class, #id, data:{content: "test"}, style: "display: inline-block;", target: "_blank", rel: "nofollow" :}"
       def is_html_attr?(string)
-        /{:.*}/ === string
+        /{:.*:}/ === string
       end
 
       def html_attr_to_s?(str)
