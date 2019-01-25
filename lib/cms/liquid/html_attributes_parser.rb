@@ -28,7 +28,7 @@ module Cms
 
       private
 
-      BODY_REGEXP = /(?<={:).*?(?=}$)/
+      BODY_REGEXP = /(?<={:).*?(?=:})/
       CLASS_REGEXP = /\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
       ID_REGEXP = /\#-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
 
