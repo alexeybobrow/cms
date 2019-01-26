@@ -18,8 +18,8 @@ module Cms
         id = str.scan(ID_REGEXP).first || ''
         tmp_hash = string_to_hash(str, class_names, id)
         base_h = [
-            ['class', class_names.map { |element| element[1..-1] }.join(' ')],
-            ['id', id[1..-1]],
+            ['class', class_names.join(' ')],
+            ['id', id],
             *tmp_hash.except(:data).keys.map { |key| [key, tmp_hash[key]] },
             *generate_data_attributes(tmp_hash[:data])
         ].to_h
@@ -29,8 +29,8 @@ module Cms
       private
 
       BODY_REGEXP = /(?<={:).*?(?=:})/
-      CLASS_REGEXP = /\.-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
-      ID_REGEXP = /\#-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
+      CLASS_REGEXP = /(?<=\.)-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
+      ID_REGEXP = /(?<=#)-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
 
       def string_to_hash(string, class_names, id)
         begin
