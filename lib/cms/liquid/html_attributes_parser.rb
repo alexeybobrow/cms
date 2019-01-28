@@ -22,8 +22,8 @@ module Cms
         id = str.scan(ID_REGEXP).first || ''
         tmp_hash = other_params_to_hash(str, class_names, id)
         base_h = [
-            ['class', class_names.join(' ')],
-            ['id', id],
+            [:class, class_names.join(' ')],
+            [:id, id],
             *tmp_hash.except(:data).keys.map { |key| [key, tmp_hash[key]] },
             *generate_data_attributes(tmp_hash[:data])
         ].to_h
@@ -39,8 +39,8 @@ module Cms
       def other_params_to_hash(string, class_names, id)
         begin
           Hash.instance_eval("{#{
-          string.gsub(class_names.join(''), '')
-              .gsub(id, '')
+            string.gsub(".#{class_names.join('.')}", '')
+              .gsub("##{id}", '')
               .split(',')
               .delete_if { |item| !item.present? }
               .join(',')
