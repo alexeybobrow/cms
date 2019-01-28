@@ -1,3 +1,7 @@
+# Parse html attributes
+# Example:
+#   "{: .class, #id, role: 'tabpanel', data:{handler: 'toggle'}, aria:{labelledby: 'ch1Tab'} :}"
+
 module Cms
   module Liquid
     class HtmlAttributesParser
@@ -16,7 +20,7 @@ module Cms
         str = @string[BODY_REGEXP]
         class_names = str.scan(CLASS_REGEXP) || []
         id = str.scan(ID_REGEXP).first || ''
-        tmp_hash = string_to_hash(str, class_names, id)
+        tmp_hash = other_params_to_hash(str, class_names, id)
         base_h = [
             ['class', class_names.join(' ')],
             ['id', id],
@@ -32,7 +36,7 @@ module Cms
       CLASS_REGEXP = /(?<=\.)-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
       ID_REGEXP = /(?<=#)-?[_a-zA-Z]+[_a-zA-Z0-9-]*/
 
-      def string_to_hash(string, class_names, id)
+      def other_params_to_hash(string, class_names, id)
         begin
           Hash.instance_eval("{#{
           string.gsub(class_names.join(''), '')
