@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "workflow", github: "geekq/workflow"
+gem "workflow"
 
 group :development, :test do
   gem 'test-unit', '~> 3.2.0'
@@ -10,9 +10,9 @@ group :development, :test do
   gem 'rspec-its', '~> 1.2.0'
   gem 'timecop', '~> 0.8.1'
   gem 'factory_girl', '~> 4.7.0'
-  gem 'capybara-webkit', '~> 1.11.1'
-  gem 'capybara-screenshot', '~> 1.0.13'
-  gem 'shoulda-matchers', '~> 3.1.1'
+  gem 'capybara-webkit', '~> 1.15.1'
+  gem 'capybara-screenshot', '~> 1.0.22'
+  gem 'shoulda-matchers', '~> 3.1.3'
   gem 'simplecov', '~> 0.12.0'
   gem 'faker', '~> 1.6.4'
   gem 'responders', '~> 2.2.0'
