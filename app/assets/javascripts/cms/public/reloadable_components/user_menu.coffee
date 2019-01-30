@@ -6,10 +6,10 @@ class @UserMenu
 
   template = (data) -> """
     <div class="user-menu">
-      <div class="user-menu--item">User: #{data.user.name}</div>
-      <a class="user-menu--item" href="/admin/pages/#{data.page.id}">view</a>
-      <a class="user-menu--item" href="/admin/pages/#{data.page.id}/edit/content">edit</a>
-      <a class="user-menu--item" href="/admin/cache" data-method="delete" data-remote="true">clear cache</a>
+      <div>User: #{data.user.name}</div>
+      <a class="user-menu__item" href="/admin/pages/#{data.page.id}">view</a>
+      <a class="user-menu__item" href="/admin/pages/#{data.page.id}/edit/content">edit</a>
+      <a class="user-menu__item" href="/admin/cache" data-method="delete" data-remote="true">clear cache</a>
     </div>
   """
 
