@@ -48,5 +48,20 @@ describe Cms::Liquid::HtmlRenderer do
       doc = CommonMarker.render_doc("{% layout %}\n\ninner content\n\n{% fragment 'contact_form' %}\n\n{% end_layout %}")
       expect(renderer.render(doc)).to eq("{% layout %}\n<p>inner content</p>\n{% fragment 'contact_form' %}{% end_layout %}")
     end
+
+    it 'add html attributes to node :paragraph' do
+      doc = CommonMarker.render_doc("{: .paragraph :}\ntest text")
+      expect(renderer.render(doc)).to eq("<p class=\"paragraph\">\ntest text</p>\n")
+    end
+
+    it 'doesnt add html attributes to parent node if :link node with style tag is inside one' do
+      doc = CommonMarker.render_doc("inner content [name](https://www.test.com){: .link :}\nanother content\n\ninner content [name](https://www.test.com){: .test :}\nanother content")
+      expect(renderer.render(doc)).to eq("<p>inner content <a href=\"https://www.test.com\" class=\"link\">name</a>\nanother content</p>\n<p>inner content <a href=\"https://www.test.com\" class=\"test\">name</a>\nanother content</p>\n")
+    end
+
+    it 'add html attributes to :link node' do
+      doc = CommonMarker.render_doc("[name](https://www.test.com){: .link :}")
+      expect(renderer.render(doc)).to eq("<a href=\"https://www.test.com\" class=\"link\">name</a>")
+    end
   end
 end
