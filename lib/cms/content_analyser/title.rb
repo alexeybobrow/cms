@@ -3,7 +3,7 @@ module Cms::ContentAnalyser
     def run
       return unless content
 
-      html_doc = Nokogiri::HTML(CommonMarker.render_doc(content).to_html)
+      html_doc = Nokogiri::HTML(CommonMarker.render_doc(content).to_html(:UNSAFE))
       if h1 = html_doc.xpath('//h1').first
         h1.text
       end
