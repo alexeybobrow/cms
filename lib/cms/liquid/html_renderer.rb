@@ -48,18 +48,17 @@ module Cms
             node.first_child.delete
             return out(:children)
 
-          # store @attrs for paragraph and return :paragraph node
-          elsif node.first_child.type === :text && is_html_attr?(node.first_child.string_content)
-            @attrs = html_attr_to_s!(node.first_child.string_content)
-            node.first_child.delete
-
           # store @attrs for link and return :link node
           elsif node.first_child.type === :link
             if node.last_child.type === :text && is_html_attr?(node.last_child.string_content)
               return out(:children)
             end
-          end
 
+          # store @attrs for  :paragraph node
+          elsif node.first_child.type === :text && is_html_attr?(node.first_child.string_content)
+            @attrs = html_attr_to_s!(node.first_child.string_content)
+            node.first_child.delete
+          end
 
           if @in_tight && node.parent.type != :blockquote
             out(:children)
