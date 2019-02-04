@@ -20,6 +20,43 @@ Or install it yourself as:
 
     $ gem install cms
 
+## Extended markdown
+
+You can add HTML attributes with curly brackets {: ... :}<br> 
+``` markdown
+{: .class-name.another-class-name, #id-name, target: '_blank', rel: 'nofollow', data: {handler: 'toggle', content: 'test'}, aria: {labelledby: 'ch1Tab'} :} 
+```
+
+<br> 
+
+- **To link nodes at the end of node**
+
+  ``` markdown
+  [name](https://www.test.com){: .class-name.another-class-name, #id-name, target: '_blank', rel: 'nofollow', data: {handler: 'toggle', content: 'test'}, aria: {labelledby: 'ch1Tab'} :}
+  ```
+  *If target: '_blank' is used, rel="noopener noreferrer" will be attached to avoid tabnabbing attack*
+  
+<br> 
+
+- **To paragraph nodes before the node**
+
+  ``` markdown
+  {: .class-name.another-class-name, #id-name, data: {handler: 'toggle', content: 'test'}, aria: {labelledby: 'ch1Tab'} :}
+  In the Bohr model, the transition of an electron with n=3 to the shell n=2 is shown, where a photon is emitted. An electron from shell (n=2) must have been removed beforehand by ionization
+  Electrons that populate a shell are said to be in a bound state. The energy necessary to remove an electron from its shell (taking it to infinity) is called the binding energy.
+  Any quantity of energy absorbed by the electron in excess of this amount is converted to kinetic energy according to the conservation of energy.
+  The atom is said to have undergone the process of ionization.
+  ```
+  
+<br> 
+
+- **To header nodes before the node**
+
+  ``` markdown
+  {: .class-name.another-class-name, #id-name, data: {handler: 'toggle', content: 'test'}, aria: {labelledby: 'ch1Tab'} :}
+  ## Atomic physics
+  ```
+
 ## Layouts
 
 You can create default layout by creating `default_layout` fragment.
