@@ -1,6 +1,6 @@
 # Parse html attributes
 # Example:
-#   "{: .class, #id, role: 'tabpanel', data:{handler: 'toggle'}, aria:{labelledby: 'ch1Tab'} :}"
+#   "{: .class, #id, role: 'tabpanel', data: {handler: 'toggle'}, aria: {labelledby: 'ch1Tab'} :}"
 
 module Cms
   module Liquid
@@ -24,8 +24,9 @@ module Cms
         base_h = [
             [:class, class_names.join(' ')],
             [:id, id],
-            *tmp_hash.except(:data).keys.map { |key| [key, tmp_hash[key]] },
-            *generate_data_attributes(tmp_hash[:data])
+            *tmp_hash.except(:data, :aria).keys.map { |key| [key, tmp_hash[key]] },
+            *generate_from_hash(tmp_hash[:data], :data),
+            *generate_from_hash(tmp_hash[:aria], :aria)
         ].to_h
         base_h.reject { |_key, value| !value.present? }
       end
@@ -50,9 +51,9 @@ module Cms
         end
       end
 
-      def generate_data_attributes(hash)
+      def generate_from_hash(hash, name)
         return {} unless hash.present?
-        hash.keys.map { |key| ["data-#{key.to_s}", hash[key]] }
+        hash.keys.map { |key| ["#{name.to_s}-#{key.to_s}", hash[key]] }
       end
     end
   end
