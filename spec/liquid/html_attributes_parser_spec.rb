@@ -34,8 +34,8 @@ describe Cms::Liquid::HtmlAttributesParser do
 
     context 'if string is present' do
       let(:attributes_string) do
-        %Q[{: .class.next__class.another--class, #id, data:{content: "test"}, \
-           style: "display: inline-block;", target: "_blank", rel: "nofollow" :}]
+        %Q[{: .class.next__class.another--class, #id, data: {content: "test"}, \
+           style: "display: inline-block;", target: "_blank", rel: "nofollow",  aria: {labelledby: 'ch1Tab'} :}]
       end
       let(:result_hash) do
         {
@@ -44,7 +44,8 @@ describe Cms::Liquid::HtmlAttributesParser do
           style: 'display: inline-block;',
           target: '_blank',
           rel: 'nofollow',
-          'data-content' => 'test'
+          'data-content' => 'test',
+          'aria-labelledby' => 'ch1Tab'
         }
       end
 
