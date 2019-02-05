@@ -42,19 +42,19 @@ module Cms
           out(:children)
         elsif is_html_attr?(node.to_html)
 
-          # store @attrs for header and return :header node
+          # store @attrs from {%...%} tag for next node
           if node.first_child.next.nil?
             @attrs = html_attr_to_s!(node.to_html)
             node.first_child.delete
             return out(:children)
 
-          # store @attrs for link and return :link node
+          # store @attrs from {%...%} tag for link and return :link node
           elsif node.first_child.type === :link
             if node.last_child.type === :text && is_html_attr?(node.last_child.string_content)
               return out(:children)
             end
 
-          # store @attrs for  :paragraph node
+          # store @attrs from {%...%} tag for :paragraph node
           elsif node.first_child.type === :text && is_html_attr?(node.first_child.string_content)
             @attrs = html_attr_to_s!(node.first_child.string_content)
             node.first_child.delete
