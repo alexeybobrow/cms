@@ -48,7 +48,8 @@ module Cms
             node.first_child.delete
             return out(:children)
 
-          # store @attrs from {%...%} tag for link and return :link node
+          # return :link node
+          # @attrs from {%...%} tag for link will be stored by link() method
           elsif node.first_child.type === :link
             if node.last_child.type === :text && is_html_attr?(node.last_child.string_content)
               return out(:children)
