@@ -4,7 +4,7 @@ describe Cms::Liquid::HtmlAttributesParser do
   describe '.transform' do
     shared_examples 'empty hash returner' do
       it 'returns empty hash' do
-        expect(described_class.transform(str: attributes_string)).to eq({})
+        expect(described_class.transform(attributes_string)).to eq({})
       end
     end
 
@@ -51,7 +51,7 @@ describe Cms::Liquid::HtmlAttributesParser do
       end
 
       it 'returns the result hash' do
-        expect(described_class.transform(str: attributes_string)).to eq(result_hash)
+        expect(described_class.transform(attributes_string)).to eq(result_hash)
       end
     end
 
@@ -60,7 +60,7 @@ describe Cms::Liquid::HtmlAttributesParser do
         %Q[{: data: {content: 'test', {handler: 'toggle'} :}]
       end
       it 'converts to id correctly' do
-        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /unbalanced brackets/i)
+        expect {described_class.transform(attributes_string)}.to raise_error(described_class::AttributesSyntaxError, /unbalanced brackets/i)
       end
     end
 
@@ -69,16 +69,16 @@ describe Cms::Liquid::HtmlAttributesParser do
         %Q[{: data: {content: 'test', {handler: 'toggle'},  test: 'test'} :}]
       end
       it 'converts to id correctly' do
-        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /redundant brackets/i)
+        expect {described_class.transform(attributes_string)}.to raise_error(described_class::AttributesSyntaxError, /redundant brackets/i)
       end
     end
 
-    context 'if syntax has missing coma' do
+    context 'if syntax has missing comma' do
       let(:attributes_string) do
         %Q[{: data: {content: 'test', handler: 'toggle' test: 'test'} :}]
       end
       it 'converts to id correctly' do
-        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /missing coma or quotes/i)
+        expect {described_class.transform(attributes_string)}.to raise_error(described_class::AttributesSyntaxError, /missing coma or quotes/i)
       end
     end
 
@@ -87,7 +87,7 @@ describe Cms::Liquid::HtmlAttributesParser do
         %Q[{: data: {content: 'test', handler: toggle, test: 'test'} :}]
       end
       it 'converts to id correctly' do
-        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /missing coma or quotes/i)
+        expect {described_class.transform(attributes_string)}.to raise_error(described_class::AttributesSyntaxError, /missing coma or quotes/i)
       end
     end
   end

@@ -9,6 +9,12 @@ module Cms
     class HtmlAttributesParser
       private_class_method :new
 
+      class AttributesSyntaxError < StandardError
+        def initialize(msg="HTML Attributes Syntax Error.")
+          super
+        end
+      end
+
       BODY_REGEX = /(?<={:).*?(?=:})/.freeze
       ALLOWED_SYMBOLS = /-?[_a-zA-Z]+[_a-zA-Z0-9-]*/.freeze
       CLASS_REGEX = /(?<=\.)#{ALLOWED_SYMBOLS}/.freeze
@@ -29,23 +35,22 @@ module Cms
       # style: 'display: inline-block;'
       ATTRIBUTES_REGEX = /(\w+:\s*'(?:(?!').)*')/.freeze
 
-      def self.transform(str: '', line: '')
+      def self.transform(str = '')
         return {} if str.blank? || !str.is_a?(String)
-        new(str, line).call
+        new(str).call
       end
 
-      def initialize(str, line)
-        @string = str
-        @start_line = line
+      def initialize(str)
+        @str = str
       end
 
       def call
-        str = @string[BODY_REGEX]
+        str = @str[BODY_REGEX]
         str.gsub!(/[‘’"“”]/, '\'')
         hash = {}
 
         if str.scan(/{/).size != str.scan(/}/).size
-          raise SyntaxError, "HTML Attributes Syntax Error. Unbalanced brackets in the {: #{str} :} near the #{@start_line} line"
+          raise AttributesSyntaxError, "HTML Attributes Syntax Error. Unbalanced brackets"
         end
 
         begin
@@ -55,8 +60,8 @@ module Cms
           hash.merge!(parse_attr_to_hash(str[DATA_ATTRIBUTES_REGEX], 'data'))
           hash.merge!(parse_attr_to_hash(str[ARIA_ATTRIBUTES_REGEX], 'aria'))
           hash.reject { |_, v| !v.present? }
-        rescue
-          raise SyntaxError, "HTML Attributes Syntax Error. Missing coma or quotes in the {: #{str} :} near the #{@start_line} line"
+        rescue AttributesSyntaxError => e
+          raise AttributesSyntaxError, e.message
         end
       end
 
@@ -89,10 +94,14 @@ module Cms
         return {} unless str.present?
 
         if str.scan(/{/).size != str.scan(/}/).size
-          raise SyntaxError, "HTML Attributes Syntax Error. Redundant brackets in the #{str} near the #{@start_line} line"
+          raise AttributesSyntaxError, "HTML Attributes Syntax Error. Redundant brackets"
         end
 
-        str.match(DATA_ATTRIBUTES_VALUES_REGEX) {|m| parse_static_hash(m[0], name) }
+        hash = str.match(DATA_ATTRIBUTES_VALUES_REGEX) {|m| parse_static_hash(m[0], name) }
+
+        raise AttributesSyntaxError, "HTML Attributes Syntax Error. Missing coma or quotes" if hash.nil?
+
+        hash
       end
     end
   end
