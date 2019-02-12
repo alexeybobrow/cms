@@ -51,7 +51,7 @@ describe Cms::Liquid::HtmlRenderer do
 
     it 'add html attributes to node :paragraph' do
       doc = CommonMarker.render_doc("{: .paragraph, #test, data: {test: 'test'} :}\ntest text")
-      expect(renderer.render(doc)).to eq("<p class=\"paragraph\" id=\"test\" data-test=\"test\">\ntest text</p>\n")
+      expect(renderer.render(doc)).to eq("<p id=\"test\" class=\"paragraph\" data-test=\"test\">\ntest text</p>\n")
     end
 
     it 'doesnt add html attributes to parent node if :link node with style tag placed inside this one' do
@@ -66,7 +66,7 @@ describe Cms::Liquid::HtmlRenderer do
 
     it 'add html attributes to :link node' do
       doc = CommonMarker.render_doc("[name](https://www.test.com){: .link.test, #test, target: '_blank', rel: 'nofollow', data: {handler: 'toggle', content: 'test'}, aria: {labelledby: 'ch1Tab'} :}")
-      expect(renderer.render(doc)).to eq("<a href=\"https://www.test.com\" class=\"link test\" id=\"test\" target=\"_blank\" rel=\"noopener noreferrer nofollow\" data-handler=\"toggle\" data-content=\"test\" aria-labelledby=\"ch1Tab\">name</a>")
+      expect(renderer.render(doc)).to eq("<a href=\"https://www.test.com\" id=\"test\" class=\"link test\" target=\"_blank\" rel=\"noopener noreferrer nofollow\" data-handler=\"toggle\" data-content=\"test\" aria-labelledby=\"ch1Tab\">name</a>")
     end
 
     it ':header node wo html attributes' do
@@ -76,7 +76,7 @@ describe Cms::Liquid::HtmlRenderer do
 
     it 'add html attributes to :header node' do
       doc = CommonMarker.render_doc("{: .paragraph, #test, data: {test: 'test'} :}\n# test text")
-      expect(renderer.render(doc)).to eq("<h1 class=\"paragraph\" id=\"test\" data-test=\"test\">test text</h1>\n")
+      expect(renderer.render(doc)).to eq("<h1 id=\"test\" class=\"paragraph\" data-test=\"test\">test text</h1>\n")
     end
   end
 end

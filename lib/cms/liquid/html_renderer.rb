@@ -17,7 +17,7 @@ module Cms
       def link(node)
         unless node.next.nil?
           if is_html_attr?(node.next.to_html)
-            @attrs = html_attr_to_s!(node.next.to_html)
+            @attrs = html_attr_to_s!(node.next.to_html, node)
             if /_blank/ === @attrs
               if /nofollow/ === @attrs
                 @attrs = @attrs.gsub(/rel="nofollow"/, 'rel="noopener noreferrer nofollow"')
@@ -44,7 +44,7 @@ module Cms
 
           # store @attrs from {%...%} tag for next node
           if node.first_child.next.nil?
-            @attrs = html_attr_to_s!(node.to_html)
+            @attrs = html_attr_to_s!(node.to_html, node)
             node.first_child.delete
             return out(:children)
 
@@ -57,7 +57,7 @@ module Cms
 
           # store @attrs from {%...%} tag for :paragraph node
           elsif node.first_child.type === :text && is_html_attr?(node.first_child.string_content)
-            @attrs = html_attr_to_s!(node.first_child.string_content)
+            @attrs = html_attr_to_s!(node.first_child.string_content, node)
             node.first_child.delete
           end
 
@@ -104,8 +104,8 @@ module Cms
         /{:.*:}/ === string
       end
 
-      def html_attr_to_s!(str)
-        HtmlAttributesParser.transform(str: str).map { |key, val| "#{key}=\"#{val}\"" }.join(' ')
+      def html_attr_to_s!(str, node)
+        HtmlAttributesParser.transform(str: str, line: node.sourcepos[:start_line]).map { |key, val| "#{key}=\"#{val}\"" }.join(' ')
       end
     end
   end
