@@ -45,7 +45,7 @@ module Cms
         hash = {}
 
         if str.scan(/{/).size != str.scan(/}/).size
-          raise SyntaxError, "HTML Attributes Syntax Error. Unbalanced brackets in the {: #{str} :} above the #{@start_line} line"
+          raise SyntaxError, "HTML Attributes Syntax Error. Unbalanced brackets in the {: #{str} :} near the #{@start_line} line"
         end
 
         begin
@@ -54,15 +54,15 @@ module Cms
           hash.merge!(parse_string_to_hash(str.gsub(/(?:\w+:\s*)#{DATA_ATTRIBUTES_VALUES_REGEX}/, '')))
           hash.merge!(parse_attr_to_hash(str[DATA_ATTRIBUTES_REGEX], 'data'))
           hash.merge!(parse_attr_to_hash(str[ARIA_ATTRIBUTES_REGEX], 'aria'))
-          hash.reject { |_key, value| !value.present? }
+          hash.reject { |_, v| !v.present? }
         rescue
-          raise SyntaxError, "HTML Attributes Syntax Error. Missing coma or quotes in the {: #{str} :} above the #{@start_line} line"
+          raise SyntaxError, "HTML Attributes Syntax Error. Missing coma or quotes in the {: #{str} :} near the #{@start_line} line"
         end
       end
 
       private
 
-      def parse_static_hash(text)
+      def parse_static_hash(text, name = nil)
         attributes = {}
         return attributes if text.empty?
 
@@ -72,6 +72,7 @@ module Cms
         scanner.scan(/\s+/)
         until scanner.eos?
           return unless key = scanner.scan(ATTRIBUTES_KEY_REGEX)
+          key = "#{name}-#{key}" if name
           return unless scanner.scan(/\s*:\s*/)
           return unless value = scanner.scan(ATTRIBUTES_VALUES_REGEX)
           return unless scanner.scan(/\s*(?:,|$)\s*/)
@@ -81,22 +82,17 @@ module Cms
       end
 
       def parse_string_to_hash(text)
-        text.scan(/(\w+:\s*)('(?:(?!').)*')/)
-            .reduce({}) do |acc, (k, v)|
-          acc.merge(k.gsub!(/#{INVALID_ATTRIBUTE_NAME_REGEX}|:/, '').to_sym => v.gsub!(/'/, '').to_s)
-        end
+        text.scan(/(\w+):\s*'((?:(?!').)*)'/).to_h.symbolize_keys
       end
 
       def parse_attr_to_hash(str, name)
         return {} unless str.present?
 
         if str.scan(/{/).size != str.scan(/}/).size
-          raise SyntaxError, "HTML Attributes Syntax Error. Redundant brackets in the #{str} above the #{@start_line} line"
+          raise SyntaxError, "HTML Attributes Syntax Error. Redundant brackets in the #{str} near the #{@start_line} line"
         end
 
-        str.scan(DATA_ATTRIBUTES_VALUES_REGEX)
-            .reduce({}) { |acc, elem| acc.merge(parse_static_hash(elem)) }
-            .reduce({}) { |acc, (k, v)| acc.merge(name + '-' + k => v) }
+        str.match(DATA_ATTRIBUTES_VALUES_REGEX) {|m| parse_static_hash(m[0], name) }
       end
     end
   end
