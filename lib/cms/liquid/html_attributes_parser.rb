@@ -41,11 +41,12 @@ module Cms
 
       def call
         str = @string[BODY_REGEX]
-        str.gsub!(/[‘’"“”]/,'\'')
+        str.gsub!(/[‘’"“”]/, '\'')
         hash = {}
 
-        raise SyntaxError, "HTML Attributes Syntax Error.\nRedundant brackets in the {: #{ str} :} \
-                            above the #{@start_line}" if str.scan(/{/).size != str.scan(/}/).size
+        if str.scan(/{/).size != str.scan(/}/).size
+          raise SyntaxError, "HTML Attributes Syntax Error. Unbalanced brackets in the {: #{str} :} above the #{@start_line} line"
+        end
 
         begin
           hash[:id] = str.scan(ID_REGEX).first
@@ -55,7 +56,7 @@ module Cms
           hash.merge!(parse_attr_to_hash(str[ARIA_ATTRIBUTES_REGEX], 'aria'))
           hash.reject { |_key, value| !value.present? }
         rescue
-          raise SyntaxError, "HTML Attributes Syntax Error in the {: #{ str} :} above the #{@start_line}"
+          raise SyntaxError, "HTML Attributes Syntax Error. Missing coma or quotes in the {: #{str} :} above the #{@start_line} line"
         end
       end
 
@@ -89,8 +90,9 @@ module Cms
       def parse_attr_to_hash(str, name)
         return {} unless str.present?
 
-        raise SyntaxError, "HTML Attributes Syntax Error.\nRedundant brackets in the #{str} \
-                            above the #{@start_line} line" if str.scan(/{/).size != str.scan(/}/).size
+        if str.scan(/{/).size != str.scan(/}/).size
+          raise SyntaxError, "HTML Attributes Syntax Error. Redundant brackets in the #{str} above the #{@start_line} line"
+        end
 
         str.scan(DATA_ATTRIBUTES_VALUES_REGEX)
             .reduce({}) { |acc, elem| acc.merge(parse_static_hash(elem)) }

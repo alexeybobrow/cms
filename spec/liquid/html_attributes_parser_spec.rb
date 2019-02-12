@@ -39,19 +39,55 @@ describe Cms::Liquid::HtmlAttributesParser do
       end
       let(:result_hash) do
         {
-          class: 'class next__class another--class',
-          id: 'id',
-          style: 'display: inline-block;',
-          target: '_blank',
-          rel: 'nofollow',
-          'data-content' => 'test',
-          'data-handler' => 'toggle',
-          'aria-labelledby' => 'ch1Tab'
+            class: 'class next__class another--class',
+            id: 'id',
+            style: 'display: inline-block;',
+            target: '_blank',
+            rel: 'nofollow',
+            'data-content' => 'test',
+            'data-handler' => 'toggle',
+            'aria-labelledby' => 'ch1Tab'
         }
       end
 
       it 'returns the result hash' do
         expect(described_class.transform(str: attributes_string)).to eq(result_hash)
+      end
+    end
+
+    context 'if syntax has unbalanced brackets' do
+      let(:attributes_string) do
+        %Q[{: data: {content: 'test', {handler: 'toggle'} :}]
+      end
+      it 'converts to id correctly' do
+        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /unbalanced brackets/i)
+      end
+    end
+
+    context 'if syntax has redundant brackets' do
+      let(:attributes_string) do
+        %Q[{: data: {content: 'test', {handler: 'toggle'},  test: 'test'} :}]
+      end
+      it 'converts to id correctly' do
+        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /redundant brackets/i)
+      end
+    end
+
+    context 'if syntax has missing coma' do
+      let(:attributes_string) do
+        %Q[{: data: {content: 'test', handler: 'toggle' test: 'test'} :}]
+      end
+      it 'converts to id correctly' do
+        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /missing coma or quotes/i)
+      end
+    end
+
+    context 'if syntax has missing quotes' do
+      let(:attributes_string) do
+        %Q[{: data: {content: 'test', handler: toggle, test: 'test'} :}]
+      end
+      it 'converts to id correctly' do
+        expect {described_class.transform(str: attributes_string, line: '1')}.to raise_error(SyntaxError, /missing coma or quotes/i)
       end
     end
   end
