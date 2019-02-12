@@ -15,6 +15,7 @@ module Cms
       end
 
       def link(node)
+        @attrs = '' # if :link in a :paragraph node
         unless node.next.nil?
           if is_html_attr?(node.next.to_html)
             @attrs = html_attr_to_s!(node.next.to_html, node)
@@ -105,7 +106,11 @@ module Cms
       end
 
       def html_attr_to_s!(str, node)
-        HtmlAttributesParser.transform(str: str, line: node.sourcepos[:start_line]).map { |key, val| "#{key}=\"#{val}\"" }.join(' ')
+        begin
+          HtmlAttributesParser.transform(str).map { |key, val| "#{key}=\"#{val}\"" }.join(' ')
+        rescue HtmlAttributesParser::AttributesSyntaxError => e
+          raise HtmlAttributesParser::AttributesSyntaxError, e.message + " near the #{node.sourcepos[:start_line]} line in the string" + str
+        end
       end
     end
   end

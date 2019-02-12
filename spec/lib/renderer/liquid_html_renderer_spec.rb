@@ -59,6 +59,11 @@ describe Cms::Liquid::HtmlRenderer do
       expect(renderer.render(doc)).to eq("<p>inner content <a href=\"https://www.test.com\" class=\"link\">name</a>\nanother content</p>\n<p>inner content <a href=\"https://www.test.com\" class=\"test\">name</a>\nanother content</p>\n")
     end
 
+    it 'doesnt add html attributes from parent node if :link node placed inside this one' do
+      doc = CommonMarker.render_doc("{: .test :}\ninner content [name](https://www.test.com)\nanother content\n\ninner content [name](https://www.test.com)\nanother content")
+      expect(renderer.render(doc)).to eq("<p class=\"test\">\ninner content <a href=\"https://www.test.com\">name</a>\nanother content</p>\n<p>inner content <a href=\"https://www.test.com\">name</a>\nanother content</p>\n")
+    end
+
     it ':link node wo html attributes ' do
       doc = CommonMarker.render_doc("[name](https://www.test.com)")
       expect(renderer.render(doc)).to eq("<p><a href=\"https://www.test.com\">name</a></p>\n")
