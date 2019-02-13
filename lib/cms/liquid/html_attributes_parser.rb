@@ -10,9 +10,6 @@ module Cms
       private_class_method :new
 
       class AttributesSyntaxError < StandardError
-        def initialize(msg = "HTML Attributes Syntax Error.")
-          super
-        end
       end
 
       BODY_REGEX = /(?<={:).*?(?=:})/.freeze
@@ -61,7 +58,7 @@ module Cms
           hash.merge!(parse_attr_to_hash(str[ARIA_ATTRIBUTES_REGEX], 'aria'))
           hash.reject { |_, v| !v.present? }
         rescue AttributesSyntaxError => e
-          raise AttributesSyntaxError, e.message
+          raise AttributesSyntaxError, 'HTML Attributes Syntax Error.' + e.message
         end
       end
 
@@ -92,16 +89,9 @@ module Cms
 
       def parse_attr_to_hash(str, name)
         return {} unless str.present?
+        raise AttributesSyntaxError if str.scan(/{/).size != str.scan(/}/).size
 
-        if str.scan(/{/).size != str.scan(/}/).size
-          raise AttributesSyntaxError, "HTML Attributes Syntax Error. Redundant brackets"
-        end
-
-        hash = str.match(DATA_ATTRIBUTES_VALUES_REGEX) { |m| parse_static_hash(m[0], name) }
-
-        raise AttributesSyntaxError, "HTML Attributes Syntax Error. Missing coma or quotes" if hash.nil?
-
-        hash
+        str.match(DATA_ATTRIBUTES_VALUES_REGEX) { |m| parse_static_hash(m[0], name) }
       end
     end
   end
