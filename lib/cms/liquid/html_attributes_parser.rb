@@ -50,16 +50,12 @@ module Cms
           raise AttributesSyntaxError, "HTML Attributes Syntax Error. Unbalanced brackets"
         end
 
-        begin
-          hash[:id] = str.scan(ID_REGEX).first
-          hash[:class] = str.scan(CLASS_REGEX).join(' ')
-          hash.merge!(parse_string_to_hash(str.gsub(/(?:\w+:\s*)#{DATA_ATTRIBUTES_VALUES_REGEX}/, '')))
-          hash.merge!(parse_attr_to_hash(str[DATA_ATTRIBUTES_REGEX], 'data'))
-          hash.merge!(parse_attr_to_hash(str[ARIA_ATTRIBUTES_REGEX], 'aria'))
-          hash.reject { |_, v| !v.present? }
-        rescue AttributesSyntaxError => e
-          raise AttributesSyntaxError, 'HTML Attributes Syntax Error.' + e.message
-        end
+        hash[:id] = str.scan(ID_REGEX).first
+        hash[:class] = str.scan(CLASS_REGEX).join(' ')
+        hash.merge!(parse_string_to_hash(str.gsub(/(?:\w+:\s*)#{DATA_ATTRIBUTES_VALUES_REGEX}/, '')))
+        hash.merge!(parse_attr_to_hash(str[DATA_ATTRIBUTES_REGEX], 'data'))
+        hash.merge!(parse_attr_to_hash(str[ARIA_ATTRIBUTES_REGEX], 'aria'))
+        hash.reject { |_, v| !v.present? }
       end
 
       private
@@ -89,9 +85,16 @@ module Cms
 
       def parse_attr_to_hash(str, name)
         return {} unless str.present?
-        raise AttributesSyntaxError if str.scan(/{/).size != str.scan(/}/).size
 
-        str.match(DATA_ATTRIBUTES_VALUES_REGEX) { |m| parse_static_hash(m[0], name) }
+        if str.scan(/{/).size != str.scan(/}/).size
+          raise AttributesSyntaxError, "HTML Attributes Syntax Error. Redundant brackets"
+        end
+
+        hash = str.match(DATA_ATTRIBUTES_VALUES_REGEX) { |m| parse_static_hash(m[0], name) }
+
+        raise AttributesSyntaxError, "HTML Attributes Syntax Error." if hash.nil?
+
+        hash
       end
     end
   end
