@@ -10,7 +10,7 @@ module Cms
       private_class_method :new
 
       class AttributesSyntaxError < StandardError
-        def initialize(msg="HTML Attributes Syntax Error.")
+        def initialize(msg = "HTML Attributes Syntax Error.")
           super
         end
       end
@@ -97,7 +97,7 @@ module Cms
           raise AttributesSyntaxError, "HTML Attributes Syntax Error. Redundant brackets"
         end
 
-        hash = str.match(DATA_ATTRIBUTES_VALUES_REGEX) {|m| parse_static_hash(m[0], name) }
+        hash = str.match(DATA_ATTRIBUTES_VALUES_REGEX) { |m| parse_static_hash(m[0], name) }
 
         raise AttributesSyntaxError, "HTML Attributes Syntax Error. Missing coma or quotes" if hash.nil?
 
