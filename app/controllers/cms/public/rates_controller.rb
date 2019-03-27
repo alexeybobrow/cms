@@ -14,7 +14,7 @@ module Cms
             redirect_to :back
           }
           format.json {
-            render :json => { rating: @rate.page.average_rate, votes: @rate.page.rates.try(:size) }
+            render :json => { rating: @rate.page.average_rate, votes: @rate.page.rates.size }
           }
         end
       end
