@@ -9,7 +9,14 @@ module Cms
           session[:user_rated_posts] << params[:page_id]
         end
 
-        render :json => { rating: @rate.page.average_rate, votes: @rate.page.rates&.size }
+        respond_to do |format|
+          format.html {
+            redirect_to :back
+          }
+          format.json {
+            render :json => { rating: @rate.page.average_rate, votes: @rate.page.rates.try(:size) }
+          }
+        end
       end
     end
   end
