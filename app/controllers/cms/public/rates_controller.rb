@@ -10,23 +10,25 @@ module Cms
         end
 
         if @rate.valid?
-          respond_to do |format|
-            format.html do
-              redirect_to :back
-            end
-            format.json do
-              render json: { rating: @rate.page.average_rate, votes: @rate.page.rates.size }
-            end
-          end
+          responce_success(@rate)
         else
-          respond_to do |format|
-            format.html do
-              head :unprocessable_entity
-            end
-            format.json do
-              render json: { error: @rate.errors.full_messages }, status: :unprocessable_entity
-            end
-          end
+          responce_error(@rate)
+        end
+      end
+
+      private
+
+      def responce_success(rate)
+        respond_to do |format|
+          format.html { redirect_to :back }
+          format.json { render json: { rating: rate.page.average_rate, votes: rate.page.rates.size } }
+        end
+      end
+
+      def responce_error(rate)
+        respond_to do |format|
+          format.html { head :unprocessable_entity }
+          format.json { render json: { error: rate.errors.full_messages }, status: :unprocessable_entity }
         end
       end
     end
