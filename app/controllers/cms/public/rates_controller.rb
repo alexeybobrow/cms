@@ -9,7 +9,7 @@ module Cms
           session[:user_rated_posts] << params[:page_id]
         end
 
-        if @rate.valid?
+        if @rate&.valid?
           responce_success(@rate)
         else
           responce_error(@rate)
@@ -27,8 +27,13 @@ module Cms
 
       def responce_error(rate)
         respond_to do |format|
-          format.html { head :unprocessable_entity }
-          format.json { render json: { error: rate.errors.full_messages }, status: :unprocessable_entity }
+          if @rate.present?
+            format.html { head :unprocessable_entity }
+            format.json { render json: { error: rate.errors.full_messages }, status: :unprocessable_entity }
+          else
+            format.html { head :forbidden }
+            format.json { head :forbidden }
+          end
         end
       end
     end
