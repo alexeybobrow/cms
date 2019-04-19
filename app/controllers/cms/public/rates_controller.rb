@@ -37,7 +37,7 @@ module Cms
       end
 
       def already_rated?
-        session[:user_rated_posts].include?(params[:page_id].to_s)
+        session[:user_rated_posts].include?(@page.id.to_s)
       end
     end
   end
