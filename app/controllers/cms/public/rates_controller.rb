@@ -7,10 +7,15 @@ module Cms
         session[:user_rated_posts] ||= []
 
         if already_rated?
-          response_success(false)
+          response_success
         else
           rate = @page.rates.build(value: params[:rate])
-          rate.save ? response_success : response_error(rate.errors.full_messages)
+          if rate.save
+            session[:user_rated_posts] << @page.id.to_s
+            response_success
+          else
+            response_error(rate.errors.full_messages)
+          end
         end
       end
 
@@ -20,9 +25,7 @@ module Cms
         @page = Page.find(params[:page_id])
       end
 
-      def response_success(new_rate = true)
-        session[:user_rated_posts] << @page.id.to_s if new_rate
-
+      def response_success
         respond_to do |format|
           format.html { redirect_to :back }
           format.json { render json: { rating: @page.average_rate, votes: @page.rates.size } }
