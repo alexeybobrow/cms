@@ -1,37 +1,38 @@
 module Cms
   module Public
     class RatesController < ::Cms::Public::BaseController
+      before_action :find_page
+
       def create
         session[:user_rated_posts] ||= []
 
         if already_rated?
-          response_error
+          response_success(false)
         else
-          rate = Rate.new(page_id: params[:page_id], value: params[:rate])
-          rate.save ? response_success(rate) : response_error(rate)
+          rate = @page.rates.build(value: params[:rate])
+          rate.save ? response_success : response_error(rate.errors.full_messages)
         end
       end
 
       private
 
-      def response_success(rate)
-        session[:user_rated_posts] << params[:page_id].to_s
+      def find_page
+        @page = Page.find(params[:page_id])
+      end
+
+      def response_success(new_rate = true)
+        session[:user_rated_posts] << @page.id.to_s if new_rate
 
         respond_to do |format|
           format.html { redirect_to :back }
-          format.json { render json: { rating: rate.page.average_rate, votes: rate.page.rates.size } }
+          format.json { render json: { rating: @page.average_rate, votes: @page.rates.size } }
         end
       end
 
-      def response_error(rate = nil)
+      def response_error(message)
         respond_to do |format|
-          if rate.present?
-            format.html { head :unprocessable_entity }
-            format.json { render json: { error: rate.errors.full_messages }, status: :unprocessable_entity }
-          else
-            format.html { head :forbidden }
-            format.json { head :forbidden }
-          end
+          format.html { head :unprocessable_entity }
+          format.json { render json: { error: message }, status: :unprocessable_entity }
         end
       end
 
