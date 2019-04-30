@@ -11,7 +11,8 @@
         - if attachment.is_main
           %div= 'Header image'
         - else
-          = form_for :image_attachment, url: edit_admin_image_attachment_path(attachment.id), html: { class: 'edit', remote: true }, method: :get do |f|
+          = form_for :image_attachment, url: admin_image_attachment_path(attachment.id), html: { class: 'edit', remote: true }, method: :put do |f|
+            = f.hidden_field :is_main, value: true
             = f.hidden_field :attachments, value: content.attachments.map(&:id)
             = f.hidden_field :content_id, value: content.id
             = f.submit 'Set as header image', class: 'link-styled-button'
