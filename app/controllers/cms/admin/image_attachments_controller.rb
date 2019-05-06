@@ -19,9 +19,9 @@ module Cms
         end
       end
 
-      def edit
-        @others.each{ |attachment| attachment.update_attribute(:is_main, false) }
-        @attachment.update_attribute(:is_main, true)
+      def update
+        set_main if image_params[:is_main]
+        @attachment.update(alt: image_params[:alt]) if image_params[:alt]
 
         respond_to do |format|
           format.js
@@ -54,6 +54,11 @@ module Cms
 
       def image_params
         params.require(:image_attachment).permit!
+      end
+
+      def set_main
+        @others.each { |attachment| attachment.update_attribute(:is_main, false) }
+        @attachment.update_attribute(:is_main, true)
       end
     end
   end
