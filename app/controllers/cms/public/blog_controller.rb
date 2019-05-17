@@ -15,6 +15,7 @@ module Cms
 
       def index
         @articles = articles.order(posted_at: :desc).page(params[:page]).per(6)
+        render_not_found if params[:page].present? && @articles.empty?
       end
 
       def show
