@@ -107,4 +107,18 @@ class Page < ActiveRecord::Base
   def average_rate
     self.rates.empty? ? 0 : (self.rates.inject(0) { |sum, x| sum += x.value } / self.rates.size.to_f).round(2)
   end
+
+  def rate!
+    generate_rating if blog? && rates.empty?
+  end
+
+  def generate_rating
+    rand(10..30).times { rates.create(value: 3) }
+    rand(10..85).times { rates.create(value: 4) }
+    rand(10..60).times { rates.create(value: 5) }
+  end
+
+  def blog?
+    url.match(/\/blog\//).present?
+  end
 end
