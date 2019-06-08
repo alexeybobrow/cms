@@ -24,10 +24,24 @@ describe Page do
       click_on 'Publish'
 
       expect(page).to have_content('Unpublish')
+      expect(about_us.rates).to be_empty
     end
 
     context 'when it is blog post' do
       let!(:article) { create :page, :blog, :draft, url: '/blog/article', content_body: 'Article About Us' }
+
+      it 'generates fake rating after first publishing' do
+        sign_in user
+        expect(article.rates).to be_empty
+        visit cms.admin_page_path(article)
+
+        click_on 'Publish'
+        expect(page).to have_content('Unpublish')
+        expect(article.rates).not_to be_empty
+
+        click_on 'Unpublish'
+        expect { click_on 'Publish' }.not_to change { article.rates }
+      end
 
       context 'user has been authenticated' do
         before { sign_in user }
