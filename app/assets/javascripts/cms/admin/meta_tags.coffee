@@ -12,8 +12,9 @@ $ ->
 
   $('[data-meta-field-from]').on 'click', (e) ->
     e.preventDefault()
-    meta_template = $('[data-meta-field-template=\''+this.dataset.metaFieldFrom+'\']').last()
+    meta_template = $('[data-meta-field-template=\''+this.dataset.metaFieldFrom+'\']').first()
     meta_row = meta_template.clone()
+    meta_row.children().last().hide()
     updateIndex(meta_row, this.dataset.metaFieldIndex)
     $('input', meta_row).val('')
     $(this).attr('data-meta-field-index', currentMaxIndex()+1)
