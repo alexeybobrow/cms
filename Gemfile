@@ -27,7 +27,7 @@ group :development, :test do
   gem 'coffee-rails', '~> 4.2.1'
   gem 'jquery-rails', '~> 4.1.1'
   gem 'simple_form', '~> 3.2.1'
-  gem "pygments.rb", github: "9peso/pygments.rb"
+  gem 'rouge', '~> 3.30'
   gem 'gretel', '~> 3.0.8'
   gem 'pry', '~> 0.10.3'
 

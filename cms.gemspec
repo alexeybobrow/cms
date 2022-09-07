@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{CMS engine}
   spec.description   = %q{RoR plugin to host manageable static pages}
-  spec.homepage      = "http://anadea.info"
+  spec.homepage      = "https://anadea.info"
 
   # Prevent pushing this gem to RubyGems.org by setting 'allowed_push_host', or
   # delete this section to allow pushing this gem to any host.
@@ -46,7 +46,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "poltergeist", ">= 1.10.0"
   spec.add_dependency "sidekiq", ">= 4.1.4"
 
-  spec.add_dependency "pygments.rb"
+  spec.add_dependency "rouge", "~> 3.30"
   spec.add_dependency "github-linguist", ">= 4.7.0"
 
   spec.add_dependency "image_optim"

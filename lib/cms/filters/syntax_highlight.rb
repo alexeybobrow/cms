@@ -57,14 +57,21 @@ module Cms
       end
 
       def lexer(language)
-        language.aliases.map do |l|
-          Pygments::Lexer.find_by_name(l.humanize) ||
-          Pygments::Lexer.find_by_name(l.upcase) ||
-          Pygments::Lexer.find_by_alias(l.humanize.downcase)
+        lexer_class = language.aliases.lazy.map do |lang|
+          Rouge::Lexer.find(lang)
+        end.find(&:itself)
+
+        lexer = (lexer_class || Rouge::Lexer.find('plaintext')).new
+
+        formatter = Rouge::Formatters::HTMLPygments.new(
+          Rouge::Formatters::HTML.new, 'language-' + lexer.tag
+        )
+
+        Object.new.tap do |compat_lexer|
+          compat_lexer.define_singleton_method(:highlight) do |code|
+            formatter.format(lexer.lex(code))
+          end
         end
-        .compact
-        .first ||
-        Pygments::Lexer.find_by_name('Text only')
       end
     end
   end
