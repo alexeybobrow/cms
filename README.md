@@ -193,4 +193,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitLab at https://gitlab.anahoret.com/[USERNAME]/cms.
+Bug reports and pull requests are welcome on GitLab at https://newgit.anadea.co/anadea/internal/cms.
