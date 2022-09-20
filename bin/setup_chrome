@@ -1,0 +1,20 @@
+#!/bin/bash
+set -e
+
+# Install Chrome
+wget --no-check-certificate -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+apt-get update -yqqq
+apt-get install -y google-chrome-stable > /dev/null 2>&1
+sed -i 's/"$@"/--no-sandbox "$@"/g' /opt/google/chrome/google-chrome
+
+# Get the matching version of chromedriver
+CHROME_VERSION=$(google-chrome --version | grep -ioE "[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+")
+CHROMEDRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
+echo $CHROMEDRIVER_VERSION
+
+# Install chromedriver
+wget --no-check-certificate -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip
+unzip /tmp/chromedriver.zip chromedriver -d /usr/bin/
+rm /tmp/chromedriver.zip
+chmod ugo+rx /usr/bin/chromedriver
