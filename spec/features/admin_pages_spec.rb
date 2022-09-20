@@ -125,7 +125,7 @@ SRC
       expect(page).to have_content("/ru/another-title")
     end
 
-    it 'creates a new page', driver: :webkit do
+    it 'creates a new page', js: true do
       click_on 'Create new page'
 
       # Edit page content
@@ -191,7 +191,7 @@ SRC
     end
   end
 
-  context 'update page url', driver: :webkit do
+  context 'update page url', js: true do
     before do
       visit cms.admin_page_path(test_page)
       within '.url-panel' do
@@ -243,7 +243,9 @@ SRC
       end
 
       it 'deletes url alias' do
-        page.first('[data-delete-url-alias]').click
+        accept_alert do
+          page.first('[data-delete-url-alias]').click
+        end
         expect(page).not_to have_content('/this-is-page-alias')
         expect(page).to have_content('/page_url')
         expect(Url.exists?(url_alias.id)).to be_falsy
@@ -280,12 +282,6 @@ SRC
       end
     end
 
-    def confirm_message
-      JSON.parse(
-        page.driver.instance_variable_get("@browser").command("JavascriptConfirmMessages")
-      ).first
-    end
-
     it 'edits a page' do
       fill_in 'Body', with: 'new annotation body'
       click_on 'Update Content'
@@ -294,9 +290,13 @@ SRC
       expect(page).to have_content ('new annotation body')
     end
 
-    it 'warns about too long annotation', driver: :webkit do
+    it 'warns about too long annotation', js: true do
       fill_in 'Body', with: 'Annotation of newly created page' * 50
       click_on 'Update Content'
+      dialog = page.driver.browser.switch_to.alert
+      confirm_message = dialog.text
+      dialog.dismiss
+
       expect(confirm_message).to eq("Body's maximum length should be less then 500.\nNow it is 1600.\nDo you still want to continue?")
     end
   end
@@ -355,7 +355,7 @@ SRC
       expect(page).to have_content('Name This is my name')
     end
 
-    it 'sets fields to readonly unless overrided', driver: :webkit do
+    it 'sets fields to readonly unless overrided', js: true do
       within '.meta-panel' do
         click_on 'Edit'
       end

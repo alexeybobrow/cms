@@ -23,7 +23,7 @@ describe 'admin fragments management' do
   end
 
   context 'create' do
-    it 'creates new fragment', driver: :webkit do
+    it 'creates new fragment', js: true do
       visit cms.admin_fragments_path
       click_on 'Create new fragment'
 

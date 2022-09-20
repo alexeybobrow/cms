@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'public pages view', driver: :webkit do
+describe 'public pages view', js: true do
   before :each do
     create :page, :blog,
       title: 'Searching for the truth',
@@ -60,17 +60,17 @@ describe 'public pages view', driver: :webkit do
 
     it 'displays tag link with articles count' do
       visit '/blog'
-      expect(page).to have_content('Reactive2')
-      expect(page).to have_content('State management1')
-      expect(page).to have_content('Database1')
+      expect(page).to have_content('Reactive 2')
+      expect(page).to have_content('State management 1')
+      expect(page).to have_content('Database 1')
     end
 
     it 'counts only published' do
       create :page, :blog, tags: ['reactive', 'state management'], workflow_state: :draft
 
       visit '/blog'
-      expect(page).to have_content('Reactive2')
-      expect(page).to have_content('State management1')
+      expect(page).to have_content('Reactive 2')
+      expect(page).to have_content('State management 1')
     end
 
     it 'filters articles by tag' do
@@ -92,7 +92,7 @@ describe 'public pages view', driver: :webkit do
     it 'sorts tags alphabetically' do
       visit '/blog'
 
-      expect(page).to have_content('Database1 Reactive2 State management1')
+      expect(page).to have_content('Database 1 Reactive 2 State management 1')
     end
   end
 
