@@ -44,15 +44,17 @@ describe 'admin pages attachments', js: true do
     expect(page).to have_xpath("//img[contains(@src,'image_2.png')]")
   end
 
-  it 'delete an attachment from the page' do
+  it 'deletes an attachment from the page', inspect_requests: true do
     page.find(:xpath,"//img[contains(@src,'image_1.jpg')]").click
     page.find(:xpath, "//div[@class='file-name']/a[contains(text(),'image_1.jpg')]/../../div[@class='description']//*[@value='Delete' or contains(text(), 'Delete')]").click
     expect(page).to_not have_xpath("//img[contains(@src,'image_1.jpg')]")
     click_on 'Update Content'
     visit '/page_1_url'
     expect(page).to have_xpath("//img[contains(@src,'image_1.jpg')]")
-    visit page.find(:xpath,"//img[contains(@src,'image_1.jpg')]")['src']
-    expect(page.status_code).to be 404
+    requests = inspect_requests do
+      visit page.find(:xpath,"//img[contains(@src,'image_1.jpg')]")['src']
+    end
+    expect(requests.first.status_code).to eq(404)
   end
 
   it 'changes main attachment' do

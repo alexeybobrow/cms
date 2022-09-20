@@ -51,6 +51,7 @@ RSpec.configure do |config|
   config.include Integration::FixtureHelpers
   config.include Integration::MetaTagsHelpers
   config.include FactoryGirl::Syntax::Methods
+  config.include InspectRequests, :inspect_requests
 
   if config.files_to_run.one?
     config.formatter = 'documentation'

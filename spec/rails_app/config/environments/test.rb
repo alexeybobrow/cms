@@ -1,4 +1,11 @@
+require 'testing/request_blocker_middleware'
+require 'testing/request_inspector_middleware'
+
 Rails.application.configure do
+  # Make sure the middleware is inserted first in middleware chain
+  config.middleware.insert_before(ActionDispatch::Static, Testing::RequestBlockerMiddleware)
+  config.middleware.insert_before(ActionDispatch::Static, Testing::RequestInspectorMiddleware)
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
