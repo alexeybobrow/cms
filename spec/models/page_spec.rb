@@ -66,7 +66,7 @@ describe Page do
     let!(:clojure) { create :page, authors: ['David Nolen', 'Hickey'] }
 
     it 'searches pages by author' do
-      expect(Page.by_author('david-nolen')).to eq([om, clojure])
+      expect(Page.by_author('david-nolen')).to match_array([om, clojure])
       expect(Page.by_author('hickey')).to eq([clojure])
     end
   end
@@ -77,11 +77,11 @@ describe Page do
 
     it 'searches pages by tag' do
       expect(Page.by_tag('react')).to eq([react])
-      expect(Page.by_tag('front-end')).to eq([react, bem])
+      expect(Page.by_tag('front-end')).to match_array([react, bem])
     end
 
     it 'searches pages by several tags' do
-      expect(Page.by_tag(['react', 'css'])).to eq([react, bem])
+      expect(Page.by_tag(['react', 'css'])).to match_array([react, bem])
     end
   end
 

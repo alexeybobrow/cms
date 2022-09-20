@@ -51,7 +51,7 @@ describe Page do
           expect(page.status_code).to be 200
         end
 
-        it 'should not be visible on blogs page', driver: :webkit do
+        it 'should not be visible on blogs page', js: true do
           visit '/blog'
 
           expect(page).not_to have_content('Article About Us')

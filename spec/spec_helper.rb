@@ -1,6 +1,9 @@
 require 'simplecov'
 SimpleCov.start 'rails'
 
+require 'webdrivers/chromedriver'
+require 'selenium-webdriver'
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require 'rails_app/config/environment'
@@ -42,13 +45,15 @@ RSpec.configure do |config|
   # deprecation warnings into errors, giving you the full backtrace.
   config.raise_errors_for_deprecations!
 
-  Capybara.javascript_driver = :webkit
   Capybara.default_max_wait_time = 3
+  Capybara.default_normalize_ws = true # as Capybara 2.x did that
+  Capybara.server = :webrick
 
   config.include Integration::AuthHelpers
   config.include Integration::FixtureHelpers
   config.include Integration::MetaTagsHelpers
   config.include FactoryGirl::Syntax::Methods
+  config.include InspectRequests, :inspect_requests
 
   if config.files_to_run.one?
     config.formatter = 'documentation'
@@ -58,9 +63,8 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 end
 
-Capybara::Webkit.configure do |config|
-  config.allow_url("lvh.me")
-end
+Webdrivers.cache_time = 86_400
+Webdrivers::Chromedriver.update
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -68,3 +72,32 @@ Shoulda::Matchers.configure do |config|
     with.library :rails
   end
 end
+
+Capybara.register_driver :chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: { 'w3c' => false }
+  )
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  args = %w[
+    no-sandbox
+    headless
+    disable-gpu
+    disable-dev-shm-usage
+    disable-infobars
+    window-size=1920,1080
+    ignore-certificate-errors
+    test-type
+  ]
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(chromeOptions: { args: args, 'w3c' => false })
+  Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+end
+
+Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
+end
+
+Capybara.javascript_driver = :headless_chrome

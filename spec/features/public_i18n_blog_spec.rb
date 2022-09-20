@@ -23,7 +23,7 @@ RSpec::Matchers.define :contain_posts_in do |lang|
   end
 end
 
-describe 'internationalized blog view', driver: :webkit do
+describe 'internationalized blog view', js: true do
   before :each do
     create :page, :blog,
       title: 'Searching for the truth',

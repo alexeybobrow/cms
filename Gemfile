@@ -1,16 +1,22 @@
 source "https://rubygems.org"
+git_source(:github){ |repo_name| "https://github.com/#{repo_name}.git" }
 
 gemspec
 
-gem "workflow"
+gem 'workflow', github: 'geekq/workflow', ref: '98cb854319b1ef610d4ff67287c47bd8a4b09ffb'
+gem 'palmister', github: 'abulava/Palmister', branch: 'update-nokogiri'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave', ref: '1f688bbc04f1c508e46869195af53fb5c22f6ca2'
 
 group :development, :test do
   gem 'test-unit', '~> 3.2.0'
-  gem 'rspec-rails', '~> 3.5.0'
+  gem 'rspec-rails', '~> 4.0.1'
+  gem 'sprockets', '~> 3.7.2'
+  gem 'json', '~> 1.8.6'
+  gem 'thor', '~> 0.20.3'
   gem 'rspec-its', '~> 1.2.0'
   gem 'timecop', '~> 0.8.1'
   gem 'factory_girl', '~> 4.7.0'
-  gem 'capybara-webkit', '~> 1.15.1'
+  gem 'webdrivers', '~> 4.1.2'
   gem 'capybara-screenshot', '~> 1.0.22'
   gem 'shoulda-matchers', '~> 3.1.3'
   gem 'simplecov', '~> 0.12.0'
@@ -18,7 +24,7 @@ group :development, :test do
   gem 'responders', '~> 2.2.0'
   gem 'test_after_commit'
 
-  gem 'rails', '4.2.5'
+  gem 'rails', '4.2.11.3'
   gem 'pg', '~> 0.18.4'
   gem 'haml-rails', '~> 0.9.0'
   gem 'sass-rails', '~> 5.0.5'
@@ -27,12 +33,8 @@ group :development, :test do
   gem 'coffee-rails', '~> 4.2.1'
   gem 'jquery-rails', '~> 4.1.1'
   gem 'simple_form', '~> 3.2.1'
-  gem "pygments.rb", github: "9peso/pygments.rb"
   gem 'gretel', '~> 3.0.8'
   gem 'pry', '~> 0.10.3'
-
-  gem 'image_optim'
-  gem 'image_optim_pack'
 
   source "https://rails-assets.org" do
     gem "rails-assets-jquery", '~> 1.12'

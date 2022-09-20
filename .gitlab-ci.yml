@@ -1,0 +1,88 @@
+workflow:
+  rules:
+    - if: $GITLAB_FORCE_CI
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  LC_ALL: C.UTF-8
+  DOCKER_DRIVER: overlay2
+  DOCKER_BUILDKIT: 1
+  DISABLE_SPRING: 1
+  APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE: DontWarn
+  RACK_ENV: test
+  RAILS_ENV: test
+  DB_HOST: postgres
+  POSTGRES_HOST_AUTH_METHOD: trust
+  REDIS_URL: redis://redis:6379
+  RUBYOPT: '-W0'
+
+image: $IMAGE_TAG
+
+.install gems: &install_gems
+  - bundle install -j $(nproc) --path vendor
+
+.setup database: &setup_database
+  - bundle exec rake db:create
+  - bundle exec rake db:migrate
+
+.database: &database
+  services:
+    - postgres:9.5-alpine
+    - redis:5.0.4-alpine
+
+cache: &global_cache
+  key:
+    files:
+      - cms.gemspec
+      - Gemfile
+  paths:
+    - vendor/ruby
+  policy: pull
+
+before_script:
+  - *install_gems
+
+stages:
+  - build
+  - deps
+  - units
+
+build image:
+  rules:
+    - if: $GITLAB_FORCE_CI
+    - if: $CI_MERGE_REQUEST_IID
+      when: manual
+      allow_failure: false
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  cache: {}
+  stage: build
+  image: docker:stable
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker pull $IMAGE_TAG || export ALT_CACHE_TAG=$CI_REGISTRY_IMAGE:$CI_DEFAULT_BRANCH
+
+  script:
+    - docker build -f docker/Dockerfile --cache-from ${ALT_CACHE_TAG:-$IMAGE_TAG} --build-arg BUILDKIT_INLINE_CACHE=1 -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+
+get deps:
+  cache:
+    <<: *global_cache
+    policy: pull-push
+  stage: deps
+  script:
+    - echo 'Done!'
+
+rspec:
+  <<: *database
+  stage: units
+  artifacts:
+    paths:
+      - coverage/
+  script:
+    - *setup_database
+    - cd spec/rails_app ; bundle exec rake tmp:create ; cd ../..
+    - bundle exec rspec
+  coverage: '/\(\d+.\d+\%\) covered/'
