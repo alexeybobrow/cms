@@ -46,6 +46,8 @@ RSpec.configure do |config|
   config.raise_errors_for_deprecations!
 
   Capybara.default_max_wait_time = 3
+  Capybara.default_normalize_ws = true # as Capybara 2.x did that
+  Capybara.server = :webrick
 
   config.include Integration::AuthHelpers
   config.include Integration::FixtureHelpers

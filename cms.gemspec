@@ -43,7 +43,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "mini_magick", "~> 4.8.0"
   spec.add_dependency "babosa", "~> 1.0.2"
 
-  spec.add_dependency "capybara", "~> 2.18.0"
+  spec.add_dependency "capybara", "~> 3.32.2"
   spec.add_dependency "poltergeist", "~> 1.18.1"
   spec.add_dependency "sidekiq", "~> 5.2.7"
 
