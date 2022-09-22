@@ -32,7 +32,7 @@ group :development, :test do
   gem 'bourbon', '~> 4.2.7'
   gem 'coffee-rails', '~> 4.2.1'
   gem 'jquery-rails', '~> 4.1.1'
-  gem 'simple_form', '~> 3.2.1'
+  gem 'simple_form', '~> 3.5.0'
   gem 'gretel', '~> 3.0.8'
   gem 'pry', '~> 0.10.3'
 
