@@ -6,6 +6,7 @@ module Cms
       caches_action :show, if: -> { page && page.published? && params[:page] !~ Cms.prevent_cache_regexp }
 
       def show
+        check_odd_routes
         UrlAliasesDispatcher.new(params[:page]).dispatch do |result, url|
           case result
           when :not_found, :primary
@@ -17,6 +18,14 @@ module Cms
       end
 
       private
+
+      def check_odd_routes
+        comparable_paths = (params[:page] && request.path)
+
+        if (comparable_paths && !request.path.end_with?(params[:page]))
+          raise ActionController::RoutingError.new("No route matches [GET] \"#{request.path}\"")
+        end
+      end
 
       def page
         page_scope.with_url(Cms::UrlHelper.normalize_url(params[:page]))
