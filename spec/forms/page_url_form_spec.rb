@@ -19,7 +19,10 @@ describe Cms::PageUrlForm do
         it { is_expected.not_to allow_value('/ page url').for(field) }
       end
 
-      context 'validates uniqueness with case insensitivity' do
+      context 'validates uniqueness with case sensitivity' do
+        # RFC 7230, section 2.7.3:
+        # The scheme and host are case-insensitive and normally provided in lowercase;
+        # all other components are compared in a case-sensitive manner.
         before do
           create :page, url: '/ru/page_url'
         end
@@ -27,7 +30,7 @@ describe Cms::PageUrlForm do
         [:url, :url_alias].each do |field|
           it { is_expected.to_not allow_value('/ru/page_url').for(field).ignoring_interference_by_writer }
           it { is_expected.to allow_value('/page_url').for(field).ignoring_interference_by_writer }
-          it { is_expected.to allow_value('/page_URL').for(field).ignoring_interference_by_writer }
+          it { is_expected.to_not allow_value('/page_URL').for(field).ignoring_interference_by_writer }
           it { is_expected.to_not allow_value('/ru/paGE_Url').for(field).ignoring_interference_by_writer }
           it { is_expected.to_not allow_value('/RU/paGE_Url').for(field).ignoring_interference_by_writer }
         end
