@@ -77,7 +77,7 @@ SRC
   end
 
   it 'displays 404 when page is missing' do
-    visit '/not-exists'
+    visit '/not-exist'
 
     expect(page).to have_content("The page you were looking for doesn't exist")
   end
@@ -92,9 +92,15 @@ SRC
     expect(page).to have_content('The matrix has you...')
   end
 
-  it 'responds to html format' do
+  it 'does not respond to html format' do
     visit '/new/word.html'
-    expect(page).to have_content('The matrix has you...')
+    expect(page).to have_content("The page you were looking for doesn't exist")
+  end
+
+  it 'does not handle odd urls with %2F instead of /' do
+    visit '%2Fnew%2Fword' # '/new/word' url-encoded
+
+    expect(page).to have_content("The page you were looking for doesn't exist")
   end
 
   it 'renders page not found on non html format' do

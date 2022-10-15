@@ -12,8 +12,11 @@ describe Cms::UrlHelper do
       expect(helper.normalize_url('/excess whitespaces containing string   ')).to eq '/excess whitespaces containing string'
     end
 
-    it ('downcases value') do
-      expect(helper.normalize_url('/CrAZyCaSeD_StRiNg')).to eq '/crazycased_string'
+    it ('is case-sensitive') do
+      # RFC 7230, section 2.7.3:
+      # The scheme and host are case-insensitive and normally provided in lowercase;
+      # all other components are compared in a case-sensitive manner.
+      expect(helper.normalize_url('/CrAZyCaSeD_StRiNg')).to_not eq '/crazycased_string'
     end
 
 

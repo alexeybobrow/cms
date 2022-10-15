@@ -5,7 +5,7 @@ module Cms
       SLUG_REGEX = /\/([\w\-\.]*\z)/.freeze
 
       def normalize_url(url)
-        url = prepend_slash_if_missing(url.to_s.downcase.strip)
+        url = prepend_slash_if_missing(url.to_s.strip)
         url = trim_trailing_slash(url)
         url
       end
