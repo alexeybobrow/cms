@@ -3,10 +3,10 @@ require 'actionpack/action_caching'
 module Cms
   module Public
     class PagesController < ::Cms::Public::BaseController
+      before_action :check_odd_routes, only: :show
       caches_action :show, if: -> { page && page.published? && params[:page] !~ Cms.prevent_cache_regexp }
 
       def show
-        check_odd_routes
         UrlAliasesDispatcher.new(params[:page]).dispatch do |result, url|
           case result
           when :not_found, :primary
