@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "default_value_for", "~> 3.1.0"
   spec.add_dependency "active_attr", "~> 0.11.0"
   spec.add_dependency "html-pipeline", "~> 2.8.0"
-  spec.add_dependency "nokogiri", "~> 1.8.5"
+  spec.add_dependency "nokogiri", "<= 1.8.5"
   spec.add_dependency "rinku", "~> 2.0.4"
   spec.add_dependency "truncate_html", "~> 0.9.3"
   spec.add_dependency "kaminari", "~> 1.1.1"
